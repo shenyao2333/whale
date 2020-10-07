@@ -1,3 +1,4 @@
+/*
 package com.whale.gateway.config;
 
 import com.alibaba.csp.sentinel.adapter.gateway.common.rule.GatewayFlowRule;
@@ -19,11 +20,13 @@ import java.util.Set;
 
 import static org.springframework.web.reactive.function.BodyInserters.fromValue;
 
+*/
 /**
  * @author sy
  * @date Created in 2020.8.9 11:24
  * @description sentinel配置类
- */
+ *//*
+
 @Configuration
 public class GatewayConfiguration {
 
@@ -43,11 +46,13 @@ public class GatewayConfiguration {
         GatewayRuleManager.loadRules(rules);
     }
 
-    /**
+    */
+/**
      * Sentinel 过滤器
      *
      * @return
-     */
+     *//*
+
     @Bean
     @Order(-1)
     public GlobalFilter sentinelGatewayFilter() {
@@ -69,3 +74,4 @@ public class GatewayConfiguration {
     }
 
 }
+*/

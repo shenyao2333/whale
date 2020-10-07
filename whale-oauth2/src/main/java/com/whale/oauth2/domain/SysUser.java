@@ -15,6 +15,8 @@ import lombok.Data;
 @Data
 @TableName(value = "sys_user")
 public class SysUser implements Serializable {
+
+
     @TableId(value = "id", type = IdType.AUTO)
     @ApiModelProperty(value="")
     private Integer id;
@@ -130,6 +132,12 @@ public class SysUser implements Serializable {
     @TableField(value = "address")
     @ApiModelProperty(value="详细地址")
     private String address;
+
+
+
+    @TableField(value = "type")
+    @ApiModelProperty(value="用户类型0-普通用户，1-后台用户")
+    private Integer type;
 
     private static final long serialVersionUID = 1L;
 

@@ -1,3 +1,4 @@
+/*
 package com.whale.gateway.config;
 
 import com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiDefinition;
@@ -13,11 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Set;
 
+*/
 /**
  * @author sy
  * @date Created in 2020.8.9 16:36
  * @description
- */
+ *//*
+
 @RestController
 public class RulesController {
 
@@ -40,3 +43,4 @@ public class RulesController {
         return FlowRuleManager.getRules();
     }
 }
+*/
