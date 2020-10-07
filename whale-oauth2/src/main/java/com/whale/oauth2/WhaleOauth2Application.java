@@ -13,12 +13,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @date Created in 2020.10.6 19:17
  * @description
  */
-@SpringBootApplication
+
 @EnableDiscoveryClient
 @EnableAsync
 @EnableSwagger2
 @EnableCaching
 @MapperScan(basePackages = "com.whale.*.mapper")
+@SpringBootApplication
 public class WhaleOauth2Application  {
 
     public static void main(String[] args) {
