@@ -20,8 +20,10 @@
     <modules>
         <module>whale-deperdencies</module>
         <module>whale-provider</module>
+        <module>whale-generator</module>
         <module>whale-gateway</module>
         <module>whale-oauth2</module>
+
     </modules>
 
 
