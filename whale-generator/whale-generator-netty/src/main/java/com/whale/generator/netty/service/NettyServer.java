@@ -31,6 +31,8 @@ public class NettyServer {
      * work 线程组用于数据处理
      */
     private EventLoopGroup work = new NioEventLoopGroup();
+
+
     @Value("${netty.port}")
     private Integer port;
 
@@ -56,9 +58,8 @@ public class NettyServer {
                 .childOption(ChannelOption.SO_KEEPALIVE, true)
 
                 //将小的数据包包装成更大的帧进行传送，提高网络的负载,即TCP延迟传输
-                .childOption(ChannelOption.TCP_NODELAY, true);
-
-               // .childHandler(new NettyServerHandlerInitializer());
+                .childOption(ChannelOption.TCP_NODELAY, true)
+                .childHandler(new NettyServerHandlerInitializer());
         ChannelFuture future = bootstrap.bind().sync();
         if (future.isSuccess()) {
             log.info("启动 Netty Server");

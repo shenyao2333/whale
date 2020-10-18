@@ -17,6 +17,7 @@
 
     <modules>
         <module>whale-generator-netty</module>
+        <module>whale-generator-netty-client</module>
     </modules>
 
 
