@@ -1,4 +1,4 @@
-package com.whale.generator.netty.client.constant;
+package com.whale.generator.netty.common.constant;
 
 /**
  * @author sy

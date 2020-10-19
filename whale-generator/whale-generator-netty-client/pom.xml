@@ -13,16 +13,12 @@
 
     <artifactId>whale-generator-netty-client</artifactId>
 
-
     <dependencies>
-        <dependency>
-            <groupId>com.google.protobuf</groupId>
-            <artifactId>protobuf-java</artifactId>
-        </dependency>
 
         <dependency>
-            <groupId>com.google.protobuf</groupId>
-            <artifactId>protobuf-java-util</artifactId>
+            <groupId>com.whale.ms</groupId>
+            <artifactId>whale-generator-netty-common</artifactId>
+            <version>${version}</version>
         </dependency>
 
 
@@ -31,6 +27,7 @@
             <artifactId>whale-provider-basics</artifactId>
             <version>${version}</version>
         </dependency>
+
     </dependencies>
 
 </project>

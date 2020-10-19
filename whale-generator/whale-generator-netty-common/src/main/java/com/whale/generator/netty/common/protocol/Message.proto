@@ -6,7 +6,7 @@ option java_outer_classname = "MsgBase";
 
 message Msg {
     string msgId = 1; //消息id
-    string content = 2;
+    string content = 2; //消息内容
     MessageType msgType = 3; //消息类型
     MessageStatus msgStatus = 4; //消息状态
 
@@ -18,10 +18,10 @@ message Msg {
     }
 
     enum MessageStatus {
-        ALREADY = 0;
-        READ = 1;
-        RECALL = 2;
-        REMOVE = 3;
+        ALREADY = 0; //未读
+        READ = 1; //已读
+        RECALL = 2; //撤回
+        REMOVE = 3; //删除
     }
 
    string accepterId = 5; //接受人id
@@ -32,7 +32,7 @@ message Msg {
         CLUSTER = 1; //群消息
    }
 
-   sint64 sendTime = 8;//发送时间
+   sint64 sendTime = 8;//发送的时间戳
    string sendUserId = 9 ; //发送人id
 
 
