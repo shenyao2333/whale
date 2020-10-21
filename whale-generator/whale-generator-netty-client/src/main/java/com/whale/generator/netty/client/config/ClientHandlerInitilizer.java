@@ -1,5 +1,6 @@
 package com.whale.generator.netty.client.config;
 
+import com.whale.generator.netty.common.protocol.Message;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.handler.codec.protobuf.ProtobufDecoder;
@@ -19,10 +20,10 @@ public class ClientHandlerInitilizer  extends ChannelInitializer<Channel> {
         channel.pipeline()
                 .addLast(new IdleStateHandler(0, 10, 0))
                 .addLast(new ProtobufVarint32FrameDecoder())
-                .addLast(new ProtobufDecoder(MessageBase.Message.getDefaultInstance()))
+                .addLast(new ProtobufDecoder(Message.Msg.getDefaultInstance()))
                 .addLast(new ProtobufVarint32LengthFieldPrepender())
                 .addLast(new ProtobufEncoder())
-                .addLast(new HeartbeatHandler())
+                //.addLast(new HeartbeatHandler())
                 .addLast(new NettyClientHandler());
     }
 }

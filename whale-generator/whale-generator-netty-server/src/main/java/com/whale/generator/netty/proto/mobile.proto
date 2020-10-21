@@ -1,9 +1,0 @@
-
-syntax = "proto3";
-option java_package = "com.whale.generator.netty.proto";
-message MobilePhone{
-
-     string     brand = 1 ;
-     string     hardware = 2;
-     string     software = 3;
-}
