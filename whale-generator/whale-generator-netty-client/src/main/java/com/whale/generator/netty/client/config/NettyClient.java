@@ -42,6 +42,8 @@ public class NettyClient {
                 .remoteAddress(host, port)
                 .option(ChannelOption.SO_KEEPALIVE, true)
                 .option(ChannelOption.TCP_NODELAY, true)
+                // 设置TCP的长连接，默认的 keepalive的心跳时间是两个小时
+               // .childOption(ChannelOption.SO_KEEPALIVE, true)
                 .handler(new ClientHandlerInitilizer());
         ChannelFuture future = bootstrap.connect();
         //客户端断线重连逻辑
