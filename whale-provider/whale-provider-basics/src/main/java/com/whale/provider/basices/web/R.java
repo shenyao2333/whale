@@ -154,7 +154,7 @@ public class R<T> implements Serializable {
 
 
     public static <T> R<T> ok(){
-        return new R<T>(CodeStatus.OK,true,null,null);
+        return new R<T>(CodeStatus.OK,true,"处理成功",null);
     }
 
     public static <T> R<T> ok(String msg){
