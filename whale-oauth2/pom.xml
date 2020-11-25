@@ -24,7 +24,7 @@
 
         <dependency>
             <groupId>com.whale.ms</groupId>
-            <artifactId>whale-provider-basics</artifactId>
+            <artifactId>whale-provider-common</artifactId>
             <version>${version}</version>
         </dependency>
 

@@ -11,3 +11,8 @@ mybatis-plus:
       id-type: AUTO
   configuration:
     call-setters-on-nulls: true
+
+logging:
+  level:
+    org.springframework: debug
+    org.spring.springboot.dao: debug

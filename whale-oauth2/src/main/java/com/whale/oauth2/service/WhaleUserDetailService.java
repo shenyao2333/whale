@@ -1,6 +1,7 @@
 package com.whale.oauth2.service;
 
 import com.whale.oauth2.domain.SysUser;
+import com.whale.provider.basices.domain.WhaleUser;
 import com.whale.provider.basices.web.GrabException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -33,10 +34,9 @@ public class WhaleUserDetailService implements UserDetailsService {
         if (sysUsers!=null&&sysUsers.size()>0){
             SysUser sysUser = sysUsers.get(0);
             if (sysUser.getType()==0){
-                return new User(sysUser.getUserName(),sysUser.getPassword(), AuthorityUtils.createAuthorityList("user"));
+                return new WhaleUser(sysUser.getId(),sysUser.getRealName(),sysUser.getAvatar(),sysUser.getUserName(),sysUser.getPassword(),true, true, true,true,AuthorityUtils.createAuthorityList("user"));
             }
         }
-
         throw new GrabException(2001,"用户名或密码错误");
     }
 

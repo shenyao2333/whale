@@ -1,11 +1,9 @@
 package com.whale.generator.netty.client.config;
 
-import com.sun.corba.se.impl.protocol.giopmsgheaders.MessageBase;
 import com.whale.generator.netty.common.protocol.Message;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
 /**
  * @author sy

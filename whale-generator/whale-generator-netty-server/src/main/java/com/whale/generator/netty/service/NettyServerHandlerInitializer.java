@@ -16,6 +16,7 @@ import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 public class NettyServerHandlerInitializer extends ChannelInitializer<Channel> {
 
 
+
     @Override
     protected void initChannel(Channel channel) throws Exception {
         channel.pipeline()
@@ -29,6 +30,7 @@ public class NettyServerHandlerInitializer extends ChannelInitializer<Channel> {
                 .addLast(new ProtobufVarint32LengthFieldPrepender())
                 //使用 protobuf 对消息进行编码
                 .addLast(new ProtobufEncoder())
+                .addLast(new AuthServerHandler())
                 .addLast(new NettyServerHandler());
     }
 

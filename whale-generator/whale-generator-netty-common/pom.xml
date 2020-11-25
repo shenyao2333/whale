@@ -12,7 +12,7 @@
     </parent>
 
     <artifactId>whale-generator-netty-common</artifactId>
-    <version>0.0.1</version>
+
 
 
     <dependencies>
@@ -29,6 +29,17 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.whale.ms</groupId>
+            <artifactId>whale-provider-basics</artifactId>
+            <version>${version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.whale.ms</groupId>
+            <artifactId>whale-provider-common</artifactId>
+            <version>${version}</version>
         </dependency>
     </dependencies>
 </project>

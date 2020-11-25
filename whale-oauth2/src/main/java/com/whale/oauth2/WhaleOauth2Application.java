@@ -19,7 +19,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @EnableCaching
 @MapperScan(basePackages = "com.whale.*.mapper")
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.whale")
 public class WhaleOauth2Application  {
 
     public static void main(String[] args) {

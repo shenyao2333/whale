@@ -45,7 +45,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .and()
                 .authorizeRequests()
                 //开放的资源不用授权
-                .antMatchers("/oauth/**","/login").permitAll()
+                //.antMatchers("/oauth/**","/login").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and().addFilterAfter(filter, UsernamePasswordAuthenticationFilter.class)

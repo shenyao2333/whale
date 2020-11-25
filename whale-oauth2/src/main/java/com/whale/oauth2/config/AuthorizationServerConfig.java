@@ -3,6 +3,7 @@ package com.whale.oauth2.config;
 
 import com.whale.oauth2.handler.ExceptionTranslator;
 import com.whale.oauth2.service.WhaleUserDetailService;
+import com.whale.provider.basices.domain.WhaleUser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -83,17 +84,16 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Bean
     public TokenEnhancer tokenEnhancer() {
         return (accessToken, authentication) -> {
-            UserDetails userDetails =(UserDetails) authentication.getUserAuthentication().getPrincipal();
-            Map<String, Object> info = new HashMap<>(1);
-            info.put("userName", userDetails.getUsername());
-            info.put("auths", userDetails.getAuthorities());
-            info.put("license", "shenyao");
-            Map<String, Object> restMap = new HashMap<>();
-            restMap.put("code",0);
-            restMap.put("status",true);
-            restMap.put("message","登录成功");
-            restMap.put("data",info);
-            ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(restMap);
+            WhaleUser userDetails =(WhaleUser) authentication.getUserAuthentication().getPrincipal();
+            Map<String, Object> info = new HashMap<String, Object>(3){
+                {
+                    put("userName", userDetails.getUsername());
+                    put("userId",userDetails.getUserId());
+                    put("avatar",userDetails.getAvatar());
+                    put("status",true);
+                }
+            };
+            ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(info);
             return accessToken;
         };
 

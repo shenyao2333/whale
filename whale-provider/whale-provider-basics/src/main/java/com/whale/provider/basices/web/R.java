@@ -25,7 +25,7 @@ public class R<T> implements Serializable {
     /**
      * 消息
      */
-    private String message;
+    private String msg;
 
 
     private boolean status;
@@ -46,16 +46,16 @@ public class R<T> implements Serializable {
         this.code = code;
     }
 
-    public R(Integer code, String message) {
+    public R(Integer code, String msg) {
         super();
         this.code = code;
-        this.message = message;
+        this.msg = msg;
     }
 
     public R(Integer code, Throwable throwable) {
         super();
         this.code = code;
-        this.message = throwable.getMessage();
+        this.msg = throwable.getMessage();
     }
 
     public R(Integer code, T data) {
@@ -64,27 +64,27 @@ public class R<T> implements Serializable {
         this.data = data;
     }
 
-    public R(Integer code, String message, T data) {
+    public R(Integer code, String msg, T data) {
         super();
         this.code = code;
-        this.message = message;
+        this.msg = msg;
         this.data = data;
     }
 
-    public R(Integer code, String message, T data, boolean status) {
+    public R(Integer code, String msg, T data, boolean status) {
         super();
         this.code = code;
-        this.message = message;
+        this.msg = msg;
         this.data = data;
         this.status=status;
     }
 
 
 
-    public R(Integer code, boolean status, String message, T data) {
+    public R(Integer code, boolean status, String msg, T data) {
         super();
         this.code = code;
-        this.message = message;
+        this.msg = msg;
         this.data = data;
         this.status=status;
     }
@@ -119,11 +119,11 @@ public class R<T> implements Serializable {
         } else if (!data.equals(other.data)) {
             return false;
         }
-        if (message == null) {
-            if (other.message != null) {
+        if (msg == null) {
+            if (other.msg != null) {
                 return false;
             }
-        } else if (!message.equals(other.message)) {
+        } else if (!msg.equals(other.msg)) {
             return false;
         }
         if (code == null) {

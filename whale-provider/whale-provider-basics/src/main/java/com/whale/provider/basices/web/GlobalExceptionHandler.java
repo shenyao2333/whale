@@ -3,6 +3,7 @@ package com.whale.provider.basices.web;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -52,6 +53,15 @@ public class GlobalExceptionHandler {
     public R serviceException(TypeMismatchException ex) {
         String  message = String.format("参数类型不匹配，类型应该为: %s", ex.getRequiredType());
         return  R.fail(R.CodeStatus.REQUEST_PARAM,message);
+    }
+
+    /**
+     * 401没登陆
+     * @return
+     */
+    @ExceptionHandler(value = AccessDeniedException.class)
+    public R access(){
+        return  R.fail(2001,"请先登录！");
     }
 
 
