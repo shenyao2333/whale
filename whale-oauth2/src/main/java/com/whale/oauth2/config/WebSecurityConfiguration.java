@@ -1,10 +1,8 @@
 package com.whale.oauth2.config;
 
-import com.whale.oauth2.service.WhaleUserDetailService;
-import lombok.AllArgsConstructor;
+import com.whale.oauth2.service.impl.WhaleUserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -13,6 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.annotation.Resource;
+
 /**
  * @author sy
  * @date Created in 2020.9.27 0:02
@@ -20,12 +20,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 @Configuration
 @EnableWebSecurity
-@AllArgsConstructor
-@Order(1)
+/*@Order(1)*/
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-
-    private final WhaleUserDetailService myUserDetailService;
+    @Resource
+    private  WhaleUserDetailService myUserDetailService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {

@@ -1,0 +1,40 @@
+syntax = "proto2";
+
+option java_package = "com.whale.generator.netty.common.protocol";
+option java_outer_classname = "Command";
+
+
+/**
+ * 指令类型
+ */
+enum CommandType {
+   /**
+    * 常规业务消息
+    */
+    NORMAL = 0;
+
+   /**
+    * 客户端心跳消息
+    */
+    HEARTBEAT_REQUEST = 1;
+
+   /**
+    * 服务端心跳消息
+    */
+    HEARTBEAT_RESPONSE = 2;
+
+   /**
+    * 消息状态改变
+    */
+    MESSAGE_CHANGE = 3;
+
+   /**
+    * 认证
+    */
+    AUTH=4;
+
+   /**
+    * 系统消息
+    */
+    SYSTEM = 5;
+}

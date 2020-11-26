@@ -1,6 +1,6 @@
 package com.whale.generator.netty.client.config;
 
-import com.whale.generator.netty.common.protocol.Message;
+import com.whale.generator.netty.common.protocol.MsgBase;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
@@ -30,7 +30,7 @@ public class NettyClient {
     private String host;
     private SocketChannel socketChannel;
 
-    public void sendMsg(Message.Msg message) {
+    public void sendMsg(MsgBase.Msg message) {
         socketChannel.writeAndFlush(message);
     }
 
@@ -47,8 +47,9 @@ public class NettyClient {
                 .handler(new ClientHandlerInitilizer());
         ChannelFuture future = bootstrap.connect();
         //客户端断线重连逻辑
+
         future.addListener((ChannelFutureListener) future1 -> {
-            if (future1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              .isSuccess()) {
+            if (future1.isSuccess()) {
                 log.info("连接Netty服务端成功");
             } else {
                 log.info("连接失败，进行断线重连");

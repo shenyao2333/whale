@@ -23,6 +23,8 @@ public class ExceptionTranslator implements WebResponseExceptionTranslator {
 
     @Override
     public ResponseEntity translate(Exception e) throws Exception {
+        throw e;
+       /* System.out.println(e.getClass());
         if (e instanceof InvalidGrantException){
             return ResponseEntity.ok(R.fail(2001,"账号或密码错误！"));
         }else if (e instanceof UnsupportedGrantTypeException) {
@@ -34,8 +36,10 @@ public class ExceptionTranslator implements WebResponseExceptionTranslator {
         }else if (e instanceof InvalidTokenException){
             return ResponseEntity.ok(R.fail(2001,"token失效！"));
         }
-        return ResponseEntity.ok(R.fail(2003,"登陆错误"));
+        return ResponseEntity.ok(R.fail(2003,"登陆错误"));*/
     }
+
+
 
 
 

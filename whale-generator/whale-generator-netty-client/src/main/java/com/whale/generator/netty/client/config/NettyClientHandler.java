@@ -1,6 +1,6 @@
 package com.whale.generator.netty.client.config;
 
-import com.whale.generator.netty.common.protocol.Message;
+import com.whale.generator.netty.common.protocol.MsgBase;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -11,10 +11,10 @@ import lombok.extern.slf4j.Slf4j;
  * @description
  */
 @Slf4j
-public class NettyClientHandler extends SimpleChannelInboundHandler<Message.Msg> {
+public class NettyClientHandler extends SimpleChannelInboundHandler<MsgBase.Msg> {
 
     @Override
-    protected void channelRead0(ChannelHandlerContext channelHandlerContext, Message.Msg msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext channelHandlerContext, MsgBase.Msg msg) throws Exception {
         log.info("客户端收到消息：{}--",msg);
     }
 

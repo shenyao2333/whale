@@ -26,6 +26,7 @@
         <netty-all.version>4.1.52.Final</netty-all.version>
         <protobuf-java.version>3.13.0</protobuf-java.version>
         <redisson.version>3.13.5</redisson.version>
+        <hutool.version>5.2.0</hutool.version>
     </properties>
 
 
@@ -120,6 +121,12 @@
                 <version>${redisson.version}</version>
             </dependency>
 
+            <!--工具类-->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
 
 
         </dependencies>

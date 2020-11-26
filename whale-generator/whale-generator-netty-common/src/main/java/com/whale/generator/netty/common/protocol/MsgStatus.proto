@@ -1,0 +1,15 @@
+syntax = "proto2";
+
+option java_package = "com.whale.generator.netty.common.protocol";
+option java_outer_classname = "MsgStatus";
+
+
+/**
+ * 指令类型
+ */
+enum StatusType {
+   ALREADY = 0; //未读
+   READ = 1; //已读
+   RECALL = 2; //撤回
+   REMOVE = 3; //删除
+}

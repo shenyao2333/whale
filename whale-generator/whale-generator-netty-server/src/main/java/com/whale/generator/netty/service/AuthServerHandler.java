@@ -1,14 +1,13 @@
 package com.whale.generator.netty.service;
 
 import com.google.protobuf.Parser;
-import com.whale.generator.netty.common.protocol.Message;
+import com.whale.generator.netty.common.protocol.Command;
+import com.whale.generator.netty.common.protocol.MsgBase;
 import com.whale.provider.basices.redis.RedisUtil;
 import com.whale.provider.common.constant.SysConstant;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.Resource;
@@ -18,35 +17,38 @@ import javax.annotation.Resource;
  * @Date: Created by 2020/11/25 20:36
  * @description: 认证处理
  */
-@ChannelHandler.Sharable
 @Slf4j
-public class AuthServerHandler  extends ChannelInboundHandlerAdapter{
+@ChannelHandler.Sharable
+public class AuthServerHandler extends ChannelInboundHandlerAdapter{
 
     @Resource
     private RedisUtil redisUtil;
 
 
 
-
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object message) throws Exception {
-        Message.Msg msg = (Message.Msg)message;
-        if (msg.getMsgType().equals(Message.Msg.MessageType.AUTH)){
-
+        MsgBase.Msg msg = (MsgBase.Msg)message;
+        if (msg.getCmd().equals(Command.CommandType.AUTH)){
             log.info("认证消息：{}", msg.getContent());
             String token = msg.getToken();
-            Object o = redisUtil.get(SysConstant.tokenBegin + token);
-            if (o==null){
-
+            boolean isAuth = redisUtil.hasKey(SysConstant.tokenBegin + token);
+            if (!isAuth){
+                MsgBase.Msg build = new MsgBase.Msg().toBuilder()
+                        .setContent("请先进行登录！")
+                        .setCmd(Command.CommandType.SYSTEM)
+                        .setSendTime(System.currentTimeMillis())
+                        .build();
+                ctx.writeAndFlush(build);
+                return;
             }
-
-
-
-            Message.Msg msgs = new Message.Msg().toBuilder().setContent("收到收到，请保持联络！").build();
-            ctx.writeAndFlush(msgs);
-            Parser<Message.Msg> parserForType = msg.getParserForType();
-            String s = parserForType.toString();
-
+            redisUtil.set(token,ctx);
+            MsgBase.Msg build = new MsgBase.Msg().toBuilder()
+                    .setContent("连接成功！")
+                    .setCmd(Command.CommandType.SYSTEM)
+                    .setSendTime(System.currentTimeMillis())
+                    .build();
+            ctx.writeAndFlush(build);
         }
     }
 

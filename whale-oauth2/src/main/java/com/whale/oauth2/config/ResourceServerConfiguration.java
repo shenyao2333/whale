@@ -23,7 +23,7 @@ import javax.annotation.Resource;
 @Configuration
 @EnableResourceServer
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@Order(2)
+/*@Order(2)*/
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter  implements WebMvcConfigurer {
 
     @Resource
@@ -46,8 +46,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .formLogin()
                 .and()
                 .authorizeRequests()
-                //开放的资源不用授权
-                //.antMatchers("/oauth/**","/login").permitAll()
+                 //开放的资源不用授权
+                 .antMatchers("/oauth/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and().addFilterAfter(filter, UsernamePasswordAuthenticationFilter.class)

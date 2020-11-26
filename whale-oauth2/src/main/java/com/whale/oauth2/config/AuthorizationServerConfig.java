@@ -1,17 +1,14 @@
 package com.whale.oauth2.config;
 
 
-import com.whale.oauth2.handler.AuthenticationEntryPoint;
 import com.whale.oauth2.handler.ExceptionTranslator;
-import com.whale.oauth2.service.WhaleUserDetailService;
+import com.whale.oauth2.service.impl.WhaleUserDetailService;
 import com.whale.provider.basices.domain.WhaleUser;
-import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -48,8 +45,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Resource
     private  WhaleUserDetailService userDetailService;
 
-    @Resource
-    private  AuthenticationEntryPoint authenticationEntryPoint;
+    //@Resource
+    //private  AuthenticationEntryPoint authenticationEntryPoint;
     /**
      * 密码认证
      */
@@ -123,7 +120,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         oauthServer
                 .checkTokenAccess("isAuthenticated()")
                 .allowFormAuthenticationForClients()//允许表单认证
-                .accessDeniedHandler(authenticationEntryPoint)
+                //.accessDeniedHandler(authenticationEntryPoint)
         ;
 
     }

@@ -240,5 +240,10 @@ public class R<T> implements Serializable {
     }
 
 
+    public static void main(String[] args) {
+
+    }
+
+
 
 }

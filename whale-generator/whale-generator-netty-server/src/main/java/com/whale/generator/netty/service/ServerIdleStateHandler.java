@@ -1,6 +1,6 @@
 package com.whale.generator.netty.service;
 
-import com.whale.generator.netty.common.protocol.Message;
+import com.whale.generator.netty.common.protocol.MsgBase;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.group.ChannelGroup;
@@ -33,7 +33,7 @@ public class ServerIdleStateHandler extends IdleStateHandler {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         log.info("连接加入---->"+ctx.name());
-        Message.Msg msg = new Message.Msg().toBuilder().setContent("123").build();
+        MsgBase.Msg msg = new MsgBase.Msg().toBuilder().setContent("123").build();
         ctx.writeAndFlush(msg);
         super.channelActive(ctx);
     }
@@ -42,7 +42,7 @@ public class ServerIdleStateHandler extends IdleStateHandler {
 
     @Override
     protected void channelIdle(ChannelHandlerContext ctx, IdleStateEvent evt) throws Exception {
-        Message.Msg msg = new Message.Msg().toBuilder().setContent("123").build();
+        MsgBase.Msg msg = new MsgBase.Msg().toBuilder().setContent("123").build();
         ctx.writeAndFlush(msg);
         log.info("{} 秒内没有读取到数据,关闭连接", READER_IDLE_TIME);
         ctx.channel().close();
