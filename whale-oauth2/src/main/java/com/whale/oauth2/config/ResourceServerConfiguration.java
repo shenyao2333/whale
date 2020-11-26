@@ -1,6 +1,7 @@
 package com.whale.oauth2.config;
 
 import com.whale.oauth2.filter.WhaleFilter;
+import com.whale.oauth2.handler.AuthenticationEntryPoint;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Configuration;
@@ -9,9 +10,10 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import javax.annotation.Resource;
 
 /**
  * @author sy
@@ -20,15 +22,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 @EnableResourceServer
-@AllArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @Order(2)
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter  implements WebMvcConfigurer {
 
+    @Resource
+    private  WhaleFilter filter;
 
-    private final WhaleFilter filter;
-
-    private final AuthenticationEntryPoint authenticationEntryPoint;
+    @Resource
+    private AuthenticationEntryPoint authenticationEntryPoint;
 
 
     @Override

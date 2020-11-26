@@ -34,7 +34,7 @@ public class WhaleUserDetailService implements UserDetailsService {
         if (sysUsers!=null&&sysUsers.size()>0){
             SysUser sysUser = sysUsers.get(0);
             if (sysUser.getType()==0){
-                return new WhaleUser(sysUser.getId(),sysUser.getRealName(),sysUser.getAvatar(),sysUser.getUserName(),sysUser.getPassword(),true, true, true,true,AuthorityUtils.createAuthorityList("user"));
+                return new WhaleUser(sysUser.getId(),sysUser.getRealName(),sysUser.getAvatar(),sysUser.getUserName(),sysUser.getPassword(),true, true, true,false,AuthorityUtils.createAuthorityList("user"));
             }
         }
         throw new GrabException(2001,"用户名或密码错误");

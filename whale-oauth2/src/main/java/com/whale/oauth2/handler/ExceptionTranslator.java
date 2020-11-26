@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.security.oauth2.common.exceptions.InvalidScopeException;
+import org.springframework.security.oauth2.common.exceptions.InvalidTokenException;
 import org.springframework.security.oauth2.common.exceptions.UnsupportedGrantTypeException;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.web.client.HttpClientErrorException;
@@ -30,6 +31,8 @@ public class ExceptionTranslator implements WebResponseExceptionTranslator {
             return ResponseEntity.ok(R.fail(2003,"授权范围错误"));
         }else if (e instanceof InternalAuthenticationServiceException){
             return ResponseEntity.ok(R.fail(2001,"账号或密码错误！"));
+        }else if (e instanceof InvalidTokenException){
+            return ResponseEntity.ok(R.fail(2001,"token失效！"));
         }
         return ResponseEntity.ok(R.fail(2003,"登陆错误"));
     }

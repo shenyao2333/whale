@@ -1,9 +1,11 @@
 package com.whale.oauth2.config;
 
 
+import com.whale.oauth2.handler.AuthenticationEntryPoint;
 import com.whale.oauth2.handler.ExceptionTranslator;
 import com.whale.oauth2.service.WhaleUserDetailService;
 import com.whale.provider.basices.domain.WhaleUser;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -44,13 +46,15 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private  DataSource dataSource;
 
     @Resource
-    private WhaleUserDetailService userDetailService;
+    private  WhaleUserDetailService userDetailService;
 
+    @Resource
+    private  AuthenticationEntryPoint authenticationEntryPoint;
     /**
      * 密码认证
      */
     @Resource
-    private AuthenticationManager authenticationManager;
+    private   AuthenticationManager authenticationManager;
 
 
     @Bean
@@ -118,7 +122,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(AuthorizationServerSecurityConfigurer oauthServer) {
         oauthServer
                 .checkTokenAccess("isAuthenticated()")
-                .allowFormAuthenticationForClients();//允许表单认证
+                .allowFormAuthenticationForClients()//允许表单认证
+                .accessDeniedHandler(authenticationEntryPoint)
+        ;
+
     }
 
 
