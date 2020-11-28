@@ -21,6 +21,7 @@ import java.math.BigDecimal;
 public class BusinessServerHandler extends ChannelInboundHandlerAdapter {
 
 
+
     @Override
     public void channelRead(ChannelHandlerContext ctx,Object msgObj ) throws Exception {
         MsgBase.Msg msg = (MsgBase.Msg)msgObj;
@@ -31,8 +32,11 @@ public class BusinessServerHandler extends ChannelInboundHandlerAdapter {
             ctx.writeAndFlush(restMsg);
             return;
         }
-
         if (msg.getCmd()== Command.CommandType.NORMAL){
+            String accepterId = msg.getAccepterId();
+            Channel sendChanel = ChannelManage.getChannelByUserId(accepterId);
+            MsgUtil.sysMsg()
+            sendChanel.writeAndFlush()
 
         }
 

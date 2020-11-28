@@ -31,6 +31,19 @@ public class MsgUtil {
 
 
 
+    public static MsgBase.Msg forwardMsg(String sendUserId, String accepterId ,String content ){
+        return new MsgBase.Msg().toBuilder()
+                .setSendUserId(sendUserId)
+                .setAccepterId(accepterId)
+                .setContent(content)
+                .setCmd(Command.CommandType.NORMAL)
+                .setSendTime(System.currentTimeMillis())
+                .build();
+    }
+
+
+
+
     private static  MsgBase.Msg  buildMsg(String content, Command.CommandType type){
         return new MsgBase.Msg().toBuilder()
                 .setContent(content)
