@@ -1,5 +1,7 @@
 package com.whale.generator.netty.client.config;
 
+import com.whale.generator.netty.common.protocol.Command;
+import com.whale.generator.netty.common.protocol.MsgBase;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleState;
@@ -19,7 +21,6 @@ public class HeartbeatHandler extends ChannelInboundHandlerAdapter {
 
 
 
-
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
         if (evt instanceof IdleStateEvent) {
@@ -27,7 +28,7 @@ public class HeartbeatHandler extends ChannelInboundHandlerAdapter {
             if (idleStateEvent.state() == IdleState.WRITER_IDLE) {
                 log.info("已经10s没有发送消息给服务端");
                 //向服务端送心跳包
-                Message.Msg msg = new Message.Msg().toBuilder().setContent("心跳消息").setMsgType(Message.Msg.MessageType.HEARTBEAT_REQUEST).build();
+                MsgBase.Msg msg = new MsgBase.Msg().toBuilder().setContent("心跳消息").setCmd(Command.CommandType.HEARTBEAT_REQUEST).build();
                 //发送心跳消息，并在发送失败时关闭该连接
                 ctx.writeAndFlush(msg);
             }

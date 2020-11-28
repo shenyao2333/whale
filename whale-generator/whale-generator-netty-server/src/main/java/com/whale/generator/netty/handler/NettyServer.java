@@ -1,4 +1,4 @@
-package com.whale.generator.netty.service;
+package com.whale.generator.netty.handler;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;

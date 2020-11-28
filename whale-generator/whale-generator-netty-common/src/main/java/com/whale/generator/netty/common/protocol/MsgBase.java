@@ -4,7 +4,7 @@
 package com.whale.generator.netty.common.protocol;
 
 public final class MsgBase {
-  private MsgBase() {}
+  public MsgBase() {}
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistryLite registry) {
   }

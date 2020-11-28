@@ -1,4 +1,4 @@
-package com.whale.generator.netty.service;
+package com.whale.generator.netty.handler;
 
 import com.whale.generator.netty.common.protocol.MsgBase;
 import io.netty.channel.Channel;
@@ -30,8 +30,10 @@ public class NettyServerHandlerInitializer extends ChannelInitializer<Channel> {
                 .addLast(new ProtobufVarint32LengthFieldPrepender())
                 //使用 protobuf 对消息进行编码
                 .addLast(new ProtobufEncoder())
+                // 认证消息
                 .addLast(new AuthServerHandler())
-                .addLast(new NettyServerHandler());
+                // 业务消息
+                .addLast(new BusinessServerHandler());
     }
 
 

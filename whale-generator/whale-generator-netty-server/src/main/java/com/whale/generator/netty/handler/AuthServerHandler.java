@@ -1,6 +1,6 @@
-package com.whale.generator.netty.service;
+package com.whale.generator.netty.handler;
 
-import com.google.protobuf.Parser;
+import cn.hutool.core.util.StrUtil;
 import com.whale.generator.netty.common.protocol.Command;
 import com.whale.generator.netty.common.protocol.MsgBase;
 import com.whale.provider.basices.redis.RedisUtil;
@@ -26,14 +26,15 @@ public class AuthServerHandler extends ChannelInboundHandlerAdapter{
 
 
 
+
+
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object message) throws Exception {
         MsgBase.Msg msg = (MsgBase.Msg)message;
         if (msg.getCmd().equals(Command.CommandType.AUTH)){
             log.info("认证消息：{}", msg.getContent());
             String token = msg.getToken();
-            boolean isAuth = redisUtil.hasKey(SysConstant.tokenBegin + token);
-            if (!isAuth){
+            if (StrUtil.isBlank(token)||!redisUtil.hasKey(SysConstant.tokenBegin + token)){
                 MsgBase.Msg build = new MsgBase.Msg().toBuilder()
                         .setContent("请先进行登录！")
                         .setCmd(Command.CommandType.SYSTEM)
@@ -42,7 +43,7 @@ public class AuthServerHandler extends ChannelInboundHandlerAdapter{
                 ctx.writeAndFlush(build);
                 return;
             }
-            redisUtil.set(token,ctx);
+            ChannelManage.online(ctx.channel(),msg.getSendUserId());
             MsgBase.Msg build = new MsgBase.Msg().toBuilder()
                     .setContent("连接成功！")
                     .setCmd(Command.CommandType.SYSTEM)
