@@ -2,6 +2,9 @@ package com.whale.generator.netty.common.service;
 
 import com.whale.generator.netty.common.domain.MessageInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.Date;
 
 /**
  * @Author: shenyao
@@ -9,6 +12,15 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @description: ${description}
  */
 public interface MessageInfoService extends IService<MessageInfo> {
+
+
+    /**
+     * 改变消息状态
+     * @param updatedMsgStatus
+     * @param id
+     * @return
+     */
+    int updateMsgStatusById(String updatedMsgStatus, Integer id);
 
 
 }

@@ -2,6 +2,9 @@ package com.whale.generator.netty.handler;
 
 import com.whale.generator.netty.common.protocol.Command;
 import com.whale.generator.netty.common.protocol.MsgBase;
+import com.whale.generator.netty.common.protocol.MsgStatus;
+import com.whale.generator.netty.common.service.BusinessMsgService;
+import com.whale.generator.netty.common.service.ChangeMsgService;
 import com.whale.generator.netty.common.utils.MsgUtil;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
@@ -9,6 +12,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
 
 /**
@@ -20,7 +24,10 @@ import java.math.BigDecimal;
 @Slf4j
 public class BusinessServerHandler extends ChannelInboundHandlerAdapter {
 
-
+    @Resource
+    private BusinessMsgService businessMsgService;
+    @Resource
+    private ChangeMsgService changeMsgService;
 
     @Override
     public void channelRead(ChannelHandlerContext ctx,Object msgObj ) throws Exception {
@@ -32,12 +39,28 @@ public class BusinessServerHandler extends ChannelInboundHandlerAdapter {
             ctx.writeAndFlush(restMsg);
             return;
         }
+        String sendUserId = msg.getSendUserId();
+        String content = msg.getContent();
+        String accepterId = msg.getAccepterId();
+        Boolean line = ChannelManage.isLine(accepterId);
         if (msg.getCmd()== Command.CommandType.NORMAL){
-            String accepterId = msg.getAccepterId();
-            Channel sendChanel = ChannelManage.getChannelByUserId(accepterId);
-            MsgUtil.sysMsg()
-            sendChanel.writeAndFlush()
-
+            businessMsgService.saveMsg(msg);
+            if (line){
+                Channel sendChanel = ChannelManage.getChannelByUserId(accepterId);
+                MsgBase.Msg sendMsg = MsgUtil.forwardMsg(sendUserId, accepterId, content);
+                sendChanel.writeAndFlush(sendMsg);
+            }
+            MsgBase.Msg backMsg = MsgUtil.sysMsg(msg.getMsgId() + "", "发送成功，该条消息id为：" + msg.getMsgId());
+            ctx.channel().writeAndFlush(backMsg);
+        }else if (msg.getCmd()== Command.CommandType.MESSAGE_CHANGE){
+            String msgId = msg.getMsgId();
+            MsgStatus.StatusType msgStatus = msg.getMsgStatus();
+            if (line){
+                Channel sendChanel = ChannelManage.getChannelByUserId(accepterId);
+                MsgBase.Msg sendMsg = MsgUtil.changeMsg(sendUserId, accepterId, msgId, msgStatus);
+                sendChanel.writeAndFlush(sendMsg);
+            }
+            changeMsgService.updateStatus(msg);
         }
 
 
