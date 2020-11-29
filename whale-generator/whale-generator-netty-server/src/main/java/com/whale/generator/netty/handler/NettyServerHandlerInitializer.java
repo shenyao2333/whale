@@ -1,20 +1,32 @@
 package com.whale.generator.netty.handler;
 
 import com.whale.generator.netty.common.protocol.MsgBase;
+import com.whale.generator.netty.common.service.BusinessMsgService;
+import com.whale.generator.netty.common.service.ChangeMsgService;
+import com.whale.provider.basices.redis.RedisUtil;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 /**
  * @author sy
  * @date Created in 2020.10.18 16:58
  * @description 消息的编码和解码
  */
+@Component
 public class NettyServerHandlerInitializer extends ChannelInitializer<Channel> {
 
+    @Resource
+    private AuthServerHandler authServerHandler;
+    @Resource
+    private BusinessServerHandler businessServerHandler;
 
 
     @Override
@@ -31,9 +43,9 @@ public class NettyServerHandlerInitializer extends ChannelInitializer<Channel> {
                 //使用 protobuf 对消息进行编码
                 .addLast(new ProtobufEncoder())
                 // 认证消息
-                .addLast(new AuthServerHandler())
+                .addLast(authServerHandler)
                 // 业务消息
-                .addLast(new BusinessServerHandler());
+                .addLast(businessServerHandler);
     }
 
 

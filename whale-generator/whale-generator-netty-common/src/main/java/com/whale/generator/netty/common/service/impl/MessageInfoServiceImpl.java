@@ -17,11 +17,17 @@ import java.util.Date;
 @Service
 @RequiredArgsConstructor
 public class MessageInfoServiceImpl extends ServiceImpl<MessageInfoMapper, MessageInfo> implements MessageInfoService {
+
     private final  MessageInfoMapper messageInfoMapper;
 
     @Override
     public int updateMsgStatusById(String updatedMsgStatus, Integer id) {
         return messageInfoMapper.updateMsgStatusById(updatedMsgStatus,id,new Date());
+    }
+
+    @Override
+    public int batchUpdStatus(String[] split, int number) {
+        return  messageInfoMapper.batchUpdStatus(split,number,new Date());
     }
 }
 

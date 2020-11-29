@@ -1,4 +1,5 @@
 package com.whale.generator.netty.common.mapper;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -14,9 +15,8 @@ import java.util.Date;
 public interface MessageInfoMapper extends BaseMapper<MessageInfo> {
 
 
-    int updateMsgStatusById(@Param("updatedMsgStatus")String updatedMsgStatus, @Param("id")Integer id, @Param("time") Date time);
+    int updateMsgStatusById(@Param("updatedMsgStatus") String updatedMsgStatus, @Param("id") Integer id, @Param("time") Date time);
 
 
-
-
+    int batchUpdStatus(@Param("ids") String[] ids, @Param("status") int status, @Param("date") Date date);
 }

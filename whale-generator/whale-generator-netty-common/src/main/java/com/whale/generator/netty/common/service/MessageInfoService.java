@@ -23,5 +23,12 @@ public interface MessageInfoService extends IService<MessageInfo> {
     int updateMsgStatusById(String updatedMsgStatus, Integer id);
 
 
+    /**
+     * 批量修改消息状态
+     * @param split
+     * @param number
+     */
+    int batchUpdStatus(String[] split, int number);
+
 }
 

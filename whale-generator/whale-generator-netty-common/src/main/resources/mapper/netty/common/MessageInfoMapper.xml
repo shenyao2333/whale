@@ -25,4 +25,14 @@
          updated = #{time,jdbcType=TIMESTAMP}
         where id=#{id,jdbcType=INTEGER}
     </update>
+
+  <update id="batchUpdStatus">
+    update message_info
+    set msg_status=#{status,jdbcType=CHAR},
+    updated = #{date,jdbcType=TIMESTAMP}
+    where id in
+    <foreach collection="ids" item="id" close="(" open=")" separator=",">
+      #{id,jdbcType=VARCHAR}
+    </foreach>
+  </update>
 </mapper>

@@ -18,7 +18,7 @@ public class MsgUtil {
      * @return
      */
     public static  MsgBase.Msg  sysMsg(String content){
-        return buildMsg(null,content,Command.CommandType.SYSTEM);
+        return buildMsg("",content,Command.CommandType.SYSTEM);
     }
 
     /**

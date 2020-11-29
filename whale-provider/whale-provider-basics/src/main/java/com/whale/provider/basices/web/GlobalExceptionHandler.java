@@ -55,14 +55,6 @@ public class GlobalExceptionHandler {
         return  R.fail(R.CodeStatus.REQUEST_PARAM,message);
     }
 
-    /**
-     * 401没登陆
-     * @return
-     */
-    @ExceptionHandler(value = AccessDeniedException.class)
-    public R access(){
-        return  R.fail(2001,"请先登录！");
-    }
 
 
     /**

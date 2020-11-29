@@ -9,6 +9,8 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
@@ -19,6 +21,7 @@ import javax.annotation.Resource;
  */
 @Slf4j
 @ChannelHandler.Sharable
+@Component
 public class AuthServerHandler extends ChannelInboundHandlerAdapter{
 
     @Resource
@@ -26,11 +29,13 @@ public class AuthServerHandler extends ChannelInboundHandlerAdapter{
 
 
 
-
-
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object message) throws Exception {
         MsgBase.Msg msg = (MsgBase.Msg)message;
+        if (msg.getCmd().equals(Command.CommandType.HEARTBEAT_REQUEST)){
+            return;
+        }
+        log.info("收到信息->"+ msg.getContent());
         if (msg.getCmd().equals(Command.CommandType.AUTH)){
             log.info("认证消息：{}", msg.getContent());
             String token = msg.getToken();
@@ -51,6 +56,7 @@ public class AuthServerHandler extends ChannelInboundHandlerAdapter{
                     .build();
             ctx.writeAndFlush(build);
         }
+        ctx.fireChannelRead(message);
     }
 
 }
