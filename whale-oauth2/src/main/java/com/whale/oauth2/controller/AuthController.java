@@ -9,13 +9,14 @@ import com.whale.provider.basices.utils.SecurityUtil;
 import com.whale.provider.basices.web.GrabException;
 import com.whale.provider.basices.web.R;
 import com.whale.provider.common.utils.RestTemplateUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2RefreshToken;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -28,6 +29,7 @@ import java.util.HashMap;
 
 @RestController
 @RequiredArgsConstructor
+@Api(tags = "用户登录管理")
 public class AuthController {
 
     private final RestTemplateUtil restTemplateUtil;
@@ -35,16 +37,15 @@ public class AuthController {
     private final RedisUtil redisUtil;
 
     @GetMapping("/user")
+    @ApiOperation(value = "获取用户信息")
     public R<WhaleUser> user(){
-        Object o = redisUtil.hasKey("whale:auth:3629ca84-6b53-4b2e-89e1-d365178e6319");
-        System.out.println(o);
-        System.out.println(o);
         WhaleUser user = SecurityUtil.getUser();
         return R.ok(user);
     }
 
 
     @PostMapping("/auth/login")
+    @ApiOperation(value = "用户登录")
     public R login(@RequestBody @Valid LoginDto loginDto){
         HashMap<String, String> headMap = new HashMap<String, String>(1){
             {
@@ -68,6 +69,7 @@ public class AuthController {
 
 
     @GetMapping("/auth/logout")
+    @ApiOperation(value = "登录退出")
     public R logout(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader){
         if (StrUtil.isBlank(authHeader)) {
             return R.fail("退出失败，token 为空");

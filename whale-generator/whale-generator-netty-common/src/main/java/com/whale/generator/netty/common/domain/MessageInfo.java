@@ -19,14 +19,14 @@ import lombok.Data;
 /**
  * 消息 消息表
  */
-@ApiModel(value = "com-whale-generator-netty-common-domain-MessageInfo")
+@ApiModel(value = "MessageInfo")
 @Data
 @TableName(value = "message_info")
 public class MessageInfo implements Serializable {
     /**
      * 主键
      */
-    @TableId(value = "id", type = IdType.INPUT)
+    @TableId(value = "id", type = IdType.AUTO)
     @ApiModelProperty(value = "主键")
     private Integer id;
 

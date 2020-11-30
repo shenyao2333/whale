@@ -36,7 +36,7 @@ public class MsgUtil {
      * @return
      */
     public static  MsgBase.Msg serverBeatMsg(){
-        return buildMsg(null,"服务端正常心跳信息。",Command.CommandType.HEARTBEAT_RESPONSE);
+        return buildMsg("","服务端正常心跳信息。",Command.CommandType.HEARTBEAT_RESPONSE);
     }
 
 

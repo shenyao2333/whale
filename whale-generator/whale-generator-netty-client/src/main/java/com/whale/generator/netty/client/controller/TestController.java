@@ -29,6 +29,8 @@ public class TestController {
     public void send(String content){
         MsgBase.Msg msg = new MsgBase.Msg().toBuilder()
                 .setCmd(Command.CommandType.NORMAL)
+                .setSendUserId("654321")
+                .setAccepterId("123456")
                 .setSendTime(System.currentTimeMillis())
                 .setContent(content).build();
         nettyClient.sendMsg(msg);
@@ -38,11 +40,12 @@ public class TestController {
     @GetMapping("/sendAuth")
     public void sendAuth(String content){
         MsgBase.Msg msg = new MsgBase.Msg().toBuilder()
-                .setToken("63e5c835-ccc6-41c4-a032-f2a8d007ac51")
+                .setToken("b2cd3ed9-6a86-4336-8da9-ab343a05cf58")
                 .setCmd(Command.CommandType.AUTH)
                 .setContent("登录请求")
+                .setSendUserId("654321")
                 .setSendTime(System.currentTimeMillis())
-                .setContent(content).build();
+                .build();
         nettyClient.sendMsg(msg);
     }
 

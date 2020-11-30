@@ -14,7 +14,7 @@ public interface BusinessMsgService {
      * 保存普通业务信息
      * @param msg
      */
-    void  saveMsg(MsgBase.Msg msg);
+    Integer  saveMsg(MsgBase.Msg msg);
 
 
 }

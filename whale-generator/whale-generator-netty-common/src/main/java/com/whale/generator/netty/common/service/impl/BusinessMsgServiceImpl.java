@@ -23,7 +23,7 @@ public class BusinessMsgServiceImpl implements BusinessMsgService {
 
 
     @Override
-    public void saveMsg(MsgBase.Msg msg) {
+    public Integer saveMsg(MsgBase.Msg msg) {
         MessageInfo messageInfo = new MessageInfo();
         messageInfo.setSendUserId(Integer.parseInt(msg.getSendUserId()));
         messageInfo.setAccepterId(Integer.parseInt(msg.getAccepterId()));
@@ -33,6 +33,7 @@ public class BusinessMsgServiceImpl implements BusinessMsgService {
         messageInfo.setCreated(new Date());
         messageInfo.setUpdated(new Date());
         messageInfoService.save(messageInfo);
+        return messageInfo.getId();
     }
 
 

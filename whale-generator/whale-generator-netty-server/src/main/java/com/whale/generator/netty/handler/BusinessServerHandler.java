@@ -50,13 +50,18 @@ public class BusinessServerHandler extends ChannelInboundHandlerAdapter {
         String accepterId = msg.getAccepterId();
         Boolean line = ChannelManage.isLine(accepterId);
         if (msg.getCmd()== Command.CommandType.NORMAL){
-            businessMsgService.saveMsg(msg);
+            Integer msgId = businessMsgService.saveMsg(msg);
             if (line){
+                if(StrUtil.isBlank(accepterId)){
+                    MsgBase.Msg backMsg = MsgUtil.sysMsg("消息接收人不能为空！");
+                    ctx.channel().writeAndFlush(backMsg);
+                    return;
+                }
                 Channel sendChanel = ChannelManage.getChannelByUserId(accepterId);
                 MsgBase.Msg sendMsg = MsgUtil.forwardMsg(sendUserId, accepterId, content);
                 sendChanel.writeAndFlush(sendMsg);
             }
-            MsgBase.Msg backMsg = MsgUtil.sysMsg(msg.getMsgId() + "", "发送成功，该条消息id为：" + msg.getMsgId());
+            MsgBase.Msg backMsg = MsgUtil.sysMsg(msg.getMsgId() + "", "发送成功，该条消息id为：" + msgId);
             ctx.channel().writeAndFlush(backMsg);
         }else if (msg.getCmd()== Command.CommandType.MESSAGE_CHANGE){
             String msgId = msg.getMsgId();
