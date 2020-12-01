@@ -4,34 +4,29 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+
     <parent>
         <groupId>com.whale.ms</groupId>
-        <artifactId>whale</artifactId>
+        <artifactId>whale-generator</artifactId>
         <version>0.0.1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>whale-generator</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>whale-generator-rocketmq</artifactId>
 
-
-    <modules>
-        <module>whale-generator-netty-common</module>
-        <module>whale-generator-netty-server</module>
-        <module>whale-generator-netty-client</module>
-        <module>whale-generator-rocketmq</module>
-    </modules>
 
     <dependencies>
-
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-stream-binder-rocketmq</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.whale.ms</groupId>
+            <artifactId>whale-provider-basics</artifactId>
+            <version>${version}</version>
+        </dependency>
 
     </dependencies>
-
-
 
 </project>

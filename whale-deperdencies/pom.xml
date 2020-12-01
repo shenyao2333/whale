@@ -27,6 +27,8 @@
         <protobuf-java.version>3.13.0</protobuf-java.version>
         <redisson.version>3.13.5</redisson.version>
         <hutool.version>5.2.0</hutool.version>
+        <github.pagehelper.version>1.2.13</github.pagehelper.version>
+        <stream-rocketmq.version>2.2.0.RELEASE</stream-rocketmq.version>
     </properties>
 
 
@@ -128,6 +130,18 @@
                 <version>${hutool.version}</version>
             </dependency>
 
+
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${github.pagehelper.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-stream-binder-rocketmq</artifactId>
+                <version>${stream-rocketmq.version}</version>
+            </dependency>
 
         </dependencies>
 

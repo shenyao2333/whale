@@ -23,17 +23,14 @@ public class AuthenticationEntryPoint  extends OAuth2AuthenticationEntryPoint  i
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-
         response.setContentType("application/json;charset=UTF-8");
-        response.setContentType("text/javascript;charset=utf-8");
-        response.getWriter().print(JSONObject.toJSONString(R.fail(40001, "客户端错误")));
+        response.getWriter().print(JSONObject.toJSONString(R.fail(40001, "访问此资源需要完整的身份验证！")));
 
     }
 
     @Override
     public void handle(HttpServletRequest httpServletRequest, HttpServletResponse response, AccessDeniedException e) throws IOException, ServletException {
         response.setContentType("application/json;charset=UTF-8");
-        response.setContentType("text/javascript;charset=utf-8");
         response.getWriter().print(JSONObject.toJSONString(R.fail(40002, "权限不足！")));
     }
 }
