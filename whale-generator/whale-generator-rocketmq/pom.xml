@@ -25,6 +25,12 @@
             <groupId>com.whale.ms</groupId>
             <artifactId>whale-provider-basics</artifactId>
             <version>${version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-starter-oauth2</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
     </dependencies>
