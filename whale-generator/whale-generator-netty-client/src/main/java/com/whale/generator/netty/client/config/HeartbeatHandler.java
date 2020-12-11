@@ -11,16 +11,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
- * @author pjmike
- * @create 2018-10-25 17:15
+ * @Author: shenyao
+ * @Date: Created by 2020/11/25 20:36
+ * @description: 客户端心跳
  */
-@Component
 @Slf4j
+@Component
 public class HeartbeatHandler extends ChannelInboundHandlerAdapter {
-
-
-
-
 
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
