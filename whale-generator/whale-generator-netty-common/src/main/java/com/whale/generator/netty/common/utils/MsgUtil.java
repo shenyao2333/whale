@@ -1,6 +1,7 @@
 package com.whale.generator.netty.common.utils;
 
 import com.whale.generator.netty.common.protocol.Command;
+import com.whale.generator.netty.common.protocol.CommandNormal;
 import com.whale.generator.netty.common.protocol.MsgBase;
 import com.whale.generator.netty.common.protocol.MsgStatus;
 
@@ -53,6 +54,7 @@ public class MsgUtil {
                 .setAccepterId(accepterId)
                 .setContent(content)
                 .setCmd(Command.CommandType.NORMAL)
+                .setCmdNormal(CommandNormal.CommandTypeNormal.TEXT)
                 .setSendTime(System.currentTimeMillis())
                 .build();
     }
@@ -66,6 +68,7 @@ public class MsgUtil {
                 .setMsgStatus(type)
                 .setMsgId(msgIds)
                 .setCmd(Command.CommandType.MESSAGE_CHANGE)
+                .setCmdNormal(CommandNormal.CommandTypeNormal.TEXT)
                 .setSendTime(System.currentTimeMillis())
                 .build();
     }
@@ -78,6 +81,7 @@ public class MsgUtil {
                 .setMsgId(msgId)
                 .setContent(content)
                 .setCmd(type)
+                .setCmdNormal(CommandNormal.CommandTypeNormal.TEXT)
                 .setSendTime(System.currentTimeMillis())
                 .build();
     }
