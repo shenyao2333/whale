@@ -5,7 +5,7 @@ option java_outer_classname = "MsgBase";
 import "Command.proto";
 import "MsgStatus.proto";
 import "SendType.proto";
-
+import "CommandNormal.proto";
 message Msg {
     optional string msgId = 1; //消息id
     required string content = 2; //消息内容
@@ -17,5 +17,6 @@ message Msg {
     required sint64 sendTime = 8;//发送的时间戳
     optional string sendUserId = 9 ; //发送人id
     optional string token=10; //token值
+    required CommandTypeNormal cmdNormal = 11;  //区分用户消息类型
 
 }

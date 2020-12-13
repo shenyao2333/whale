@@ -1,6 +1,5 @@
 package com.whale.generator.netty.client.config;
 
-import com.whale.generator.netty.common.protocol.MsgBase;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.concurrent.TimeUnit;
-
+import com.whale.generator.netty.common.protocol.MsgBase;
 /**
  * @author pjmike
  * @create 2018-10-24 16:31

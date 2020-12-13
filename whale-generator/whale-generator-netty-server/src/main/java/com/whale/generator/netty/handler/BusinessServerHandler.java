@@ -2,7 +2,6 @@ package com.whale.generator.netty.handler;
 
 import cn.hutool.core.util.StrUtil;
 import com.whale.generator.netty.common.protocol.Command;
-import com.whale.generator.netty.common.protocol.MsgBase;
 import com.whale.generator.netty.common.protocol.MsgStatus;
 import com.whale.generator.netty.common.service.BusinessMsgService;
 import com.whale.generator.netty.common.service.ChangeMsgService;
@@ -13,9 +12,8 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-
+import com.whale.generator.netty.common.protocol.MsgBase;
 import javax.annotation.Resource;
-import java.math.BigDecimal;
 
 /**
  * @author sy
@@ -61,7 +59,10 @@ public class BusinessServerHandler extends ChannelInboundHandlerAdapter {
                 MsgBase.Msg sendMsg = MsgUtil.forwardMsg(sendUserId, accepterId, content);
                 sendChanel.writeAndFlush(sendMsg);
             }
-            MsgBase.Msg backMsg = MsgUtil.sysMsg(msg.getMsgId() + "", "发送成功，该条消息id为：" + msgId);
+            MsgBase.Msg backMsg = MsgUtil.sysMsg(msgId + "", "发送成功，该条消息id为：" + msgId);
+            String msgId1 = backMsg.getMsgId();
+
+
             ctx.channel().writeAndFlush(backMsg);
         }else if (msg.getCmd()== Command.CommandType.MESSAGE_CHANGE){
             String msgId = msg.getMsgId();

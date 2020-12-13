@@ -2,7 +2,6 @@ package com.whale.generator.netty.client.controller;
 
 import com.whale.generator.netty.client.config.NettyClient;
 import com.whale.generator.netty.common.protocol.Command;
-import com.whale.generator.netty.common.protocol.MsgBase;
 import com.whale.provider.basices.redis.RedisUtil;
 import com.whale.provider.common.constant.SysConstant;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-
+import com.whale.generator.netty.common.protocol.MsgBase;
 /**
  * @author sy
  * @date Created in 2020.10.21 22:11

@@ -1,5 +1,4 @@
 package com.whale.generator.netty.client.config;
-
 import com.whale.generator.netty.common.protocol.MsgBase;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;

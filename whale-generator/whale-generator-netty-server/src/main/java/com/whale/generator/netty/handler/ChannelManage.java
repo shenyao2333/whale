@@ -5,7 +5,7 @@ import io.netty.util.AttributeKey;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ConcurrentHashMap;
-
+import com.whale.generator.netty.common.protocol.MsgBase;
 /**
  * @Author: shenyao
  * @Date: Created by 2020/11/1 17:49

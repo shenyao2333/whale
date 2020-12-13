@@ -1,20 +1,15 @@
 package com.whale.generator.netty.handler;
 
-import com.whale.generator.netty.common.protocol.MsgBase;
-import com.whale.generator.netty.common.service.BusinessMsgService;
-import com.whale.generator.netty.common.service.ChangeMsgService;
-import com.whale.provider.basices.redis.RedisUtil;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-
+import com.whale.generator.netty.common.protocol.MsgBase;
 /**
  * @author sy
  * @date Created in 2020.10.18 16:58

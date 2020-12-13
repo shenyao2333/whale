@@ -1,0 +1,67 @@
+syntax = "proto2";
+
+option java_package = "com.whale.generator.netty.common.protocol";
+option java_outer_classname = "CommandNormal";
+
+
+/**
+ * 指令类型 -> 专门用以区分用户消息类型
+ */
+enum CommandTypeNormal {
+   /**
+    * 单纯文本消息
+    */
+    TEXT = 0;
+
+   /**
+    * 单纯图片消息
+    */
+    PICTURE = 1;
+
+   /**
+    * 图片 + 文字
+    */
+    PICTURE_AND_TEXT = 2;
+
+   /**
+    * 语音
+    */
+    VOICE = 3;
+
+   /**
+    * 视频
+    */
+    VIDEO=4;
+
+   /**
+    * 红包
+    */
+    RED_PAPER = 5;
+
+    /**
+    * 文件
+    */
+    FILE = 6;
+
+    /**
+    * 语音通话
+    */
+    VOICE_CALL = 7;
+
+    /**
+    * 视频通话
+    */
+    VIDEO_CALL = 8;
+
+    /**
+     * 定位信息
+     */
+    LOCATION = 9;
+
+    /**
+     * 其他
+     */
+    OTHER = 10;
+
+
+}

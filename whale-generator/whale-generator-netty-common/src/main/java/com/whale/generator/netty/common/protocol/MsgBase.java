@@ -4,7 +4,7 @@
 package com.whale.generator.netty.common.protocol;
 
 public final class MsgBase {
-  public MsgBase() {}
+  private MsgBase() {}
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistryLite registry) {
   }
@@ -267,6 +267,25 @@ public final class MsgBase {
      */
     com.google.protobuf.ByteString
         getTokenBytes();
+
+    /**
+     * <pre>
+     *区分用户消息类型
+     * </pre>
+     *
+     * <code>required .CommandTypeNormal cmdNormal = 11;</code>
+     * @return Whether the cmdNormal field is set.
+     */
+    boolean hasCmdNormal();
+    /**
+     * <pre>
+     *区分用户消息类型
+     * </pre>
+     *
+     * <code>required .CommandTypeNormal cmdNormal = 11;</code>
+     * @return The cmdNormal.
+     */
+    CommandNormal.CommandTypeNormal getCmdNormal();
   }
   /**
    * Protobuf type {@code Msg}
@@ -290,6 +309,7 @@ public final class MsgBase {
       sendType_ = 0;
       sendUserId_ = "";
       token_ = "";
+      cmdNormal_ = 0;
     }
 
     @java.lang.Override
@@ -398,6 +418,18 @@ public final class MsgBase {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000200;
               token_ = bs;
+              break;
+            }
+            case 88: {
+              int rawValue = input.readEnum();
+                @SuppressWarnings("deprecation")
+              CommandNormal.CommandTypeNormal value = CommandNormal.CommandTypeNormal.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(11, rawValue);
+              } else {
+                bitField0_ |= 0x00000400;
+                cmdNormal_ = rawValue;
+              }
               break;
             }
             default: {
@@ -901,6 +933,34 @@ public final class MsgBase {
       }
     }
 
+    public static final int CMDNORMAL_FIELD_NUMBER = 11;
+    private int cmdNormal_;
+    /**
+     * <pre>
+     *区分用户消息类型
+     * </pre>
+     *
+     * <code>required .CommandTypeNormal cmdNormal = 11;</code>
+     * @return Whether the cmdNormal field is set.
+     */
+    @java.lang.Override public boolean hasCmdNormal() {
+      return ((bitField0_ & 0x00000400) != 0);
+    }
+    /**
+     * <pre>
+     *区分用户消息类型
+     * </pre>
+     *
+     * <code>required .CommandTypeNormal cmdNormal = 11;</code>
+     * @return The cmdNormal.
+     */
+    @java.lang.Override
+    public CommandNormal.CommandTypeNormal getCmdNormal() {
+      @SuppressWarnings("deprecation")
+      CommandNormal.CommandTypeNormal result = CommandNormal.CommandTypeNormal.valueOf(cmdNormal_);
+      return result == null ? CommandNormal.CommandTypeNormal.TEXT : result;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -917,6 +977,10 @@ public final class MsgBase {
         return false;
       }
       if (!hasSendTime()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCmdNormal()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -956,6 +1020,9 @@ public final class MsgBase {
       }
       if (((bitField0_ & 0x00000200) != 0)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 10, token_);
+      }
+      if (((bitField0_ & 0x00000400) != 0)) {
+        output.writeEnum(11, cmdNormal_);
       }
       unknownFields.writeTo(output);
     }
@@ -999,6 +1066,10 @@ public final class MsgBase {
       }
       if (((bitField0_ & 0x00000200) != 0)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(10, token_);
+      }
+      if (((bitField0_ & 0x00000400) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(11, cmdNormal_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1062,6 +1133,10 @@ public final class MsgBase {
         if (!getToken()
             .equals(other.getToken())) return false;
       }
+      if (hasCmdNormal() != other.hasCmdNormal()) return false;
+      if (hasCmdNormal()) {
+        if (cmdNormal_ != other.cmdNormal_) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -1113,6 +1188,10 @@ public final class MsgBase {
       if (hasToken()) {
         hash = (37 * hash) + TOKEN_FIELD_NUMBER;
         hash = (53 * hash) + getToken().hashCode();
+      }
+      if (hasCmdNormal()) {
+        hash = (37 * hash) + CMDNORMAL_FIELD_NUMBER;
+        hash = (53 * hash) + cmdNormal_;
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -1267,6 +1346,8 @@ public final class MsgBase {
         bitField0_ = (bitField0_ & ~0x00000100);
         token_ = "";
         bitField0_ = (bitField0_ & ~0x00000200);
+        cmdNormal_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000400);
         return this;
       }
 
@@ -1335,6 +1416,10 @@ public final class MsgBase {
           to_bitField0_ |= 0x00000200;
         }
         result.token_ = token_;
+        if (((from_bitField0_ & 0x00000400) != 0)) {
+          to_bitField0_ |= 0x00000400;
+        }
+        result.cmdNormal_ = cmdNormal_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1426,6 +1511,9 @@ public final class MsgBase {
           token_ = other.token_;
           onChanged();
         }
+        if (other.hasCmdNormal()) {
+          setCmdNormal(other.getCmdNormal());
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -1440,6 +1528,9 @@ public final class MsgBase {
           return false;
         }
         if (!hasSendTime()) {
+          return false;
+        }
+        if (!hasCmdNormal()) {
           return false;
         }
         return true;
@@ -1507,6 +1598,7 @@ public final class MsgBase {
        * <code>optional string msgId = 1;</code>
        * @return The bytes for msgId.
        */
+      @Override
       public com.google.protobuf.ByteString
           getMsgIdBytes() {
         java.lang.Object ref = msgId_;
@@ -1615,6 +1707,7 @@ public final class MsgBase {
        * <code>required string content = 2;</code>
        * @return The bytes for content.
        */
+      @Override
       public com.google.protobuf.ByteString
           getContentBytes() {
         java.lang.Object ref = content_;
@@ -2344,6 +2437,65 @@ public final class MsgBase {
         onChanged();
         return this;
       }
+
+      private int cmdNormal_ = 0;
+      /**
+       * <pre>
+       *区分用户消息类型
+       * </pre>
+       *
+       * <code>required .CommandTypeNormal cmdNormal = 11;</code>
+       * @return Whether the cmdNormal field is set.
+       */
+      @java.lang.Override public boolean hasCmdNormal() {
+        return ((bitField0_ & 0x00000400) != 0);
+      }
+      /**
+       * <pre>
+       *区分用户消息类型
+       * </pre>
+       *
+       * <code>required .CommandTypeNormal cmdNormal = 11;</code>
+       * @return The cmdNormal.
+       */
+      @java.lang.Override
+      public CommandNormal.CommandTypeNormal getCmdNormal() {
+        @SuppressWarnings("deprecation")
+        CommandNormal.CommandTypeNormal result = CommandNormal.CommandTypeNormal.valueOf(cmdNormal_);
+        return result == null ? CommandNormal.CommandTypeNormal.TEXT : result;
+      }
+      /**
+       * <pre>
+       *区分用户消息类型
+       * </pre>
+       *
+       * <code>required .CommandTypeNormal cmdNormal = 11;</code>
+       * @param value The cmdNormal to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCmdNormal(CommandNormal.CommandTypeNormal value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000400;
+        cmdNormal_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *区分用户消息类型
+       * </pre>
+       *
+       * <code>required .CommandTypeNormal cmdNormal = 11;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCmdNormal() {
+        bitField0_ = (bitField0_ & ~0x00000400);
+        cmdNormal_ = 0;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -2412,14 +2564,15 @@ public final class MsgBase {
   static {
     java.lang.String[] descriptorData = {
       "\n\rMessage.proto\032\rCommand.proto\032\017MsgStatu" +
-      "s.proto\032\016SendType.proto\"\325\001\n\003Msg\022\r\n\005msgId" +
-      "\030\001 \001(\t\022\017\n\007content\030\002 \002(\t\022\031\n\003cmd\030\003 \002(\0162\014.C" +
-      "ommandType\022\036\n\tmsgStatus\030\004 \001(\0162\013.StatusTy" +
-      "pe\022\022\n\naccepterId\030\005 \001(\t\022\021\n\tclusterId\030\006 \001(" +
-      "\t\022\027\n\010sendType\030\007 \001(\0162\005.Type\022\020\n\010sendTime\030\010" +
-      " \002(\022\022\022\n\nsendUserId\030\t \001(\t\022\r\n\005token\030\n \001(\tB" +
-      "4\n)com.whale.generator.netty.common.prot" +
-      "ocolB\007MsgBase"
+      "s.proto\032\016SendType.proto\032\023CommandNormal.p" +
+      "roto\"\374\001\n\003Msg\022\r\n\005msgId\030\001 \001(\t\022\017\n\007content\030\002" +
+      " \002(\t\022\031\n\003cmd\030\003 \002(\0162\014.CommandType\022\036\n\tmsgSt" +
+      "atus\030\004 \001(\0162\013.StatusType\022\022\n\naccepterId\030\005 " +
+      "\001(\t\022\021\n\tclusterId\030\006 \001(\t\022\027\n\010sendType\030\007 \001(\016" +
+      "2\005.Type\022\020\n\010sendTime\030\010 \002(\022\022\022\n\nsendUserId\030" +
+      "\t \001(\t\022\r\n\005token\030\n \001(\t\022%\n\tcmdNormal\030\013 \002(\0162" +
+      "\022.CommandTypeNormalB4\n)com.whale.generat" +
+      "or.netty.common.protocolB\007MsgBase"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2427,16 +2580,18 @@ public final class MsgBase {
           com.whale.generator.netty.common.protocol.Command.getDescriptor(),
           com.whale.generator.netty.common.protocol.MsgStatus.getDescriptor(),
           com.whale.generator.netty.common.protocol.SendType.getDescriptor(),
+          CommandNormal.getDescriptor(),
         });
     internal_static_Msg_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_Msg_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Msg_descriptor,
-        new java.lang.String[] { "MsgId", "Content", "Cmd", "MsgStatus", "AccepterId", "ClusterId", "SendType", "SendTime", "SendUserId", "Token", });
+        new java.lang.String[] { "MsgId", "Content", "Cmd", "MsgStatus", "AccepterId", "ClusterId", "SendType", "SendTime", "SendUserId", "Token", "CmdNormal", });
     com.whale.generator.netty.common.protocol.Command.getDescriptor();
     com.whale.generator.netty.common.protocol.MsgStatus.getDescriptor();
     com.whale.generator.netty.common.protocol.SendType.getDescriptor();
+    CommandNormal.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

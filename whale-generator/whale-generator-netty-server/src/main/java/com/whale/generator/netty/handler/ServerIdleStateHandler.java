@@ -1,7 +1,5 @@
 package com.whale.generator.netty.handler;
 
-import com.whale.generator.netty.common.protocol.Command;
-import com.whale.generator.netty.common.protocol.MsgBase;
 import com.whale.generator.netty.common.utils.MsgUtil;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -9,9 +7,8 @@ import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.handler.timeout.IdleStateHandler;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
-
+import com.whale.generator.netty.common.protocol.MsgBase;
 /**
  * @author sy
  * @date Created in 2020.10.18 17:04

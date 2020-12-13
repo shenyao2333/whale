@@ -2,16 +2,14 @@ package com.whale.generator.netty.handler;
 
 import cn.hutool.core.util.StrUtil;
 import com.whale.generator.netty.common.protocol.Command;
-import com.whale.generator.netty.common.protocol.MsgBase;
 import com.whale.provider.basices.redis.RedisUtil;
 import com.whale.provider.common.constant.SysConstant;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
+import com.whale.generator.netty.common.protocol.MsgBase;
 import javax.annotation.Resource;
 
 /**
