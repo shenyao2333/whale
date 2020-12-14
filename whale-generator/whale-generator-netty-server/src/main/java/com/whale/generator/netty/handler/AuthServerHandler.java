@@ -2,6 +2,8 @@ package com.whale.generator.netty.handler;
 
 import cn.hutool.core.util.StrUtil;
 import com.whale.generator.netty.common.protocol.Command;
+import com.whale.generator.netty.common.protocol.CommandNormal;
+import com.whale.generator.netty.common.utils.MsgUtil;
 import com.whale.provider.basices.redis.RedisUtil;
 import com.whale.provider.common.constant.SysConstant;
 import io.netty.channel.ChannelHandler;
@@ -47,12 +49,8 @@ public class AuthServerHandler extends ChannelInboundHandlerAdapter{
                 return;
             }
             ChannelManage.online(ctx.channel(),msg.getSendUserId());
-            MsgBase.Msg build = new MsgBase.Msg().toBuilder()
-                    .setContent("连接成功！")
-                    .setCmd(Command.CommandType.SYSTEM)
-                    .setSendTime(System.currentTimeMillis())
-                    .build();
-            ctx.writeAndFlush(build);
+            MsgBase.Msg backMsg = MsgUtil.sysMsg("连接成功");
+            ctx.writeAndFlush(backMsg);
         }
         ctx.fireChannelRead(message);
     }

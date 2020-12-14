@@ -59,10 +59,7 @@ public class BusinessServerHandler extends ChannelInboundHandlerAdapter {
                 MsgBase.Msg sendMsg = MsgUtil.forwardMsg(sendUserId, accepterId, content);
                 sendChanel.writeAndFlush(sendMsg);
             }
-            MsgBase.Msg backMsg = MsgUtil.sysMsg(msgId + "", "发送成功，该条消息id为：" + msgId);
-            String msgId1 = backMsg.getMsgId();
-
-
+            MsgBase.Msg backMsg = MsgUtil.sysMsg(msgId + "",msg.getMsgId() );
             ctx.channel().writeAndFlush(backMsg);
         }else if (msg.getCmd()== Command.CommandType.MESSAGE_CHANGE){
             String msgId = msg.getMsgId();
