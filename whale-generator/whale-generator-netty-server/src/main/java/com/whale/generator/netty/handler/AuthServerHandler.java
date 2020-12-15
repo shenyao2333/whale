@@ -32,9 +32,6 @@ public class AuthServerHandler extends ChannelInboundHandlerAdapter{
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object message) throws Exception {
         MsgBase.Msg msg = (MsgBase.Msg)message;
-        if (msg.getCmd().equals(Command.CommandType.HEARTBEAT_REQUEST)){
-            return;
-        }
         log.info("收到信息->"+ msg.getContent());
         if (msg.getCmd().equals(Command.CommandType.AUTH)){
             log.info("认证消息：{}", msg.getContent());

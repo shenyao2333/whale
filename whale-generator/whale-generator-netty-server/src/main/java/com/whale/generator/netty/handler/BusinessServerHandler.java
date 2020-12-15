@@ -35,7 +35,7 @@ public class BusinessServerHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx,Object msgObj ) throws Exception {
 
         MsgBase.Msg msg = (MsgBase.Msg)msgObj;
-        log.info("2收到信息-->"+msg.getContent());
+        log.info("收到信息-->"+msg.getContent());
         Channel channel = ctx.channel();
         if (!ChannelManage.hasUser(channel)){
             log.error("未登录信息。。。");
@@ -43,6 +43,15 @@ public class BusinessServerHandler extends ChannelInboundHandlerAdapter {
             ctx.writeAndFlush(restMsg);
             return;
         }
+
+        if (msg.getCmd().equals(Command.CommandType.HEARTBEAT_REQUEST)){
+            MsgBase.Msg restMsg = MsgUtil.sysMsg("心跳已收到，请保持连接！");
+            ctx.writeAndFlush(restMsg);
+            return;
+        }
+
+
+
         String sendUserId = msg.getSendUserId();
         String content = msg.getContent();
         String accepterId = msg.getAccepterId();
