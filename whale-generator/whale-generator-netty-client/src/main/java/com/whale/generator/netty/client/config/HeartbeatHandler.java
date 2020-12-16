@@ -1,6 +1,7 @@
 package com.whale.generator.netty.client.config;
 
 import com.whale.generator.netty.common.protocol.Command;
+import com.whale.generator.netty.common.protocol.CommandNormal;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.EventLoop;
@@ -32,7 +33,7 @@ public class HeartbeatHandler extends ChannelInboundHandlerAdapter {
             if (idleStateEvent.state() == IdleState.WRITER_IDLE) {
                 log.info("已经60s未发生读写操作，发送心跳消息");
                 //发送心跳消息，并在发送失败时关闭该连接
-                ctx.writeAndFlush(new MsgBase.Msg().toBuilder().setSendTime(System.currentTimeMillis()).setContent("心跳消息").setCmd(Command.CommandType.HEARTBEAT_REQUEST).build());
+                ctx.writeAndFlush(new MsgBase.Msg().toBuilder().setCmdNormal(CommandNormal.CommandTypeNormal.TEXT).setSendTime(System.currentTimeMillis()).setContent("心跳消息").setCmd(Command.CommandType.HEARTBEAT_REQUEST).build());
             }
         } else {
             super.userEventTriggered(ctx, evt);
@@ -43,11 +44,8 @@ public class HeartbeatHandler extends ChannelInboundHandlerAdapter {
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         log.error("服务连接失败---》");
         //如果运行过程中服务端挂了,执行重连机制
-        //如果运行过程中服务端挂了,执行重连机制
         EventLoop eventLoop = ctx.channel().eventLoop();
-        eventLoop.schedule(() -> nettyClient.start(), 10L, TimeUnit.SECONDS);
-        super.channelInactive(ctx);
-
+        eventLoop.schedule(() -> nettyClient.start(), 10, TimeUnit.SECONDS);
     }
 
     @Override
