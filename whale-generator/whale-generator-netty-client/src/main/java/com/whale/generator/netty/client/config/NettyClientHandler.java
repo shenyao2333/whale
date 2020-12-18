@@ -1,6 +1,7 @@
 package com.whale.generator.netty.client.config;
 
 import com.whale.generator.netty.common.protocol.MsgBase;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
  * @description
  */
 @Slf4j
+@ChannelHandler.Sharable
 public class NettyClientHandler extends SimpleChannelInboundHandler<MsgBase.Msg> {
 
     @Override

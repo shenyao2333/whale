@@ -7,13 +7,24 @@ import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.handler.timeout.IdleStateHandler;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 /**
  * @author sy
  * @date: 2020/10/19 9:55
  * @description 客户端处理器初始化
  */
+@Component
 public class ClientHandlerInitilizer  extends ChannelInitializer<Channel> {
+
+
+    @Resource
+    private  HeartbeatHandler heartbeatHandler;
+
+
     @Override
     protected void initChannel(Channel channel) throws Exception {
         channel.pipeline()
@@ -28,7 +39,7 @@ public class ClientHandlerInitilizer  extends ChannelInitializer<Channel> {
                 //解码
                 .addLast(new ProtobufEncoder())
                 //心跳消息发送
-                .addLast(new HeartbeatHandler())
+                .addLast(heartbeatHandler)
                 //消息接收处理
                 .addLast(new NettyClientHandler());
     }

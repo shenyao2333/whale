@@ -8,11 +8,13 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
 import com.whale.generator.netty.common.protocol.MsgBase;
 /**
@@ -22,14 +24,18 @@ import com.whale.generator.netty.common.protocol.MsgBase;
 @Component
 @Slf4j
 public class NettyClient {
-    private EventLoopGroup group = new NioEventLoopGroup();
+
     @Value("${netty.port}")
     private int port;
     @Value("${netty.host}")
     private String host;
 
+    private final EventLoopGroup group = new NioEventLoopGroup();
 
     private SocketChannel socketChannel;
+
+    @Resource
+    private  ClientHandlerInitilizer clientHandlerInitilizer;
 
     public void sendMsg(MsgBase.Msg message) {
         socketChannel.writeAndFlush(message);
@@ -44,7 +50,7 @@ public class NettyClient {
                 .remoteAddress(host, port)
                 .option(ChannelOption.SO_KEEPALIVE, true)
                 .option(ChannelOption.TCP_NODELAY, true)
-                .handler(new ClientHandlerInitilizer());
+                .handler(clientHandlerInitilizer);
         ChannelFuture future = bootstrap.connect();
         //客户端断线重连逻辑
         log.info("到这");
@@ -60,16 +66,16 @@ public class NettyClient {
     }
 
     public  void doConnect() {
-       log.info("进行重连中");
-        Bootstrap bootstrap = new Bootstrap();
-        bootstrap.group(group)
-                .channel(NioSocketChannel.class)
-                .remoteAddress(host, port)
-                .option(ChannelOption.SO_KEEPALIVE, true)
-                .option(ChannelOption.TCP_NODELAY, true)
-                // 设置TCP的长连接，默认的 keepalive的心跳时间是两个小时
-                // .childOption(ChannelOption.SO_KEEPALIVE, true)
-                .handler(new ClientHandlerInitilizer());
-        bootstrap.connect();
+       //log.info("进行重连中");
+       // Bootstrap bootstrap = new Bootstrap();
+       // bootstrap.group(group)
+       //         .channel(NioSocketChannel.class)
+       //         .remoteAddress(host, port)
+       //         .option(ChannelOption.SO_KEEPALIVE, true)
+       //         .option(ChannelOption.TCP_NODELAY, true)
+       //         // 设置TCP的长连接，默认的 keepalive的心跳时间是两个小时
+       //         // .childOption(ChannelOption.SO_KEEPALIVE, true)
+       //         .handler(new ClientHandlerInitilizer());
+       // bootstrap.connect();
     }
 }

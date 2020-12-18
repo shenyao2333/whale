@@ -2,11 +2,13 @@ package com.whale.generator.netty.client.config;
 
 import com.whale.generator.netty.common.protocol.Command;
 import com.whale.generator.netty.common.protocol.CommandNormal;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.EventLoop;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import com.whale.generator.netty.common.protocol.MsgBase;
@@ -20,11 +22,14 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @Component
+@ChannelHandler.Sharable
 public class HeartbeatHandler extends ChannelInboundHandlerAdapter {
-
 
     @Resource
     private NettyClient nettyClient;
+
+
+
 
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
@@ -45,7 +50,8 @@ public class HeartbeatHandler extends ChannelInboundHandlerAdapter {
         log.error("服务连接失败---》");
         //如果运行过程中服务端挂了,执行重连机制
         EventLoop eventLoop = ctx.channel().eventLoop();
-        eventLoop.schedule(() -> nettyClient.start(), 10, TimeUnit.SECONDS);
+        eventLoop.execute(() -> this.nettyClient.start());
+        super.channelInactive(ctx);
     }
 
     @Override
