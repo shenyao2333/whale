@@ -6,26 +6,19 @@
 
     <parent>
         <groupId>com.whale.ms</groupId>
-        <artifactId>whale-provider</artifactId>
+        <artifactId>whale</artifactId>
         <version>0.0.1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>whale-provider-common</artifactId>
-
+    <artifactId>whale-business-system</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.whale.ms</groupId>
-            <artifactId>whale-provider-basics</artifactId>
+            <artifactId>whale-provider-common</artifactId>
             <version>${version}</version>
         </dependency>
-
-        <dependency>
-            <groupId>com.aliyun.oss</groupId>
-            <artifactId>aliyun-sdk-oss</artifactId>
-        </dependency>
     </dependencies>
-
 
 </project>

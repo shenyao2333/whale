@@ -23,7 +23,7 @@
         <module>whale-generator</module>
         <module>whale-gateway</module>
         <module>whale-oauth2</module>
-
+        <module>whale-business</module>
     </modules>
 
 

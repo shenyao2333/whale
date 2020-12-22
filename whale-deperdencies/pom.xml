@@ -29,6 +29,7 @@
         <hutool.version>5.2.0</hutool.version>
         <github.pagehelper.version>1.2.13</github.pagehelper.version>
         <stream-rocketmq.version>2.2.0.RELEASE</stream-rocketmq.version>
+        <oss.version>3.5.0</oss.version>
     </properties>
 
 
@@ -141,6 +142,12 @@
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-stream-binder-rocketmq</artifactId>
                 <version>${stream-rocketmq.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.aliyun.oss</groupId>
+                <artifactId>aliyun-sdk-oss</artifactId>
+                <version>${oss.version}</version>
             </dependency>
 
         </dependencies>
