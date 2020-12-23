@@ -1,11 +1,9 @@
 package com.whale.oauth2.config;
 
-import com.whale.oauth2.filter.WhaleFilter;
 import com.whale.oauth2.handler.AuthenticationEntryPoint;
-import lombok.AllArgsConstructor;
+import com.whale.provider.security.filter.WhaleFilter;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -27,7 +25,7 @@ import javax.annotation.Resource;
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter  implements WebMvcConfigurer {
 
     @Resource
-    private  WhaleFilter filter;
+    private WhaleFilter filter;
 
     @Resource
     private AuthenticationEntryPoint authenticationEntryPoint;

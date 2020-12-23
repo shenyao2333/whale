@@ -47,6 +47,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     //@Resource
     //private  AuthenticationEntryPoint authenticationEntryPoint;
+
+
     /**
      * 密码认证
      */
@@ -72,7 +74,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .userDetailsService(userDetailService)
                 .reuseRefreshTokens(true)
                 .exceptionTranslator(new ExceptionTranslator())
-
         ;
     }
 

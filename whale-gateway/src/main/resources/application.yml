@@ -13,6 +13,13 @@ spring:
             - Path=/whale-oauth2/**
           filters:
             - StripPrefix=1
+        - id: whale-business-system
+          uri: lb://whale-business-system
+          order: 0
+          predicates:
+            - Path=/whale-business-system/**
+          filters:
+            - StripPrefix=1
 logging:
   level:
     org.springframework.cloud.gateway: debug

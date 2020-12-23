@@ -1,4 +1,4 @@
-package com.whale.oauth2.filter;
+package com.whale.provider.security.filter;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -17,7 +17,7 @@ import java.io.IOException;
  */
 @Slf4j
 @Component
-public class WhaleFilter  extends OncePerRequestFilter {
+public class WhaleFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
