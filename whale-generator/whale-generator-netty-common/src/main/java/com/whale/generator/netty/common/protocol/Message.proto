@@ -13,6 +13,7 @@ message Base {
     optional string accepterId = 5; //接收人id
     required sint64 sendTime = 9;//发送的时间戳
 
+
     optional string msgId = 1; //消息id
     optional StatusType msgStatus = 6; //消息状态改变
 
