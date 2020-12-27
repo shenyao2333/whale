@@ -2,7 +2,10 @@ package com.whale.oauth2.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
+import com.whale.oauth2.domain.SysUser;
 import com.whale.oauth2.domain.dto.LoginDto;
+import com.whale.oauth2.service.SysUserService;
+import com.whale.oauth2.service.impl.WhaleUserDetailService;
 import com.whale.provider.basices.domain.WhaleUser;
 import com.whale.provider.basices.redis.RedisUtil;
 import com.whale.provider.basices.utils.SecurityUtil;
@@ -13,6 +16,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2RefreshToken;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @Author: shenyao
@@ -35,6 +40,7 @@ public class AuthController {
     private final RestTemplateUtil restTemplateUtil;
     private final TokenStore tokenStore;
     private final RedisUtil redisUtil;
+    private final WhaleUserDetailService sysUserService;
 
     @GetMapping("/user")
     @ApiOperation(value = "获取用户信息")
@@ -42,6 +48,16 @@ public class AuthController {
         WhaleUser user = SecurityUtil.getUser();
         return R.ok(user);
     }
+
+    @GetMapping("/upd")
+    @ApiOperation(value = "获取用户信息")
+    public R<WhaleUser> upd(){
+        UserDetails shenyao = sysUserService.loadUserByUsername("shenyao");
+        return R.ok(null);
+    }
+
+
+
 
 
     @PostMapping("/auth/login")

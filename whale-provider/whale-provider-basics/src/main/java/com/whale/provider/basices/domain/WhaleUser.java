@@ -1,6 +1,7 @@
 package com.whale.provider.basices.domain;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
@@ -19,18 +20,21 @@ public class WhaleUser  extends User {
      * 真实姓名
      */
     @Getter
+    @Setter
     private String realName;
 
     /**
      * 头像
      */
     @Getter
+    @Setter
     private String avatar;
 
     /**
      * userId
      */
     @Getter
+    @Setter
     private Integer userId;
 
 

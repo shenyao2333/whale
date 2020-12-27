@@ -1,7 +1,6 @@
 package com.whale.generator.netty.common.utils;
 
 import com.whale.generator.netty.common.protocol.Command;
-import com.whale.generator.netty.common.protocol.CommandNormal;
 import com.whale.generator.netty.common.protocol.MsgBase;
 import com.whale.generator.netty.common.protocol.MsgStatus;
 

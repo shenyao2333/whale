@@ -2,7 +2,6 @@ package com.whale.generator.netty.client.controller;
 
 import com.whale.generator.netty.client.config.NettyClient;
 import com.whale.generator.netty.common.protocol.Command;
-import com.whale.generator.netty.common.protocol.CommandNormal;
 import com.whale.provider.basices.redis.RedisUtil;
 import com.whale.provider.common.constant.SysConstant;
 import org.springframework.web.bind.annotation.GetMapping;

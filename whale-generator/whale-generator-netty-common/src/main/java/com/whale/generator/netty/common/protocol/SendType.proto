@@ -7,7 +7,7 @@ option java_outer_classname = "SendType";
 /**
  * 指令类型
  */
-enum Type {
+enum SendType {
    ACCEPTER = 0; //私聊
    CLUSTER = 1; //群消息
 }

@@ -30,11 +30,7 @@ public class SecurityUtil {
 		if (authentication==null){
 			return null;
 		}
-		Object principal = authentication.getPrincipal();
-		if (principal instanceof WhaleUser) {
-			return (WhaleUser) principal;
-		}
-		return null;
+		return (WhaleUser) authentication.getPrincipal();
 	}
 
 

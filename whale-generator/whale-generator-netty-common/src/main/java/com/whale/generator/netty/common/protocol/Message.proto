@@ -1,22 +1,43 @@
 syntax = "proto2";
 
 option java_package = "com.whale.generator.netty.common.protocol";
-option java_outer_classname = "MsgBase";
-import "Command.proto";
-import "MsgStatus.proto";
-import "SendType.proto";
-import "CommandNormal.proto";
-message Msg {
-    optional string msgId = 1; //消息id
-    required string content = 2; //消息内容
-    required CommandType cmd = 3; //消息类型
-    optional StatusType msgStatus = 4; //消息状态改变
-    optional string accepterId = 5; //接收人id
-    optional string clusterId = 6;  // 群id
-    optional Type sendType = 7; //发送类型
-    required sint64 sendTime = 8;//发送的时间戳
-    optional string sendUserId = 9 ; //发送人id
-    optional string token=10; //token值
-    required CommandTypeNormal cmdNormal = 11;  //区分用户消息类型
+option java_outer_classname = "Msg";
+import "com/whale/generator/netty/common/protocol/Command.proto";
 
+
+message Base {
+
+    required string cMsgId = 2; //客户端消息id
+    required string content = 3; //消息内容
+    required Command cmd = 4; //消息类型
+    optional string accepterId = 5; //接收人id
+    required sint64 sendTime = 9;//发送的时间戳
+
+    optional string msgId = 1; //消息id
+    optional StatusType msgStatus = 6; //消息状态改变
+
+    optional string clusterId = 7;  // 群id
+    optional SendType sendType = 8; //发送类型
+
+    optional string sendUserId = 10 ; //发送人id
+    optional string token=11; //token值
+}
+
+/**
+ * 指令类型
+ */
+enum SendType {
+    ACCEPTER = 0; //私聊
+    CLUSTER = 1; //群消息
+}
+
+
+/**
+ * 消息改变类型
+ */
+enum StatusType {
+    ALREADY = 0; //未读
+    READ = 1; //已读
+    RECALL = 2; //撤回
+    REMOVE = 3; //删除
 }

@@ -1,40 +1,41 @@
 syntax = "proto2";
 
 option java_package = "com.whale.generator.netty.common.protocol";
-option java_outer_classname = "Command";
+
 
 
 /**
  * 指令类型
  */
-enum CommandType {
-   /**
-    * 常规业务消息
-    */
-    NORMAL = 0;
+enum Command {
 
-   /**
-    * 客户端心跳消息
-    */
-    HEARTBEAT_REQUEST = 1;
+    NORMAL = 0;//常规业务消息
 
-   /**
-    * 服务端心跳消息
-    */
-    HEARTBEAT_RESPONSE = 2;
+    HEARTBEAT_REQUEST = 1;//客户端心跳消息
 
-   /**
-    * 消息状态改变
-    */
-    MESSAGE_CHANGE = 3;
+    HEARTBEAT_RESPONSE = 2;// 服务端心跳消息
 
-   /**
-    * 认证
-    */
-    AUTH=4;
+    MESSAGE_CHANGE = 3;//消息状态改变
 
-   /**
-    * 系统消息
-    */
-    SYSTEM = 5;
+    AUTH=4;//认证
+
+    SYSTEM = 5;//系统消息
+
+    BULL_SPONSOR = 6; //发起好友申请 （发起方）
+    BULL_ASK = 7; //好友申请消息（询问方）
+    BULL_RESULT=8; // 好友申请结果
+    BULL_LIST= 9;//获取好有列表
+    BULL_DELETE=10;//好友删除
+
+    /**
+     * 通知类消息，
+     * 如：好友拒接申请和一些通知类型的消息
+     */
+    INFORM= 11 ;//通知消息
+
+    /**
+     * 发送消息时，如果对方不在线，消息存储后，等待上线后将离线消息推送给用户
+     */
+    OFFLINE_MSG =12 ; //离线消息
+
 }

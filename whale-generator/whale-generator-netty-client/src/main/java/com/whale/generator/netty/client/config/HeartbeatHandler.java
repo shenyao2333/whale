@@ -1,19 +1,16 @@
 package com.whale.generator.netty.client.config;
 
 import com.whale.generator.netty.common.protocol.Command;
-import com.whale.generator.netty.common.protocol.CommandNormal;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.EventLoop;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import com.whale.generator.netty.common.protocol.MsgBase;
 import javax.annotation.Resource;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @Author: shenyao
