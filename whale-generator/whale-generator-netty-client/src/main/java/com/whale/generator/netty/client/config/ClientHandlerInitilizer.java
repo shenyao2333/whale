@@ -1,5 +1,4 @@
 package com.whale.generator.netty.client.config;
-import com.whale.generator.netty.common.protocol.MsgBase;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.handler.codec.protobuf.ProtobufDecoder;
@@ -7,7 +6,6 @@ import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.handler.timeout.IdleStateHandler;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -33,7 +31,7 @@ public class ClientHandlerInitilizer  extends ChannelInitializer<Channel> {
                 //根据消息长度字段值动态地分割所接收到的 ByteBuf
                 .addLast(new ProtobufVarint32FrameDecoder())
                 // protobuf解码
-                .addLast(new ProtobufDecoder(MsgBase.Msg.getDefaultInstance()))
+                .addLast(new ProtobufDecoder(Msg.Base.getDefaultInstance()))
                 //给消息对象标注长度
                 .addLast(new ProtobufVarint32LengthFieldPrepender())
                 //解码

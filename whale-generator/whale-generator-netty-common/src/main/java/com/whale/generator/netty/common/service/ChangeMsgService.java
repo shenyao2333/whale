@@ -1,6 +1,6 @@
 package com.whale.generator.netty.common.service;
 
-import com.whale.generator.netty.common.protocol.MsgBase;
+import com.whale.generator.netty.common.protocol.Msg;
 
 /**
  * @Author: shenyao
@@ -14,5 +14,5 @@ public interface ChangeMsgService {
      * 消息状态改变
      * @param msg
      */
-    void updateStatus(MsgBase.Msg msg);
+    void updateStatus(Msg.Base msg);
 }

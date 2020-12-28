@@ -8,7 +8,6 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -16,7 +15,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
-import com.whale.generator.netty.common.protocol.MsgBase;
+
 /**
  * @author pjmike
  * @create 2018-10-24 16:31
@@ -37,7 +36,7 @@ public class NettyClient {
     @Resource
     private  ClientHandlerInitilizer clientHandlerInitilizer;
 
-    public void sendMsg(MsgBase.Msg message) {
+    public void sendMsg(Msg.Base message) {
         socketChannel.writeAndFlush(message);
     }
 

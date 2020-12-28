@@ -1,8 +1,7 @@
 package com.whale.generator.netty.common.utils;
 
-import com.whale.generator.netty.common.protocol.Command;
-import com.whale.generator.netty.common.protocol.MsgBase;
-import com.whale.generator.netty.common.protocol.MsgStatus;
+import com.whale.generator.netty.common.protocol.Cmd;
+import com.whale.generator.netty.common.protocol.Msg;
 
 /**
  * @Author: shenyao
@@ -11,14 +10,13 @@ import com.whale.generator.netty.common.protocol.MsgStatus;
  */
 public class MsgUtil {
 
-
     /**
      * 构建系统消息
      * @param content
      * @return
      */
-    public static  MsgBase.Msg  sysMsg(String content){
-        return buildMsg("",content,Command.CommandType.SYSTEM);
+    public static Msg.Base  sysMsg(String content){
+        return buildMsg("",content, Cmd.Command.SYSTEM);
     }
 
     /**
@@ -26,17 +24,16 @@ public class MsgUtil {
      * @param content
      * @return
      */
-    public static  MsgBase.Msg  sysMsg(String msgId,String content){
-        return buildMsg(msgId,content,Command.CommandType.SYSTEM);
+    public static Msg.Base  sysMsg(String msgId,String content){
+        return buildMsg(msgId,content, Cmd.Command.SYSTEM);
     }
-
 
     /**
      * 构建系统心跳消息
      * @return
      */
-    public static  MsgBase.Msg serverBeatMsg(){
-        return buildMsg("","服务端正常心跳信息。",Command.CommandType.HEARTBEAT_RESPONSE);
+    public static Msg.Base serverBeatMsg(){
+        return buildMsg("","服务端正常心跳信息。",Cmd.Command.HEARTBEAT_RESPONSE);
     }
 
 
@@ -47,27 +44,25 @@ public class MsgUtil {
      * @param content
      * @return
      */
-    public static MsgBase.Msg forwardMsg(String sendUserId, String accepterId ,String content ){
-        return new MsgBase.Msg().toBuilder()
+    public static Msg.Base forwardMsg(String sendUserId, String accepterId ,String content ){
+        return new  Msg.Base().toBuilder()
                 .setSendUserId(sendUserId)
                 .setAccepterId(accepterId)
                 .setContent(content)
-                .setCmd(Command.CommandType.NORMAL)
-                .setCmdNormal(CommandNormal.CommandTypeNormal.TEXT)
+                .setCmd(Cmd.Command.NORMAL)
                 .setSendTime(System.currentTimeMillis())
                 .build();
     }
 
 
-    public static  MsgBase.Msg changeMsg(String sendUserId, String accepterId, String msgIds, MsgStatus.StatusType type){
-        return new MsgBase.Msg().toBuilder()
+    public static Msg.Base changeMsg(String sendUserId, String accepterId, String msgIds, Msg.StatusType msgStatus){
+        return new Msg.Base().toBuilder()
                 .setSendUserId(sendUserId)
                 .setAccepterId(accepterId)
                 .setContent("消息状态改变！")
-                .setMsgStatus(type)
+                .setMsgStatus(msgStatus)
                 .setMsgId(msgIds)
-                .setCmd(Command.CommandType.MESSAGE_CHANGE)
-                .setCmdNormal(CommandNormal.CommandTypeNormal.TEXT)
+                .setCmd(Cmd.Command.MESSAGE_CHANGE)
                 .setSendTime(System.currentTimeMillis())
                 .build();
     }
@@ -75,12 +70,11 @@ public class MsgUtil {
 
 
 
-    private static  MsgBase.Msg  buildMsg(String msgId,String content, Command.CommandType type){
-        return new MsgBase.Msg().toBuilder()
+    private static  Msg.Base  buildMsg(String msgId,String content, Cmd.Command cmd){
+        return new  Msg.Base().toBuilder()
                 .setMsgId(msgId)
                 .setContent(content)
-                .setCmd(type)
-                .setCmdNormal(CommandNormal.CommandTypeNormal.TEXT)
+                .setCmd(cmd)
                 .setSendTime(System.currentTimeMillis())
                 .build();
     }

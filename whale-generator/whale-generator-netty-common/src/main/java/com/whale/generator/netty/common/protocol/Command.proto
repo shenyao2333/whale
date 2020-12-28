@@ -1,7 +1,7 @@
 syntax = "proto2";
 
 option java_package = "com.whale.generator.netty.common.protocol";
-
+option java_outer_classname = "Cmd";
 
 
 /**
@@ -37,5 +37,10 @@ enum Command {
      * 发送消息时，如果对方不在线，消息存储后，等待上线后将离线消息推送给用户
      */
     OFFLINE_MSG =12 ; //离线消息
+    /**
+     * 通讯只用了userId，想获取这个用户信息可以使用该类型消息，来获取详细信息
+     */
+    QUERY=13; //查询指定
+
 
 }

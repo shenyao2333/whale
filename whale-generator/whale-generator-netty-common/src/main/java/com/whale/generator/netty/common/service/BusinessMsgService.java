@@ -1,6 +1,6 @@
 package com.whale.generator.netty.common.service;
 
-import com.whale.generator.netty.common.protocol.MsgBase;
+import com.whale.generator.netty.common.protocol.Msg;
 
 /**
  * @Author: shenyao
@@ -14,7 +14,7 @@ public interface BusinessMsgService {
      * 保存普通业务信息
      * @param msg
      */
-    Integer  saveMsg(MsgBase.Msg msg);
+    Integer  saveMsg(Msg.Base msg);
 
 
 }

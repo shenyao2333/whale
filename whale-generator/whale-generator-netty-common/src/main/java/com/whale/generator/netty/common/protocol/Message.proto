@@ -2,13 +2,13 @@ syntax = "proto2";
 
 option java_package = "com.whale.generator.netty.common.protocol";
 option java_outer_classname = "Msg";
-import "com/whale/generator/netty/common/protocol/Command.proto";
+import "Command.proto";
 
 
 message Base {
 
-    required string cMsgId = 2; //客户端消息id
-    required string content = 3; //消息内容
+    optional string cMsgId = 2; //客户端消息id
+    optional string content = 3; //消息内容
     required Command cmd = 4; //消息类型
     optional string accepterId = 5; //接收人id
     required sint64 sendTime = 9;//发送的时间戳
@@ -22,6 +22,7 @@ message Base {
 
     optional string sendUserId = 10 ; //发送人id
     optional string token=11; //token值
+
 }
 
 /**
@@ -42,3 +43,4 @@ enum StatusType {
     RECALL = 2; //撤回
     REMOVE = 3; //删除
 }
+

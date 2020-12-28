@@ -2,7 +2,7 @@ package com.whale.generator.netty.common.service.impl;
 import java.util.Date;
 
 import com.whale.generator.netty.common.domain.MessageInfo;
-import com.whale.generator.netty.common.protocol.MsgBase;
+import com.whale.generator.netty.common.protocol.Msg;
 import com.whale.generator.netty.common.service.BusinessMsgService;
 import com.whale.generator.netty.common.service.MessageInfoService;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class BusinessMsgServiceImpl implements BusinessMsgService {
 
 
     @Override
-    public Integer saveMsg(MsgBase.Msg msg) {
+    public Integer saveMsg(Msg.Base msg) {
         MessageInfo messageInfo = new MessageInfo();
         messageInfo.setSendUserId(Integer.parseInt(msg.getSendUserId()));
         messageInfo.setAccepterId(Integer.parseInt(msg.getAccepterId()));

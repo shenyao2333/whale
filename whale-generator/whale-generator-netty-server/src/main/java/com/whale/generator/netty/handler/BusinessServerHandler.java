@@ -1,8 +1,7 @@
 package com.whale.generator.netty.handler;
 
 import cn.hutool.core.util.StrUtil;
-import com.whale.generator.netty.common.protocol.Command;
-import com.whale.generator.netty.common.protocol.MsgStatus;
+import com.whale.generator.netty.common.protocol.Cmd;
 import com.whale.generator.netty.common.service.BusinessMsgService;
 import com.whale.generator.netty.common.service.ChangeMsgService;
 import com.whale.generator.netty.common.utils.MsgUtil;
@@ -12,9 +11,9 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import com.whale.generator.netty.common.protocol.MsgBase;
-import javax.annotation.Resource;
 
+import javax.annotation.Resource;
+import com.whale.generator.netty.common.protocol.Msg;
 /**
  * @author sy
  * @date Created in 2020.10.18 16:34
@@ -34,11 +33,11 @@ public class BusinessServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx,Object msgObj ) throws Exception {
 
-        MsgBase.Msg msg = (MsgBase.Msg)msgObj;
+        Msg.Base msg = (Msg.Base)msgObj;
         log.info("收到信息-->"+msg.getContent());
 
-        if (msg.getCmd().equals(Command.CommandType.HEARTBEAT_REQUEST)){
-            MsgBase.Msg restMsg = MsgUtil.sysMsg("心跳已收到，请保持连接！");
+        if (msg.getCmd().equals(Cmd.Command.HEARTBEAT_REQUEST)){
+            Msg.Base restMsg = MsgUtil.sysMsg("心跳已收到，请保持连接！");
             ctx.writeAndFlush(restMsg);
             return;
         }
@@ -47,31 +46,31 @@ public class BusinessServerHandler extends ChannelInboundHandlerAdapter {
         String content = msg.getContent();
         String accepterId = msg.getAccepterId();
         Boolean line = ChannelManage.isLine(accepterId);
-        if (msg.getCmd()== Command.CommandType.NORMAL){
+        if (msg.getCmd()== Cmd.Command.NORMAL){
             Integer msgId = businessMsgService.saveMsg(msg);
             if (line){
                 if(StrUtil.isBlank(accepterId)){
-                    MsgBase.Msg backMsg = MsgUtil.sysMsg("消息接收人不能为空！");
+                    Msg.Base backMsg = MsgUtil.sysMsg("消息接收人不能为空！");
                     ctx.channel().writeAndFlush(backMsg);
                     return;
                 }
                 Channel sendChanel = ChannelManage.getChannelByUserId(accepterId);
-                MsgBase.Msg sendMsg = MsgUtil.forwardMsg(sendUserId, accepterId, content);
+                Msg.Base sendMsg = MsgUtil.forwardMsg(sendUserId, accepterId, content);
                 sendChanel.writeAndFlush(sendMsg);
             }
-            MsgBase.Msg backMsg = MsgUtil.sysMsg(msgId + "",msg.getMsgId() );
+            Msg.Base backMsg = MsgUtil.sysMsg(msgId + "",msg.getMsgId() );
             ctx.channel().writeAndFlush(backMsg);
-        }else if (msg.getCmd()== Command.CommandType.MESSAGE_CHANGE){
+        }else if (msg.getCmd()== Cmd.Command.MESSAGE_CHANGE){
             String msgId = msg.getMsgId();
             if (StrUtil.isBlank(msgId)){
-                MsgBase.Msg errMsg = MsgUtil.sysMsg("消息id信息有误！");
+                Msg.Base errMsg = MsgUtil.sysMsg("消息id信息有误！");
                 ctx.channel().writeAndFlush(errMsg);
                 return;
             }
-            MsgStatus.StatusType msgStatus = msg.getMsgStatus();
+            Msg.StatusType msgStatus = msg.getMsgStatus();
             if (line){
                 Channel sendChanel = ChannelManage.getChannelByUserId(accepterId);
-                MsgBase.Msg sendMsg = MsgUtil.changeMsg(sendUserId, accepterId, msgId, msgStatus);
+                Msg.Base sendMsg = MsgUtil.changeMsg(sendUserId, accepterId, msgId, msgStatus);
                 sendChanel.writeAndFlush(sendMsg);
             }
             changeMsgService.updateStatus(msg);

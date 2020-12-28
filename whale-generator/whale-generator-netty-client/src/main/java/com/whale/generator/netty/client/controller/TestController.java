@@ -1,7 +1,6 @@
 package com.whale.generator.netty.client.controller;
 
 import com.whale.generator.netty.client.config.NettyClient;
-import com.whale.generator.netty.common.protocol.Command;
 import com.whale.provider.basices.redis.RedisUtil;
 import com.whale.provider.common.constant.SysConstant;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import com.whale.generator.netty.common.protocol.MsgBase;
+
 /**
  * @author sy
  * @date Created in 2020.10.21 22:11
@@ -26,8 +25,8 @@ public class TestController {
 
     @GetMapping("/send")
     public void send(String content){
-        MsgBase.Msg msg = new MsgBase.Msg().toBuilder()
-                .setCmd(Command.CommandType.NORMAL)
+        Msg.Base msg = new Msg.Base().toBuilder()
+                .setCmd(Cmd.Command.NORMAL)
                 .setCmdNormal(CommandNormal.CommandTypeNormal.TEXT)
                 .setSendUserId("3")
                 .setAccepterId("1")
@@ -39,9 +38,9 @@ public class TestController {
 
     @GetMapping("/sendAuth")
     public void sendAuth(String content){
-        MsgBase.Msg msg = new MsgBase.Msg().toBuilder()
+        Msg.Base msg = new Msg.Base().toBuilder()
                 .setToken("ca2830d3-59f2-4fe0-ba18-0eaef252e987")
-                .setCmd(Command.CommandType.AUTH)
+                .setCmd(Cmd.Command.AUTH)
                 .setCmdNormal(CommandNormal.CommandTypeNormal.TEXT)
                 .setContent("登录请求")
                 .setSendUserId("3")

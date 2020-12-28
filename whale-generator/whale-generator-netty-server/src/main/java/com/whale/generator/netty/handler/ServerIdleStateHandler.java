@@ -8,7 +8,7 @@ import io.netty.handler.timeout.IdleStateHandler;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.TimeUnit;
-import com.whale.generator.netty.common.protocol.MsgBase;
+
 /**
  * @author sy
  * @date Created in 2020.10.18 17:04
@@ -36,7 +36,7 @@ public class ServerIdleStateHandler extends IdleStateHandler {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         log.info("连接加入---->"+ctx.channel().remoteAddress());
-        MsgBase.Msg msg = MsgUtil.sysMsg("连接成功！但需要认证成功才能通信。");
+        Msg.Base msg = MsgUtil.sysMsg("连接成功！但需要认证成功才能通信。");
         ctx.writeAndFlush(msg);
     }
 
@@ -49,7 +49,7 @@ public class ServerIdleStateHandler extends IdleStateHandler {
      */
     @Override
     protected void channelIdle(ChannelHandlerContext ctx, IdleStateEvent evt) throws Exception {
-        MsgBase.Msg msg = MsgUtil.sysMsg("常时间未发送消息，已关闭连接，如需使用请重新连接！");
+        Msg.Base msg = MsgUtil.sysMsg("常时间未发送消息，已关闭连接，如需使用请重新连接！");
         ctx.writeAndFlush(msg);
         Channel channel = ctx.channel();
         String userId = ChannelManage.getUserId(channel);
