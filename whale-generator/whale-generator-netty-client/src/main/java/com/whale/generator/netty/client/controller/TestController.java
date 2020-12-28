@@ -1,6 +1,8 @@
 package com.whale.generator.netty.client.controller;
 
 import com.whale.generator.netty.client.config.NettyClient;
+import com.whale.generator.netty.common.protocol.Cmd;
+import com.whale.generator.netty.common.protocol.Msg;
 import com.whale.provider.basices.redis.RedisUtil;
 import com.whale.provider.common.constant.SysConstant;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +29,6 @@ public class TestController {
     public void send(String content){
         Msg.Base msg = new Msg.Base().toBuilder()
                 .setCmd(Cmd.Command.NORMAL)
-                .setCmdNormal(CommandNormal.CommandTypeNormal.TEXT)
                 .setSendUserId("3")
                 .setAccepterId("1")
                 .setSendTime(System.currentTimeMillis())
@@ -41,7 +42,6 @@ public class TestController {
         Msg.Base msg = new Msg.Base().toBuilder()
                 .setToken("ca2830d3-59f2-4fe0-ba18-0eaef252e987")
                 .setCmd(Cmd.Command.AUTH)
-                .setCmdNormal(CommandNormal.CommandTypeNormal.TEXT)
                 .setContent("登录请求")
                 .setSendUserId("3")
                 .setSendTime(System.currentTimeMillis())

@@ -1,5 +1,6 @@
 package com.whale.generator.netty.handler;
 
+import com.whale.generator.netty.common.protocol.Msg;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.handler.codec.protobuf.ProtobufDecoder;

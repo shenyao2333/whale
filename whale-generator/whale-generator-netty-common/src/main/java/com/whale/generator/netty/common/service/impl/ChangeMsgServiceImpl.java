@@ -1,5 +1,6 @@
 package com.whale.generator.netty.common.service.impl;
 
+import com.whale.generator.netty.common.protocol.Msg;
 import com.whale.generator.netty.common.service.ChangeMsgService;
 import com.whale.generator.netty.common.service.MessageInfoService;
 import lombok.RequiredArgsConstructor;

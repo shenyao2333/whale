@@ -1,5 +1,6 @@
 package com.whale.generator.netty.client.config;
 
+import com.whale.generator.netty.common.protocol.Msg;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;

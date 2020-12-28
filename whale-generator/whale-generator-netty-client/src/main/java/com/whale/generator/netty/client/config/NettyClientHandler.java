@@ -1,5 +1,6 @@
 package com.whale.generator.netty.client.config;
 
+import com.whale.generator.netty.common.protocol.Msg;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
