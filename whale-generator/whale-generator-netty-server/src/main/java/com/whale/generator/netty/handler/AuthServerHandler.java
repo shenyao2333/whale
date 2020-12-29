@@ -34,9 +34,8 @@ public class AuthServerHandler extends ChannelInboundHandlerAdapter{
     public void channelRead(ChannelHandlerContext ctx, Object message) throws Exception {
         Msg.Base msg = (Msg.Base)message;
         log.info("收到信息->"+ msg.getContent());
-        if (msg.getCmd().equals(Cmd.Command.AUTH)){
-            log.info("认证消息：{}", msg.getContent());
-            String token = msg.getToken();
+        String token = msg.getToken();
+        if(StrUtil.isBlank(token)||!redisUtil.hasKey(SysConstant.tokenBegin + token)){
             if (StrUtil.isBlank(token)||!redisUtil.hasKey(SysConstant.tokenBegin + token)){
                 Msg.Base build = new Msg.Base().toBuilder()
                         .setContent("请先进行登录！")
@@ -46,11 +45,13 @@ public class AuthServerHandler extends ChannelInboundHandlerAdapter{
                 ctx.writeAndFlush(build);
                 return;
             }
+        }
+        if (msg.getCmd().equals(Cmd.Command.AUTH)){
+            log.info("认证消息：{}", msg.getContent());
             ChannelManage.online(ctx.channel(),msg.getSendUserId());
             Msg.Base backMsg = MsgUtil.sysMsg("连接成功");
             ctx.writeAndFlush(backMsg);
         }
-
         Channel channel = ctx.channel();
         if (!ChannelManage.hasUser(channel)){
             log.error("未登录信息。。。");
@@ -59,6 +60,13 @@ public class AuthServerHandler extends ChannelInboundHandlerAdapter{
             ctx.close();
             return;
         }
+
+        if (msg.getCmd().equals(Cmd.Command.HEARTBEAT_REQUEST)){
+            Msg.Base restMsg = MsgUtil.sysMsg("心跳已收到，请保持连接！");
+            ctx.writeAndFlush(restMsg);
+            return;
+        }
+
         ctx.fireChannelRead(message);
     }
 

@@ -32,22 +32,16 @@ public class BusinessServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx,Object msgObj ) throws Exception {
-
         Msg.Base msg = (Msg.Base)msgObj;
         log.info("收到信息-->"+msg.getContent());
-
-        if (msg.getCmd().equals(Cmd.Command.HEARTBEAT_REQUEST)){
-            Msg.Base restMsg = MsgUtil.sysMsg("心跳已收到，请保持连接！");
-            ctx.writeAndFlush(restMsg);
-            return;
-        }
-
         String sendUserId = msg.getSendUserId();
         String content = msg.getContent();
         String accepterId = msg.getAccepterId();
-        Boolean line = ChannelManage.isLine(accepterId);
+
+        //普通消息转发
         if (msg.getCmd()== Cmd.Command.NORMAL){
-            Integer msgId = businessMsgService.saveMsg(msg);
+            Boolean line = ChannelManage.isLine(accepterId);
+
             if (line){
                 if(StrUtil.isBlank(accepterId)){
                     Msg.Base backMsg = MsgUtil.sysMsg("消息接收人不能为空！");
@@ -58,6 +52,7 @@ public class BusinessServerHandler extends ChannelInboundHandlerAdapter {
                 Msg.Base sendMsg = MsgUtil.forwardMsg(sendUserId, accepterId, content);
                 sendChanel.writeAndFlush(sendMsg);
             }
+            Integer msgId = businessMsgService.saveMsg(msg);
             Msg.Base backMsg = MsgUtil.sysMsg(msgId + "",msg.getMsgId() );
             ctx.channel().writeAndFlush(backMsg);
         }else if (msg.getCmd()== Cmd.Command.MESSAGE_CHANGE){

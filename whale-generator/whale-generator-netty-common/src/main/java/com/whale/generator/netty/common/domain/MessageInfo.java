@@ -26,9 +26,9 @@ public class MessageInfo implements Serializable {
     /**
      * 主键
      */
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.INPUT)
     @ApiModelProperty(value = "主键")
-    private Integer id;
+    private Long id;
 
     /**
      * 发送人

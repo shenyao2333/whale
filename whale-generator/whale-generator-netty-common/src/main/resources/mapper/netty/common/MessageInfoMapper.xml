@@ -4,13 +4,14 @@
   <resultMap id="BaseResultMap" type="com.whale.generator.netty.common.domain.MessageInfo">
     <!--@mbg.generated-->
     <!--@Table message_info-->
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="BIGINT" property="id" />
     <result column="send_user_id" jdbcType="INTEGER" property="sendUserId" />
     <result column="accepter_id" jdbcType="INTEGER" property="accepterId" />
     <result column="msg_status" jdbcType="CHAR" property="msgStatus" />
     <result column="send_type" jdbcType="CHAR" property="sendType" />
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="created" jdbcType="TIMESTAMP" property="created" />
+    <result column="updated" jdbcType="TIMESTAMP" property="updated" />
     <result column="updated" jdbcType="TIMESTAMP" property="updated" />
   </resultMap>
   <sql id="Base_Column_List">
