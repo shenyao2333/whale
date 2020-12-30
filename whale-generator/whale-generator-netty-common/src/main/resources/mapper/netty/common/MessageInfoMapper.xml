@@ -12,7 +12,7 @@
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="created" jdbcType="TIMESTAMP" property="created" />
     <result column="updated" jdbcType="TIMESTAMP" property="updated" />
-    <result column="updated" jdbcType="TIMESTAMP" property="updated" />
+    <result column="s" jdbcType="TIMESTAMP" property="updated" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->

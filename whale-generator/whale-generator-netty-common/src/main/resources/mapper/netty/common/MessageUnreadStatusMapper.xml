@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whale.generator.netty.common.mapper.MessageUnreadStatusMapper">
+  <resultMap id="BaseResultMap" type="com.whale.generator.netty.common.domain.MessageUnreadStatus">
+    <!--@mbg.generated-->
+    <!--@Table message_unread_status-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="msg_id" jdbcType="BIGINT" property="msgId" />
+    <result column="cmsg_id" jdbcType="VARCHAR" property="cmsgId" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+    <result column="send_user_id" jdbcType="INTEGER" property="sendUserId" />
+    <result column="accepter_id" jdbcType="INTEGER" property="accepterId" />
+    <result column="msg_staus" jdbcType="CHAR" property="msgStaus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, msg_id, cmsg_id, created, send_user_id, accepter_id, msg_staus
+  </sql>
+</mapper>

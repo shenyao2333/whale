@@ -13,8 +13,9 @@ public interface BusinessMsgService {
     /**
      * 保存普通业务信息
      * @param msg
+     * @param status 状态
      */
-    Integer  saveMsg(Msg.Base msg);
+    Long  saveMsg(Long msgId , Msg.Base msg,String status);
 
 
 }

@@ -24,18 +24,18 @@ public class BusinessMsgServiceImpl implements BusinessMsgService {
 
 
     @Override
-    public Integer saveMsg(Msg.Base msg) {
+    public Long saveMsg(Long msgId, Msg.Base msg,String stauts) {
         MessageInfo messageInfo = new MessageInfo();
-        messageInfo.setId(SnowflakeId.getId());
+        messageInfo.setId(msgId);
         messageInfo.setSendUserId(Integer.parseInt(msg.getSendUserId()));
         messageInfo.setAccepterId(Integer.parseInt(msg.getAccepterId()));
-        messageInfo.setMsgStatus("0");
+        messageInfo.setMsgStatus(stauts);
         messageInfo.setSendType(msg.getSendType().getNumber()+"");
         messageInfo.setContent(msg.getContent());
         messageInfo.setCreated(new Date());
         messageInfo.setUpdated(new Date());
         messageInfoService.save(messageInfo);
-        return messageInfo.getId();
+        return msgId;
     }
 
 

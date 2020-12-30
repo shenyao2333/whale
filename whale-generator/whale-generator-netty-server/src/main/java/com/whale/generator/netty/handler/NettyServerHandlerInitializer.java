@@ -7,6 +7,7 @@ import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -17,13 +18,13 @@ import javax.annotation.Resource;
  * @description 消息的编码和解码
  */
 @Component
+@RequiredArgsConstructor
 public class NettyServerHandlerInitializer extends ChannelInitializer<Channel> {
 
-    @Resource
-    private AuthServerHandler authServerHandler;
-    @Resource
-    private BusinessServerHandler businessServerHandler;
 
+    private final AuthServerHandler authServerHandler;
+    private final BusinessServerHandler businessServerHandler;
+    private final ChangeServerHandler changeServerHandler;
 
     @Override
     protected void initChannel(Channel channel) throws Exception {
@@ -41,7 +42,8 @@ public class NettyServerHandlerInitializer extends ChannelInitializer<Channel> {
                 // 认证消息
                 .addLast(authServerHandler)
                 // 业务消息
-                .addLast(businessServerHandler);
+                .addLast(businessServerHandler)
+                .addLast(changeServerHandler);
     }
 
 

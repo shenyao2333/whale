@@ -16,7 +16,7 @@ public class MsgUtil {
      * @return
      */
     public static Msg.Base  sysMsg(String content){
-        return buildMsg("",content, Cmd.Command.SYSTEM);
+        return buildMsg("","",content, Cmd.Command.SYSTEM);
     }
 
     /**
@@ -25,7 +25,16 @@ public class MsgUtil {
      * @return
      */
     public static Msg.Base  sysMsg(String msgId,String content){
-        return buildMsg(msgId,content, Cmd.Command.SYSTEM);
+        return buildMsg(msgId+"","",content, Cmd.Command.SYSTEM);
+    }
+
+    /**
+     * 回复业务消息
+     * @param
+     * @return
+     */
+    public static Msg.Base  sysMsg(Long msgId,String  cmsgId){
+        return buildMsg(msgId+"",cmsgId+"","消息发送成功", Cmd.Command.SYSTEM);
     }
 
     /**
@@ -33,7 +42,7 @@ public class MsgUtil {
      * @return
      */
     public static Msg.Base serverBeatMsg(){
-        return buildMsg("","服务端正常心跳信息。",Cmd.Command.HEARTBEAT_RESPONSE);
+        return buildMsg("","","服务端正常心跳信息。",Cmd.Command.HEARTBEAT_RESPONSE);
     }
 
 
@@ -44,8 +53,9 @@ public class MsgUtil {
      * @param content
      * @return
      */
-    public static Msg.Base forwardMsg(String sendUserId, String accepterId ,String content ){
+    public static Msg.Base forwardMsg(Long msgId, String sendUserId, String accepterId ,String content ){
         return new  Msg.Base().toBuilder()
+                .setMsgId(msgId+"")
                 .setSendUserId(sendUserId)
                 .setAccepterId(accepterId)
                 .setContent(content)
@@ -70,8 +80,9 @@ public class MsgUtil {
 
 
 
-    private static  Msg.Base  buildMsg(String msgId,String content, Cmd.Command cmd){
+    private static  Msg.Base  buildMsg(String msgId,String cmsgId ,String content, Cmd.Command cmd){
         return new  Msg.Base().toBuilder()
+                .setCMsgId(cmsgId)
                 .setMsgId(msgId)
                 .setContent(content)
                 .setCmd(cmd)

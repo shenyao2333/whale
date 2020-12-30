@@ -30,6 +30,9 @@ public class MessageInfo implements Serializable {
     @ApiModelProperty(value = "主键")
     private Long id;
 
+    @ApiModelProperty(value = "客户端的消息id")
+    private Long cmsgId;
+
     /**
      * 发送人
      */

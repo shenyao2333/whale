@@ -1,5 +1,7 @@
 package com.whale.generator.netty.client.config;
 
+import com.whale.generator.netty.common.protocol.Cmd;
+import com.whale.generator.netty.common.protocol.Msg;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -34,7 +36,7 @@ public class HeartbeatHandler extends ChannelInboundHandlerAdapter {
             if (idleStateEvent.state() == IdleState.WRITER_IDLE) {
                 log.info("已经60s未发生读写操作，发送心跳消息");
                 //发送心跳消息，并在发送失败时关闭该连接
-                ctx.writeAndFlush(new Msg.Base().toBuilder().setCmdNormal(CommandNormal.CommandTypeNormal.TEXT).setSendTime(System.currentTimeMillis()).setContent("心跳消息").setCmd(Cmd.Command.HEARTBEAT_REQUEST).build());
+                ctx.writeAndFlush(new Msg.Base().toBuilder().setSendTime(System.currentTimeMillis()).setContent("心跳消息").setCmd(Cmd.Command.HEARTBEAT_REQUEST).build());
             }
         } else {
             super.userEventTriggered(ctx, evt);
