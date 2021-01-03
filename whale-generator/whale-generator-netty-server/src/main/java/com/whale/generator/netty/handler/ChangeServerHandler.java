@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 /**
  * @author sy
  * @date Created in 2020.10.18 16:34
- * @description
+ * @description 消息状态改变处理器
  */
 @Slf4j
 @ChannelHandler.Sharable
@@ -54,6 +54,7 @@ public class ChangeServerHandler extends ChannelInboundHandlerAdapter {
             }
             changeMsgService.updateStatus(msg);
         }
+        ctx.fireChannelRead(msgObj);
     }
 
     protected void errorReply(ChannelHandlerContext ctx,String content){

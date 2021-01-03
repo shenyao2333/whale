@@ -30,10 +30,11 @@ public class BusinessMsgServiceImpl implements BusinessMsgService {
         messageInfo.setSendUserId(Integer.parseInt(msg.getSendUserId()));
         messageInfo.setAccepterId(Integer.parseInt(msg.getAccepterId()));
         messageInfo.setMsgStatus(stauts);
-        messageInfo.setSendType(msg.getSendType().getNumber()+"");
         messageInfo.setContent(msg.getContent());
         messageInfo.setCreated(new Date());
         messageInfo.setUpdated(new Date());
+        messageInfo.setDel("0");
+        messageInfo.setType("0");
         messageInfoService.save(messageInfo);
         return msgId;
     }

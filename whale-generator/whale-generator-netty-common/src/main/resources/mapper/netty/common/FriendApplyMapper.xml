@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whale.generator.netty.common.mapper.FriendApplyMapper">
+  <resultMap id="BaseResultMap" type="com.whale.generator.netty.common.domain.FriendApply">
+    <!--@mbg.generated-->
+    <!--@Table friend_apply-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="accepter_user_id" jdbcType="BIGINT" property="accepterUserId" />
+    <result column="apply_user_id" jdbcType="BIGINT" property="applyUserId" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+    <result column="updated" jdbcType="TIMESTAMP" property="updated" />
+    <result column="apply_status" jdbcType="CHAR" property="applyStatus" />
+    <result column="apply_content" jdbcType="VARCHAR" property="applyContent" />
+    <result column="reject_content" jdbcType="VARCHAR" property="rejectContent" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, accepter_user_id, apply_user_id, created, updated, apply_status, apply_content, 
+    reject_content
+  </sql>
+</mapper>

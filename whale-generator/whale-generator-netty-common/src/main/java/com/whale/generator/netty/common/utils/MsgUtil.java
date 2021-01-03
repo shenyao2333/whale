@@ -16,7 +16,7 @@ public class MsgUtil {
      * @return
      */
     public static Msg.Base  sysMsg(String content){
-        return buildMsg("","",content, Cmd.Command.SYSTEM);
+        return buildMsg("","",content, Cmd.Command.SYSTEM,"","");
     }
 
     /**
@@ -25,7 +25,7 @@ public class MsgUtil {
      * @return
      */
     public static Msg.Base  sysMsg(String msgId,String content){
-        return buildMsg(msgId+"","",content, Cmd.Command.SYSTEM);
+        return buildMsg(msgId+"","",content, Cmd.Command.SYSTEM,"","");
     }
 
     /**
@@ -34,7 +34,7 @@ public class MsgUtil {
      * @return
      */
     public static Msg.Base  sysMsg(Long msgId,String  cmsgId){
-        return buildMsg(msgId+"",cmsgId+"","消息发送成功", Cmd.Command.SYSTEM);
+        return buildMsg(msgId+"",cmsgId+"","消息发送成功", Cmd.Command.SYSTEM,"","");
     }
 
     /**
@@ -42,7 +42,21 @@ public class MsgUtil {
      * @return
      */
     public static Msg.Base serverBeatMsg(){
-        return buildMsg("","","服务端正常心跳信息。",Cmd.Command.HEARTBEAT_RESPONSE);
+        return buildMsg("","","服务端正常心跳信息。",Cmd.Command.HEARTBEAT_RESPONSE,"","");
+    }
+
+
+    /**
+     *
+     * @param msgId 消息id
+     * @param content 申请备注
+     * @param cmsgId  客户端id
+     * @param sendUserId 发送人的
+     * @param accepterId 接收人的
+     * @return
+     */
+    public static Msg.Base friendSponsorMsg(Long msgId,String content,String cmsgId ,String sendUserId ,String accepterId){
+        return buildMsg(msgId+"",cmsgId,content,Cmd.Command.BULL_ASK,sendUserId,accepterId);
     }
 
 
@@ -80,13 +94,15 @@ public class MsgUtil {
 
 
 
-    private static  Msg.Base  buildMsg(String msgId,String cmsgId ,String content, Cmd.Command cmd){
+    private static  Msg.Base  buildMsg(String msgId,String cmsgId ,String content, Cmd.Command cmd,String sendUserId,String accepterId){
         return new  Msg.Base().toBuilder()
                 .setCMsgId(cmsgId)
                 .setMsgId(msgId)
                 .setContent(content)
                 .setCmd(cmd)
                 .setSendTime(System.currentTimeMillis())
+                .setAccepterId(accepterId)
+                .setSendUserId(sendUserId)
                 .build();
     }
 

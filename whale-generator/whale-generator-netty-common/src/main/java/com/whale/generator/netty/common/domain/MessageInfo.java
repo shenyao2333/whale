@@ -55,13 +55,6 @@ public class MessageInfo implements Serializable {
     private String msgStatus;
 
     /**
-     * 发送类型 0-私聊，1-群发信息
-     */
-    @TableField(value = "send_type")
-    @ApiModelProperty(value = "发送类型 0-私聊，1-群发信息")
-    private String sendType;
-
-    /**
      * 消息内容
      */
     @TableField(value = "content")
@@ -81,6 +74,14 @@ public class MessageInfo implements Serializable {
     @TableField(value = "updated")
     @ApiModelProperty(value = "更新时间")
     private Date updated;
+
+    @TableField(value = "type")
+    @ApiModelProperty(value = "类型，0-发送，1-接收")
+    private String type;
+
+    @TableField(value = "del")
+    @ApiModelProperty(value = "删除标志。0-正常，1-删除")
+    private String del;
 
     private static final long serialVersionUID = 1L;
 }

@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import com.whale.generator.netty.common.protocol.Msg;
 /**
  * @author sy
@@ -67,7 +66,7 @@ public class BusinessServerHandler extends ChannelInboundHandlerAdapter {
 
 
     protected boolean asdf(){
-
+        return true;
     }
 
     protected void errorReply(ChannelHandlerContext ctx,String content){
