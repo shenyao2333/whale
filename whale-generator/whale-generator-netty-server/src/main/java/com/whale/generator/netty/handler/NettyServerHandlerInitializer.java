@@ -25,7 +25,7 @@ public class NettyServerHandlerInitializer extends ChannelInitializer<Channel> {
     private final AuthServerHandler authServerHandler;
     private final BusinessServerHandler businessServerHandler;
     private final ChangeServerHandler changeServerHandler;
-    private final
+
 
     @Override
     protected void initChannel(Channel channel) throws Exception {
@@ -45,9 +45,9 @@ public class NettyServerHandlerInitializer extends ChannelInitializer<Channel> {
                 // 业务消息
                 .addLast(businessServerHandler)
                 //消息状态改变
-                .addLast(changeServerHandler)
+                .addLast(changeServerHandler);
                 //
-                .addLast()
+               // .addLast()
     }
 
 

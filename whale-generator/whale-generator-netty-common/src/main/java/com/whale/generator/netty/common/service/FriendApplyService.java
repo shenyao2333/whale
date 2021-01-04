@@ -20,4 +20,9 @@ public interface FriendApplyService extends IService<FriendApply>{
      */
     void sponsor(Msg.Base msg, Long msgId, String status ,String sendUserId);
 
+    /**
+     * 好友通知状态
+     * @param msg
+     */
+    void result(Msg.Base msg);
 }

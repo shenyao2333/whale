@@ -1,9 +1,6 @@
 package com.whale.generator.netty.common.domain;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
@@ -56,8 +53,8 @@ public class FriendApply implements Serializable {
     /**
      * 更新时间
      */
-    @TableField(value = "updated")
-    @ApiModelProperty(value="更新时间")
+    @TableField(value = "updated" )
+    @ApiModelProperty(value="更新时间" )
     private Date updated;
 
     /**

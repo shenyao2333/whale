@@ -34,17 +34,19 @@ public class FriendApplyHandler extends ChannelInboundHandlerAdapter {
             Long msgId = SnowflakeId.getId();
             String status = "-";
             if (line){
-                status="0";
+                status="1";
                 channel.writeAndFlush(MsgUtil.friendSponsorMsg(msgId,msg.getContent(),msg.getCMsgId(),sendUserId,accepterId));
             };
             friendApplyService.sponsor(msg,msgId,status, sendUserId);
         }
         // 添加结果通知
         else if (msg.getCmd().equals(Cmd.Command.BULL_RESULT)) {
+            String msgId = msg.getMsgId();
+            String content = msg.getContent();
             if (line){
-
+                MsgUtil.friendResult(msgId,content,msg.getMsgStatus());
+                friendApplyService.result(msg);
             }
-            friendApplyService
         }
     }
 

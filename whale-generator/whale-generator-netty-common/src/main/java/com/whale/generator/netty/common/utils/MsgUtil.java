@@ -16,7 +16,7 @@ public class MsgUtil {
      * @return
      */
     public static Msg.Base  sysMsg(String content){
-        return buildMsg("","",content, Cmd.Command.SYSTEM,"","");
+        return buildMsg("","",content, Cmd.Command.SYSTEM,"","",null);
     }
 
     /**
@@ -25,7 +25,7 @@ public class MsgUtil {
      * @return
      */
     public static Msg.Base  sysMsg(String msgId,String content){
-        return buildMsg(msgId+"","",content, Cmd.Command.SYSTEM,"","");
+        return buildMsg(msgId+"","",content, Cmd.Command.SYSTEM,"","",null);
     }
 
     /**
@@ -34,7 +34,7 @@ public class MsgUtil {
      * @return
      */
     public static Msg.Base  sysMsg(Long msgId,String  cmsgId){
-        return buildMsg(msgId+"",cmsgId+"","消息发送成功", Cmd.Command.SYSTEM,"","");
+        return buildMsg(msgId+"",cmsgId+"","消息发送成功", Cmd.Command.SYSTEM,"","",null);
     }
 
     /**
@@ -42,7 +42,7 @@ public class MsgUtil {
      * @return
      */
     public static Msg.Base serverBeatMsg(){
-        return buildMsg("","","服务端正常心跳信息。",Cmd.Command.HEARTBEAT_RESPONSE,"","");
+        return buildMsg("","","服务端正常心跳信息。",Cmd.Command.HEARTBEAT_RESPONSE,"","",null);
     }
 
 
@@ -56,7 +56,16 @@ public class MsgUtil {
      * @return
      */
     public static Msg.Base friendSponsorMsg(Long msgId,String content,String cmsgId ,String sendUserId ,String accepterId){
-        return buildMsg(msgId+"",cmsgId,content,Cmd.Command.BULL_ASK,sendUserId,accepterId);
+        return buildMsg(msgId+"",cmsgId,content,Cmd.Command.BULL_ASK,sendUserId,accepterId,null);
+    }
+
+    /**
+     * 发送好友结果通知
+     * @param msgId
+     * @param content
+     */
+    public static Msg.Base friendResult(String msgId, String content, Msg.StatusType status) {
+        return buildMsg(msgId,"",content,Cmd.Command.BULL_RESULT,"","",status);
     }
 
 
@@ -94,7 +103,7 @@ public class MsgUtil {
 
 
 
-    private static  Msg.Base  buildMsg(String msgId,String cmsgId ,String content, Cmd.Command cmd,String sendUserId,String accepterId){
+    private static  Msg.Base  buildMsg(String msgId, String cmsgId , String content, Cmd.Command cmd, String sendUserId, String accepterId, Msg.StatusType statusType){
         return new  Msg.Base().toBuilder()
                 .setCMsgId(cmsgId)
                 .setMsgId(msgId)
@@ -103,7 +112,9 @@ public class MsgUtil {
                 .setSendTime(System.currentTimeMillis())
                 .setAccepterId(accepterId)
                 .setSendUserId(sendUserId)
+                .setMsgStatus(statusType)
                 .build();
     }
+
 
 }
