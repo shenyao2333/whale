@@ -25,23 +25,23 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @TableName(value = "friend_apply")
 public class FriendApply implements Serializable {
-    @TableId(value = "id", type = IdType.INPUT)
+    @TableId(value = "id", type = IdType.AUTO)
     @ApiModelProperty(value="")
-    private Long id;
+    private Integer id;
 
     /**
      * 接收人id
      */
     @TableField(value = "accepter_user_id")
     @ApiModelProperty(value="接收人id")
-    private Long accepterUserId;
+    private Integer accepterUserId;
 
     /**
      * 申请人id
      */
     @TableField(value = "apply_user_id")
     @ApiModelProperty(value="申请人id")
-    private Long applyUserId;
+    private Integer applyUserId;
 
     /**
      * 创建时间

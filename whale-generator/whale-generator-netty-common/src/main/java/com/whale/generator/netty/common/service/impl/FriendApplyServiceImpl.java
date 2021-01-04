@@ -25,14 +25,14 @@ public class FriendApplyServiceImpl extends ServiceImpl<FriendApplyMapper, Frien
 
     private final FriendApplyMapper friendApplyMapper;
     private final FriendService friendService;
+   // private final SysUserService sysUserService;
 
 
     @Override
     public void sponsor(Msg.Base msg, Long msgId, String status,String sendUserId) {
         FriendApply friendApply = new FriendApply();
-        friendApply.setId(msgId);
-        friendApply.setAccepterUserId(Long.parseLong(msg.getAccepterId()));
-        friendApply.setApplyUserId(Long.parseLong(sendUserId));
+        friendApply.setAccepterUserId(Integer.parseInt(msg.getAccepterId()));
+        friendApply.setApplyUserId(Integer.parseInt(sendUserId));
         friendApply.setCreated(new Date());
         friendApply.setApplyStatus(status);
         friendApply.setApplyContent(msg.getContent());
@@ -50,7 +50,7 @@ public class FriendApplyServiceImpl extends ServiceImpl<FriendApplyMapper, Frien
         Msg.StatusType msgStatus = msg.getMsgStatus();
         FriendApply updApply = new FriendApply();
         updApply.setUpdated(new Date());
-        updApply.setId(Long.parseLong(msgId));
+        updApply.setId(Integer.parseInt(msgId));
         if (msgStatus== Msg.StatusType.READ){
             updApply.setApplyStatus("3");
         }else if (msgStatus== Msg.StatusType.REMOVE){
@@ -63,13 +63,16 @@ public class FriendApplyServiceImpl extends ServiceImpl<FriendApplyMapper, Frien
 
     private void insertionFriend(FriendApply  apply){
         ArrayList<Friend> friends = new ArrayList<>();
-        Long accepterUserId = apply.getAccepterUserId();
-        Long applyUserId = apply.getApplyUserId();
+        Integer accepterUserId = apply.getAccepterUserId();
+        Integer applyUserId = apply.getApplyUserId();
 
+        Friend applyUser = friendService.getById(applyUserId);
 
-        Friend byId = friendService.getById(applyUserId);
-
-
+        Friend applyFriend = new Friend();
+        applyFriend.setUserId(applyUser.getUserId());
+        applyFriend.setFriendUserId(accepterUserId);
+        applyFriend.setGroupId(0);
+       // applyFriend.setRemark(applyUser.get);
 
     }
 
