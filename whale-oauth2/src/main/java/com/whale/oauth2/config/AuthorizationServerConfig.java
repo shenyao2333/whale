@@ -2,6 +2,7 @@ package com.whale.oauth2.config;
 
 
 import com.whale.oauth2.handler.ExceptionTranslator;
+import com.whale.oauth2.service.WhaleJdbcClientDetailsService;
 import com.whale.oauth2.service.impl.WhaleUserDetailService;
 import com.whale.provider.basices.domain.WhaleUser;
 import org.springframework.context.annotation.Bean;
@@ -39,15 +40,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Resource
     private  RedisConnectionFactory redisConnectionFactory;
 
-    @Resource
-    private  DataSource dataSource;
 
     @Resource
     private  WhaleUserDetailService userDetailService;
 
     //@Resource
     //private  AuthenticationEntryPoint authenticationEntryPoint;
-
+    @Resource
+    private WhaleJdbcClientDetailsService whaleJdbcClientDetailsService;
 
     /**
      * 密码认证
@@ -58,19 +58,21 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Bean
     public TokenStore tokenStore() {
-        TokenStore tokenStore = new RedisTokenStore(redisConnectionFactory);
-        ((RedisTokenStore) tokenStore).setPrefix("whale:");
+        RedisTokenStore tokenStore = new RedisTokenStore(redisConnectionFactory);
+        tokenStore.setPrefix("whale:");
         return tokenStore;
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         // 设置令牌
-        endpoints.tokenStore(tokenStore())
-                .authenticationManager(authenticationManager)
+        endpoints
                 //允许 GET、POST 请求获取 token，即访问端点：oauth/token
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)
+                .tokenStore(tokenStore())
                 .tokenEnhancer(tokenEnhancer())
+                .authenticationManager(authenticationManager)
+
                 .userDetailsService(userDetailService)
                 .reuseRefreshTokens(true)
                 .exceptionTranslator(new ExceptionTranslator())
@@ -106,14 +108,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         // 读取客户端配置
-        clients.withClientDetails(jdbcClientDetails());
+        clients.withClientDetails(whaleJdbcClientDetailsService);
     }
-    @Bean
-    public ClientDetailsService jdbcClientDetails() {
-        // 基于 JDBC 实现，需要事先在数据库配置客户端信息
-        return new JdbcClientDetailsService(dataSource);
-    }
-
 
 
     @Override
