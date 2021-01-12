@@ -17,7 +17,7 @@ import javax.annotation.Resource;
 /**
  * @author sy
  * @date Created in 2020.9.27 0:02
- * @description 资源服务器配置
+ * @description Spring security的http配置
  */
 @Configuration
 @EnableWebSecurity
@@ -56,7 +56,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
 
-        web.ignoring().antMatchers("/auth/login","/test","/swagger-ui.html", "/webjars/**", "/v2/**", "/swagger-resources/**","/doc.html");
+        web.ignoring().antMatchers("/test","/swagger-ui.html", "/webjars/**", "/v2/**", "/swagger-resources/**","/doc.html");
     }
 
 

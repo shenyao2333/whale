@@ -4,7 +4,7 @@ package com.whale.oauth2.config;
 import com.whale.oauth2.handler.ExceptionTranslator;
 import com.whale.oauth2.service.WhaleJdbcClientDetailsService;
 import com.whale.oauth2.service.impl.WhaleUserDetailService;
-import com.whale.provider.basices.domain.WhaleUser;
+import com.whale.provider.security.domian.WhaleUser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -16,26 +16,22 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.ClientDetailsService;
-import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.Resource;
-import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * @author sy
  * @date Created in 2020.9.15 21:52
- * @description 资源服务器配置
+ * @description 认证服务器配置
  */
 @Configuration
 @EnableAuthorizationServer
-public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter  implements WebMvcConfigurer {
+public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter  {
 
     @Resource
     private  RedisConnectionFactory redisConnectionFactory;
@@ -115,9 +111,13 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(AuthorizationServerSecurityConfigurer oauthServer) {
         oauthServer
+                //开启/oauth/token_key验证端口无权限访问
+                .tokenKeyAccess("permitAll()")
+                // 开启/oauth/check_token验证端口认证权限访问
                 .checkTokenAccess("isAuthenticated()")
-                .allowFormAuthenticationForClients()//允许表单认证
-                //.accessDeniedHandler(authenticationEntryPoint)
+                //允许表单认证
+                .allowFormAuthenticationForClients()
+
         ;
 
     }

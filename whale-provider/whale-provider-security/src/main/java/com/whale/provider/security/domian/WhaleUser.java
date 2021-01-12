@@ -1,8 +1,9 @@
-package com.whale.provider.basices.domain;
+package com.whale.provider.security.domian;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
@@ -38,12 +39,23 @@ public class WhaleUser  extends User {
     private Integer userId;
 
 
-    public WhaleUser(Integer userId,String realName, String avatar, String username, String password,  Collection<? extends GrantedAuthority> authorities) {
+
+    public WhaleUser(Integer userId,String realName, String avatar,
+                     String username) {
+        super(username, "" ,  AuthorityUtils.NO_AUTHORITIES);
+        this.userId = userId;
+        this.realName = realName;
+        this.avatar = avatar;
+    }
+
+
+    public WhaleUser(Integer userId,String realName, String avatar,
+                     String username, String password,
+                     Collection<? extends GrantedAuthority> authorities) {
         super(username, password , authorities);
         this.userId = userId;
         this.realName = realName;
         this.avatar = avatar;
-
     }
 
    /* public boolean isAdmin() {

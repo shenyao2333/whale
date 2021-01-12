@@ -2,15 +2,13 @@ package com.whale.oauth2.service.impl;
 
 import com.whale.oauth2.domain.SysUser;
 import com.whale.oauth2.service.SysUserService;
-import com.whale.provider.basices.domain.WhaleUser;
+import com.whale.provider.security.domian.WhaleUser;
 import com.whale.provider.basices.web.GrabException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Base64;

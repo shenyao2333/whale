@@ -1,4 +1,4 @@
-package com.whale.oauth2.handler;
+package com.whale.provider.security.handler;
 
 import com.alibaba.fastjson.JSONObject;
 import com.whale.provider.basices.web.R;

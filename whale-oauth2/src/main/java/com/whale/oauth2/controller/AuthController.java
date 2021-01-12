@@ -2,13 +2,11 @@ package com.whale.oauth2.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.whale.oauth2.domain.SysUser;
 import com.whale.oauth2.domain.dto.LoginDto;
-import com.whale.oauth2.service.SysUserService;
 import com.whale.oauth2.service.impl.WhaleUserDetailService;
-import com.whale.provider.basices.domain.WhaleUser;
+import com.whale.provider.security.domian.WhaleUser;
 import com.whale.provider.basices.redis.RedisUtil;
-import com.whale.provider.basices.utils.SecurityUtil;
+import com.whale.provider.security.utils.SecurityUtil;
 import com.whale.provider.basices.web.GrabException;
 import com.whale.provider.basices.web.R;
 import com.whale.provider.common.utils.RestTemplateUtil;
@@ -24,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * @Author: shenyao

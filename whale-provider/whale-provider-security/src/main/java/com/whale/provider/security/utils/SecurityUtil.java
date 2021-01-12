@@ -1,7 +1,7 @@
-package com.whale.provider.basices.utils;
+package com.whale.provider.security.utils;
 
 
-import com.whale.provider.basices.domain.WhaleUser;
+import com.whale.provider.security.domian.WhaleUser;
 import lombok.experimental.UtilityClass;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
