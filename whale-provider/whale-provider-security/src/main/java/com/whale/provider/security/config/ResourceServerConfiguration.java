@@ -2,6 +2,7 @@ package com.whale.provider.security.config;
 
 import cn.hutool.core.convert.Convert;
 
+import com.whale.provider.security.component.WhaleUserAuthenticationConverter;
 import com.whale.provider.security.filter.WhaleFilter;
 import com.whale.provider.security.handler.AuthenticationEntryPoint;
 import lombok.SneakyThrows;
@@ -16,6 +17,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.Resource;
@@ -28,15 +30,18 @@ import javax.annotation.Resource;
 @Configuration
 @EnableResourceServer
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-/*@Order(2)*/
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
 
     @Resource
     private AuthenticationEntryPoint authenticationEntryPoint;
 
-    @Autowired
+    @Resource
     private RemoteTokenServices remoteTokenServices;
+    @Resource
+    private WhaleUserAuthenticationConverter whaleUserAuthenticationConverter;
+    @Resource
+    private RestTemplate restTemplate;
 
     /**
      * 配置校验token方式
@@ -46,7 +51,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
-        accessTokenConverter.setUserTokenConverter(proUserAuthenticationConverter);
+        accessTokenConverter.setUserTokenConverter(whaleUserAuthenticationConverter);
         remoteTokenServices.setAccessTokenConverter(accessTokenConverter);
         remoteTokenServices.setRestTemplate(restTemplate);
         resources.tokenServices(remoteTokenServices);
