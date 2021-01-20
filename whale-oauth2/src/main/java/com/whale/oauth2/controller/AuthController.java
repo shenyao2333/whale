@@ -33,7 +33,8 @@ import java.util.HashMap;
 
 @RestController
 @RequiredArgsConstructor
-@Api(tags = "用户登录管理")
+@Api(tags = "认证-登录管理")
+@RequestMapping("/auth")
 public class AuthController {
 
     private final RestTemplateUtil restTemplateUtil;
@@ -41,25 +42,8 @@ public class AuthController {
     private final RedisUtil redisUtil;
     private final WhaleUserDetailService sysUserService;
 
-    @GetMapping("/user")
-    @ApiOperation(value = "获取用户信息")
-    public R<WhaleUser> user(){
-// WhaleUser user = SecurityUtil.getUser();
-        return R.ok(null);
-    }
 
-    @GetMapping("/upd")
-    @ApiOperation(value = "获取用户信息")
-    public R<WhaleUser> upd(){
-        UserDetails shenyao = sysUserService.loadUserByUsername("shenyao");
-        return R.ok(null);
-    }
-
-
-
-
-
-    @PostMapping("/auth/login")
+    @PostMapping("/login")
     @ApiOperation(value = "用户登录")
     public R login(@RequestBody @Valid LoginDto loginDto){
         HashMap<String, String> headMap = new HashMap<String, String>(1){
@@ -83,7 +67,7 @@ public class AuthController {
     }
 
 
-    @GetMapping("/auth/logout")
+    @GetMapping("/logout")
     @ApiOperation(value = "登录退出")
     public R logout(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader){
         if (StrUtil.isBlank(authHeader)) {
@@ -99,7 +83,7 @@ public class AuthController {
         // 清空 refresh token
         OAuth2RefreshToken refreshToken = accessToken.getRefreshToken();
         tokenStore.removeRefreshToken(refreshToken);
-        return R.ok();
+        return R.ok("退出成功！");
     }
 
 }
