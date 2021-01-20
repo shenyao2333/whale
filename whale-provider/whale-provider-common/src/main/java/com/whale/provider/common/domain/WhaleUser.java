@@ -1,4 +1,4 @@
-package com.whale.provider.security.domian;
+package com.whale.provider.common.domain;
 
 import lombok.Getter;
 import lombok.Setter;

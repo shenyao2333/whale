@@ -3,14 +3,18 @@ package com.whale.oauth2.handler;
 
 import com.whale.provider.basices.web.R;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.security.oauth2.common.exceptions.InvalidScopeException;
 import org.springframework.security.oauth2.common.exceptions.InvalidTokenException;
 import org.springframework.security.oauth2.common.exceptions.UnsupportedGrantTypeException;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.web.client.HttpClientErrorException;
+
+import java.io.Serializable;
 
 /**
  * @author sy
@@ -24,15 +28,17 @@ public class ExceptionTranslator implements WebResponseExceptionTranslator {
     @Override
     public ResponseEntity translate(Exception e) throws Exception {
         if (e instanceof InvalidGrantException){
-            return ResponseEntity.ok(R.fail(2001,"账号或密码错误！"));
+            return ResponseEntity.ok(R.fail(3001,"密码错误！"));
+        }else if (e instanceof UsernameNotFoundException) {
+            return ResponseEntity.ok(R.fail(3002,"账号不存在！"));
         }else if (e instanceof UnsupportedGrantTypeException) {
-            return ResponseEntity.ok(R.fail(2001,"不支持该认证方式！"));
+            return ResponseEntity.ok(R.fail(3003,"不支持该认证方式！"));
         }else if (e instanceof InvalidScopeException){
-            return ResponseEntity.ok(R.fail(2003,"授权范围错误"));
+            return ResponseEntity.ok(R.fail(3004,"授权范围错误"));
         }else if (e instanceof InternalAuthenticationServiceException){
-            return ResponseEntity.ok(R.fail(2001,"账号或密码错误！"));
+            return ResponseEntity.ok(R.fail(3001,"账号不存在！"));
         }else if (e instanceof InvalidTokenException){
-            return ResponseEntity.ok(R.fail(2001,"token失效！"));
+            return ResponseEntity.ok(R.fail(3004,"token失效！"));
         }
         return ResponseEntity.ok(R.fail(2003,"登陆错误"));
     }

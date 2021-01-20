@@ -3,10 +3,12 @@ package com.whale.provider.security.config;
 import cn.hutool.core.convert.Convert;
 
 import com.whale.provider.security.component.WhaleUserAuthenticationConverter;
+import com.whale.provider.security.exception.CustomAuthenticationEntryPoint;
 import com.whale.provider.security.filter.WhaleFilter;
 import com.whale.provider.security.handler.AuthenticationEntryPoint;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -32,16 +34,21 @@ import javax.annotation.Resource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
-
+    @Resource
+    private PermitProps permitProps;
     @Resource
     private AuthenticationEntryPoint authenticationEntryPoint;
-
     @Resource
     private RemoteTokenServices remoteTokenServices;
     @Resource
     private WhaleUserAuthenticationConverter whaleUserAuthenticationConverter;
     @Resource
+    private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+    @Resource
     private RestTemplate restTemplate;
+    @Value("${security.oauth2.resourceId}")
+    private String resourceId;
+
 
     /**
      * 配置校验token方式
@@ -55,7 +62,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         remoteTokenServices.setAccessTokenConverter(accessTokenConverter);
         remoteTokenServices.setRestTemplate(restTemplate);
         resources.tokenServices(remoteTokenServices);
-        resources.authenticationEntryPoint(authExceptionEntryPoint);
+        resources.authenticationEntryPoint(customAuthenticationEntryPoint);
         resources.resourceId(resourceId);
         super.configure(resources);
     }

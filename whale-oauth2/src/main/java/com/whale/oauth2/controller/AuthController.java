@@ -4,15 +4,17 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.whale.oauth2.domain.dto.LoginDto;
 import com.whale.oauth2.service.impl.WhaleUserDetailService;
-import com.whale.provider.security.domian.WhaleUser;
+
 import com.whale.provider.basices.redis.RedisUtil;
-import com.whale.provider.security.utils.SecurityUtil;
+
 import com.whale.provider.basices.web.GrabException;
 import com.whale.provider.basices.web.R;
+import com.whale.provider.common.domain.WhaleUser;
 import com.whale.provider.common.utils.RestTemplateUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.security.SecurityUtil;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -42,8 +44,8 @@ public class AuthController {
     @GetMapping("/user")
     @ApiOperation(value = "获取用户信息")
     public R<WhaleUser> user(){
-        WhaleUser user = SecurityUtil.getUser();
-        return R.ok(user);
+// WhaleUser user = SecurityUtil.getUser();
+        return R.ok(null);
     }
 
     @GetMapping("/upd")
@@ -74,10 +76,10 @@ public class AuthController {
             }
         };
         JSONObject jsonObject = restTemplateUtil.doPost("http://localhost:8000/oauth/token", headMap, paramsMap, null);
-        if ((boolean)jsonObject.get("status")){
+        if (jsonObject.get("access_token")!=null){
             return R.ok(jsonObject);
         }
-       throw new GrabException( 2002,(String)jsonObject.get("msg"));
+       throw new GrabException(3002,(String)jsonObject.get("msg"));
     }
 
 
@@ -92,15 +94,11 @@ public class AuthController {
         if (accessToken == null || StrUtil.isBlank(accessToken.getValue())) {
             return R.fail("退出失败，token 无效");
         }
-        try {
-            // 清空access token
-            tokenStore.removeAccessToken(accessToken);
-            // 清空 refresh token
-            OAuth2RefreshToken refreshToken = accessToken.getRefreshToken();
-            tokenStore.removeRefreshToken(refreshToken);
-        }catch (Exception e){
-            return R.ok();
-        }
+        // 清空access token
+        tokenStore.removeAccessToken(accessToken);
+        // 清空 refresh token
+        OAuth2RefreshToken refreshToken = accessToken.getRefreshToken();
+        tokenStore.removeRefreshToken(refreshToken);
         return R.ok();
     }
 

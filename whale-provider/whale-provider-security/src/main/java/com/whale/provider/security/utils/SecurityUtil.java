@@ -1,7 +1,7 @@
 package com.whale.provider.security.utils;
 
 
-import com.whale.provider.security.domian.WhaleUser;
+//import com.whale.provider.security.domian.WhaleUser;
 import lombok.experimental.UtilityClass;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,13 +25,13 @@ public class SecurityUtil {
 	/**
 	 * 获取用户
 	 */
-	public WhaleUser getUser() {
+	/*public WhaleUser getUser() {
 		Authentication authentication = getAuthentication();
 		if (authentication==null){
 			return null;
 		}
 		return (WhaleUser) authentication.getPrincipal();
-	}
+	}*/
 
 
 }

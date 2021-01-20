@@ -2,7 +2,6 @@
 package com.whale.provider.security.component;
 
 
-import com.whale.provider.security.domian.WhaleUser;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -31,8 +30,8 @@ public class WhaleUserAuthenticationConverter extends DefaultUserAuthenticationC
            //Long userId = Long.valueOf(String.valueOf(obj));
            //Object objType = map.get(AdditionalToken.USER_TYPE);
            //Object tenantId = map.get(AdditionalToken.TENANT_ID);
-            WhaleUser user = new WhaleUser(1,"WhaleUser","","");
-            return new UsernamePasswordAuthenticationToken(user, "N/A", AuthorityUtils.NO_AUTHORITIES);
+            //WhaleUser user = new WhaleUser(1,"WhaleUser","","");
+            return new UsernamePasswordAuthenticationToken(null, "N/A", AuthorityUtils.NO_AUTHORITIES);
         } else {
             return null;
         }

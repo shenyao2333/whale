@@ -4,7 +4,7 @@ package com.whale.oauth2.config;
 import com.whale.oauth2.handler.ExceptionTranslator;
 import com.whale.oauth2.service.WhaleJdbcClientDetailsService;
 import com.whale.oauth2.service.impl.WhaleUserDetailService;
-import com.whale.provider.security.domian.WhaleUser;
+import com.whale.provider.common.domain.WhaleUser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -68,7 +68,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .tokenStore(tokenStore())
                 .tokenEnhancer(tokenEnhancer())
                 .authenticationManager(authenticationManager)
-
                 .userDetailsService(userDetailService)
                 .reuseRefreshTokens(true)
                 .exceptionTranslator(new ExceptionTranslator())
@@ -90,7 +89,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                     put("userName", userDetails.getUsername());
                     put("userId",userDetails.getUserId());
                     put("avatar",userDetails.getAvatar());
-                    put("status",true);
                 }
             };
             ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(info);

@@ -21,7 +21,6 @@ import javax.annotation.Resource;
  */
 @Configuration
 @EnableWebSecurity
-/*@Order(1)*/
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Resource
@@ -56,7 +55,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
 
-        web.ignoring().antMatchers("/test","/swagger-ui.html", "/webjars/**", "/v2/**", "/swagger-resources/**","/doc.html");
+        web.ignoring().antMatchers("/test","/swagger-ui.html", "/webjars/**", "/v2/**", "/swagger-resources/**","/doc.html","/auth/login");
     }
 
 
