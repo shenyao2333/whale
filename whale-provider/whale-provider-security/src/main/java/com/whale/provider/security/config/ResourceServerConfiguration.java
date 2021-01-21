@@ -10,6 +10,7 @@ import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -29,9 +30,10 @@ import javax.annotation.Resource;
  * @date Created in 2020.9.27 0:06
  * @description spring security oauth 的http配置。
  */
+@RefreshScope
 @Configuration
 @EnableResourceServer
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
     @Resource
@@ -46,6 +48,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
     @Resource
     private RestTemplate restTemplate;
+
     @Value("${security.oauth2.resourceId}")
     private String resourceId;
 

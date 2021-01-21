@@ -34,6 +34,8 @@ public class AliyunSecretKeyServiceImpl implements AliyunSecretKeyService {
     private String roleArn ;
     @Value("${oss.roleSessionName}")
     private String roleSessionName;
+
+
     private final String endpoint = "sts.cn-shenzhen.aliyuncs.com";
     private final RedisUtil redisUtil;
     private String stsKey="aliyunSecret:sts";
