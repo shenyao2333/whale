@@ -4,10 +4,8 @@ import cn.hutool.core.convert.Convert;
 
 import com.whale.provider.security.component.WhaleUserAuthenticationConverter;
 import com.whale.provider.security.exception.CustomAuthenticationEntryPoint;
-import com.whale.provider.security.filter.WhaleFilter;
 import com.whale.provider.security.handler.AuthenticationEntryPoint;
-import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -18,8 +16,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -30,6 +26,7 @@ import javax.annotation.Resource;
  * @date Created in 2020.9.27 0:06
  * @description spring security oauth 的http配置。
  */
+@Slf4j
 @RefreshScope
 @Configuration
 @EnableResourceServer
@@ -38,10 +35,9 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 
     @Resource
     private PermitProps permitProps;
-    @Resource
-    private AuthenticationEntryPoint authenticationEntryPoint;
-    @Resource
-    private RemoteTokenServices remoteTokenServices;
+
+   // @Resource
+   // private RemoteTokenServices remoteTokenServices;
     @Resource
     private WhaleUserAuthenticationConverter whaleUserAuthenticationConverter;
     @Resource
@@ -62,9 +58,9 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
         accessTokenConverter.setUserTokenConverter(whaleUserAuthenticationConverter);
-        remoteTokenServices.setAccessTokenConverter(accessTokenConverter);
-        remoteTokenServices.setRestTemplate(restTemplate);
-        resources.tokenServices(remoteTokenServices);
+       //remoteTokenServices.setAccessTokenConverter(accessTokenConverter);
+       //remoteTokenServices.setRestTemplate(restTemplate);
+       //resources.tokenServices(remoteTokenServices);
         resources.authenticationEntryPoint(customAuthenticationEntryPoint);
         resources.resourceId(resourceId);
         super.configure(resources);
@@ -79,7 +75,9 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
      */
     @Override
     public void configure(HttpSecurity http) throws Exception {
+
         String[] urls = Convert.toStrArray(permitProps.getIgnoreUrls());
+        log.info("忽略路径有："+permitProps.getIgnoreUrls());
         http.headers().frameOptions().disable();
         http.authorizeRequests().antMatchers(urls).permitAll();
         http.authorizeRequests().requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll();

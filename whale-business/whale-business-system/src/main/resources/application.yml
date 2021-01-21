@@ -1,7 +1,7 @@
 security:
   oauth2:
+    resourceId: 1
     client:
-      resourceId: 1
       ignore-urls:
         - /v2/api-docs
         - /swagger-resources
@@ -10,3 +10,6 @@ security:
         - /configuration/security
         - /swagger-ui.html
         - /webjars/**
+        - /doc.html
+    resource:
+      id: 12
