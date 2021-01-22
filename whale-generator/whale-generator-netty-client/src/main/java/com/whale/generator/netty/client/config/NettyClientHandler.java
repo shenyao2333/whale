@@ -1,5 +1,6 @@
 package com.whale.generator.netty.client.config;
 
+import com.whale.generator.netty.common.protocol.Cmd;
 import com.whale.generator.netty.common.protocol.Msg;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -17,7 +18,11 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<Msg.Base> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, Msg.Base msg) throws Exception {
-        log.info("客户端收到消息：{}-- , {}",msg.getContent(),msg.getMsgId());
+        if (msg.getCmd() != Cmd.Command.HEARTBEAT_RESPONSE){
+            System.out.println(msg.getCmd() );
+            String cMsgId = msg.getCMsgId();
+            log.info("客户端收到消息：内容：{}, id：{}，cid：{}",msg.getContent(),msg.getMsgId(),cMsgId);
+        }
     }
 
 

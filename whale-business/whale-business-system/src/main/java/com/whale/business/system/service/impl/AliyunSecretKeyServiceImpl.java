@@ -25,7 +25,6 @@ import org.springframework.stereotype.Service;
 public class AliyunSecretKeyServiceImpl implements AliyunSecretKeyService {
 
 
-
     @Value("${oss.accessKeyId}")
     private String accessKeyId ;
     @Value("${oss.accessKeySecret}")
@@ -43,6 +42,8 @@ public class AliyunSecretKeyServiceImpl implements AliyunSecretKeyService {
 
     @Override
     public OssSTSVo getOssSTS() {
+
+        System.out.println("进来了");
         Object o = redisUtil.get(stsKey);
         if (o!=null){
             return  (OssSTSVo)o;

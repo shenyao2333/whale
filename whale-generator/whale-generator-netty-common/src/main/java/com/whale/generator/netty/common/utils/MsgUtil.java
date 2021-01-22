@@ -16,7 +16,7 @@ public class MsgUtil {
      * @return
      */
     public static Msg.Base  sysMsg(String content){
-        return buildMsg("","",content, Cmd.Command.SYSTEM,"","",null);
+        return buildMsg("","",content, Cmd.Command.SYSTEM,"","",Msg.StatusType.READ);
     }
 
     /**
@@ -104,7 +104,7 @@ public class MsgUtil {
 
 
     private static  Msg.Base  buildMsg(String msgId, String cmsgId , String content, Cmd.Command cmd, String sendUserId, String accepterId, Msg.StatusType statusType){
-        return new  Msg.Base().toBuilder()
+        Msg.Base build = new Msg.Base().toBuilder()
                 .setCMsgId(cmsgId)
                 .setMsgId(msgId)
                 .setContent(content)
@@ -112,8 +112,11 @@ public class MsgUtil {
                 .setSendTime(System.currentTimeMillis())
                 .setAccepterId(accepterId)
                 .setSendUserId(sendUserId)
-                .setMsgStatus(statusType)
                 .build();
+        if (statusType!=null){
+            build.toBuilder().setMsgStatus(statusType);
+        }
+        return build;
     }
 
 

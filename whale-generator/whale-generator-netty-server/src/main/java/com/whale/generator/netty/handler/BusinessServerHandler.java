@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.whale.generator.netty.common.protocol.Cmd;
 import com.whale.generator.netty.common.service.BusinessMsgService;
 import com.whale.generator.netty.common.service.ChangeMsgService;
+import com.whale.generator.netty.common.service.FriendService;
 import com.whale.generator.netty.common.service.MessageUnreadStatusService;
 import com.whale.generator.netty.common.utils.MsgUtil;
 import com.whale.provider.common.utils.SnowflakeId;
@@ -29,8 +30,8 @@ public class BusinessServerHandler extends ChannelInboundHandlerAdapter {
 
     private final BusinessMsgService businessMsgService;
     private final ChangeMsgService changeMsgService;
-
     private final MessageUnreadStatusService messageUnreadStatusService;
+    private final FriendService friendService;
 
 
     @Override
@@ -46,6 +47,11 @@ public class BusinessServerHandler extends ChannelInboundHandlerAdapter {
             Boolean line = ChannelManage.isLine(accepterId);
             if(StrUtil.isBlank(accepterId)){
                 this.errorReply(ctx,"消息接收人不能为空！");
+                return;
+            }
+            Boolean isFriend = friendService.isFriend(Integer.parseInt(sendUserId), Integer.parseInt(accepterId));
+            if (!isFriend) {
+                this.errorReply(ctx,"对方不是好友！");
                 return;
             }
             String status = "-";
@@ -65,9 +71,7 @@ public class BusinessServerHandler extends ChannelInboundHandlerAdapter {
     }
 
 
-    protected boolean asdf(){
-        return true;
-    }
+
 
     protected void errorReply(ChannelHandlerContext ctx,String content){
         Msg.Base backMsg = MsgUtil.sysMsg(content);

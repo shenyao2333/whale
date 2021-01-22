@@ -3,6 +3,7 @@ package com.whale.generator.netty.controller;
 import com.whale.generator.netty.common.domain.MessageInfo;
 import com.whale.generator.netty.common.service.MessageInfoService;
 import com.whale.provider.basices.redis.RedisUtil;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,6 +29,14 @@ public class TestController {
         messageInfoService.save(messageInfo);
         System.out.println(messageInfo.getId());
     }
+
+
+    @GetMapping("/test2")
+    @Cacheable(value = "test#12" ,key = "1")
+    public void sdf(){
+        System.out.println("进来了");
+    }
+
 
 
 }

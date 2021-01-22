@@ -33,7 +33,10 @@ public class AuthServerHandler extends ChannelInboundHandlerAdapter{
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object message) throws Exception {
         Msg.Base msg = (Msg.Base)message;
-        log.info("收到信息->"+ msg.getContent());
+        if (!msg.getCmd().equals(Cmd.Command.HEARTBEAT_REQUEST)){
+            log.info("收到信息->"+ msg.getContent());
+        }
+
         String token = msg.getToken();
         if(StrUtil.isBlank(token)||!redisUtil.hasKey(SysConstant.tokenBegin + token)){
             if (StrUtil.isBlank(token)||!redisUtil.hasKey(SysConstant.tokenBegin + token)){
@@ -63,7 +66,7 @@ public class AuthServerHandler extends ChannelInboundHandlerAdapter{
 
         if (msg.getCmd().equals(Cmd.Command.HEARTBEAT_REQUEST)){
             Msg.Base restMsg = MsgUtil.sysMsg("心跳已收到，请保持连接！");
-            ctx.writeAndFlush(restMsg);
+           // ctx.writeAndFlush(restMsg);
             return;
         }
 

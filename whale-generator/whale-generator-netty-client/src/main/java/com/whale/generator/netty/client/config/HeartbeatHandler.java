@@ -34,9 +34,9 @@ public class HeartbeatHandler extends ChannelInboundHandlerAdapter {
         if (evt instanceof IdleStateEvent) {
             IdleStateEvent idleStateEvent = (IdleStateEvent) evt;
             if (idleStateEvent.state() == IdleState.WRITER_IDLE) {
-                log.info("已经60s未发生读写操作，发送心跳消息");
+                //log.info("已经60s未发生读写操作，发送心跳消息");
                 //发送心跳消息，并在发送失败时关闭该连接
-                ctx.writeAndFlush(new Msg.Base().toBuilder().setSendTime(System.currentTimeMillis()).setContent("心跳消息").setCmd(Cmd.Command.HEARTBEAT_REQUEST).build());
+                ctx.writeAndFlush(new Msg.Base().toBuilder().setSendTime(System.currentTimeMillis()).setContent("心跳消息").setToken("eafea0f5-344a-4142-8606-30b7e93f5886").setCmd(Cmd.Command.HEARTBEAT_REQUEST).build());
             }
         } else {
             super.userEventTriggered(ctx, evt);

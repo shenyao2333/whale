@@ -11,6 +11,7 @@ import com.whale.business.system.domain.vo.OssSTSVo;
 import com.whale.business.system.service.AliyunSecretKeyService;
 import com.whale.business.system.service.SecretKeyService;
 import com.whale.provider.basices.web.R;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,9 +28,10 @@ import javax.crypto.SecretKey;
 @RestController
 @RequestMapping("/sys/secretKey")
 @RequiredArgsConstructor
+@Api(tags = "密钥-阿里云")
 public class SecretKeyController {
 
-    private final SecretKeyService secretKeyService;
+
     private final AliyunSecretKeyService aliyunSecretKeyService;
 
     @GetMapping("/getOssSTS")

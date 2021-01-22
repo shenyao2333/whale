@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.UUID;
 
 /**
  * @author sy
@@ -29,9 +30,11 @@ public class TestController {
     public void send(String content){
         Msg.Base msg = new Msg.Base().toBuilder()
                 .setCmd(Cmd.Command.NORMAL)
+                .setCMsgId(UUID.randomUUID().toString())
                 .setSendUserId("3")
                 .setAccepterId("1")
                 .setSendTime(System.currentTimeMillis())
+                .setToken("eafea0f5-344a-4142-8606-30b7e93f5886")
                 .setContent(content).build();
         nettyClient.sendMsg(msg);
     }
@@ -40,7 +43,7 @@ public class TestController {
     @GetMapping("/sendAuth")
     public void sendAuth(String content){
         Msg.Base msg = new Msg.Base().toBuilder()
-                .setToken("ca2830d3-59f2-4fe0-ba18-0eaef252e987")
+                .setToken("eafea0f5-344a-4142-8606-30b7e93f5886")
                 .setCmd(Cmd.Command.AUTH)
                 .setContent("登录请求")
                 .setSendUserId("3")

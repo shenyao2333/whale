@@ -16,6 +16,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -36,8 +37,6 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     @Resource
     private PermitProps permitProps;
 
-   // @Resource
-   // private RemoteTokenServices remoteTokenServices;
     @Resource
     private WhaleUserAuthenticationConverter whaleUserAuthenticationConverter;
     @Resource
@@ -58,9 +57,10 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
         accessTokenConverter.setUserTokenConverter(whaleUserAuthenticationConverter);
-       //remoteTokenServices.setAccessTokenConverter(accessTokenConverter);
-       //remoteTokenServices.setRestTemplate(restTemplate);
-       //resources.tokenServices(remoteTokenServices);
+        RemoteTokenServices tokenServices = new RemoteTokenServices();
+        tokenServices.setAccessTokenConverter(accessTokenConverter);
+        tokenServices.setRestTemplate(restTemplate);
+        resources.tokenServices(tokenServices);
         resources.authenticationEntryPoint(customAuthenticationEntryPoint);
         resources.resourceId(resourceId);
         super.configure(resources);
