@@ -1,13 +1,16 @@
 package com.whale.generator.netty.controller;
 
 import com.whale.generator.netty.common.domain.MessageInfo;
+import com.whale.generator.netty.common.service.FriendService;
 import com.whale.generator.netty.common.service.MessageInfoService;
 import com.whale.provider.basices.redis.RedisUtil;
+import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.Set;
 
 /**
  * @Author: shenyao
@@ -15,12 +18,13 @@ import javax.annotation.Resource;
  * @description:
  */
 @RestController
+@AllArgsConstructor
 public class TestController {
 
-    @Resource
-    private RedisUtil redisUtil;
-    @Resource
-    private MessageInfoService messageInfoService;
+
+    private final  RedisUtil redisUtil;
+    private final MessageInfoService messageInfoService;
+    private final FriendService friendService;
 
     @GetMapping("/test")
     public void test(){
@@ -38,5 +42,11 @@ public class TestController {
     }
 
 
+    @GetMapping("/test3")
+    public Object friendIdByUserId(){
+        Boolean friend = friendService.isFriend(3, 1);
+       // Set<Integer> friendIdByUserId = friendService.getFriendIdByUserId(3);
+        return friend;
+    }
 
 }

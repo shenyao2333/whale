@@ -4,14 +4,14 @@ import com.whale.generator.netty.common.constant.NettyConstant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
-import java.util.List;
 import java.util.Set;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.whale.generator.netty.common.mapper.FriendMapper;
 import com.whale.generator.netty.common.domain.Friend;
 import com.whale.generator.netty.common.service.FriendService;
+
+import javax.annotation.Resource;
 
 /**
  * @Author: shenyao
@@ -24,6 +24,9 @@ public class FriendServiceImpl extends ServiceImpl<FriendMapper, Friend> impleme
 
     private final FriendMapper friendMapper;
 
+    @Resource
+    private FriendService friendService;
+
 
     @Override
     @Cacheable(value = NettyConstant.FRIEND_LIST_ID + "#86400", key = "#userId" )
@@ -35,7 +38,7 @@ public class FriendServiceImpl extends ServiceImpl<FriendMapper, Friend> impleme
 
     @Override
     public Boolean isFriend(Integer userId, Integer friendId) {
-        Set<Integer> friendIdList = this.getFriendIdByUserId(userId);
+        Set<Integer> friendIdList = friendService.getFriendIdByUserId(userId);
         return  friendIdList.contains(friendId);
     }
 
