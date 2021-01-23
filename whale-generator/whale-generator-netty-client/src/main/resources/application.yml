@@ -1,6 +1,6 @@
 netty:
   port: 12240
-  host: 127.0.0.1
+  host: 123.57.34.92
 server:
   port: 1041
 

@@ -1,3 +1,4 @@
+/*
 package com.whale.provider.common.domain;
 
 import lombok.Getter;
@@ -9,31 +10,39 @@ import org.springframework.security.core.userdetails.User;
 import java.util.Collection;
 
 
+*/
 /**
  * @Author: shenyao
  * @Date: Created by 2020/11/25 22:18
  * @description:
- */
+ *//*
+
 public class WhaleUser  extends User {
 
 
-    /**
+    */
+/**
      * 真实姓名
-     */
+     *//*
+
     @Getter
     @Setter
     private String realName;
 
-    /**
+    */
+/**
      * 头像
-     */
+     *//*
+
     @Getter
     @Setter
     private String avatar;
 
-    /**
+    */
+/**
      * userId
-     */
+     *//*
+
     @Getter
     @Setter
     private Integer userId;
@@ -58,12 +67,15 @@ public class WhaleUser  extends User {
         this.avatar = avatar;
     }
 
-   /* public boolean isAdmin() {
+   */
+/* public boolean isAdmin() {
         return isAdmin(this.userId);
     }
 
     public static boolean isAdmin(Integer id) {
         return id != null && 1 == id;
-    }*/
+    }*//*
+
 
 }
+*/

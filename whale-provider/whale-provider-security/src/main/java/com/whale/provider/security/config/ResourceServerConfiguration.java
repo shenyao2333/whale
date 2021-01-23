@@ -28,7 +28,6 @@ import javax.annotation.Resource;
  * @description spring security oauth 的http配置。
  */
 @Slf4j
-@RefreshScope
 @Configuration
 @EnableResourceServer
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
@@ -44,8 +43,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     @Resource
     private RestTemplate restTemplate;
 
-    @Value("${security.oauth2.resourceId}")
-    private String resourceId;
+    //@Value("${security.oauth2.resourceId}")
+    //private String resourceId;
 
 
     /**
@@ -62,7 +61,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         tokenServices.setRestTemplate(restTemplate);
         resources.tokenServices(tokenServices);
         resources.authenticationEntryPoint(customAuthenticationEntryPoint);
-        resources.resourceId(resourceId);
+       // resources.resourceId(resourceId);
         super.configure(resources);
     }
 
