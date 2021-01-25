@@ -1,3 +1,4 @@
+/*
 package com.whale.oauth2.service;
 
 import org.springframework.cache.annotation.Cacheable;
@@ -8,11 +9,13 @@ import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 
+*/
 /**
  * @Author: shenyao
  * @Date: Created by 2021/1/5 21:08
  * @description: 实现oauth2 的 读取客户端
- */
+ *//*
+
 @Service
 public class WhaleJdbcClientDetailsService extends JdbcClientDetailsService {
 
@@ -26,3 +29,4 @@ public class WhaleJdbcClientDetailsService extends JdbcClientDetailsService {
         return super.loadClientByClientId(clientId);
     }
 }
+*/

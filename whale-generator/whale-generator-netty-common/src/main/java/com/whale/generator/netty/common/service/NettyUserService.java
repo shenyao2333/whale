@@ -5,15 +5,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 
-public interface NettyUserService extends IService<NettyUser> {
+/**
+ * @Author: shenyao
+ * @Date: Created by 2021/1/22 20:20
+ * @description: ${description}
+ */
+public interface NettyUserService extends IService<NettyUser>{
 
-
-    /**
-     * 批量获取用户信息
-     *
-     * @return
-     */
     List<NettyUser> getByUserIds(List<Integer> userIds);
-
 }
-

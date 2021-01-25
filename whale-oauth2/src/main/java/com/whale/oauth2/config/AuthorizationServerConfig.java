@@ -2,7 +2,7 @@ package com.whale.oauth2.config;
 
 
 import com.whale.oauth2.handler.ExceptionTranslator;
-import com.whale.oauth2.service.WhaleJdbcClientDetailsService;
+//import com.whale.oauth2.service.WhaleJdbcClientDetailsService;
 import com.whale.oauth2.service.impl.WhaleUserDetailService;
 import com.whale.provider.security.domain.WhaleUser;
 import org.springframework.context.annotation.Bean;
@@ -16,11 +16,15 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +38,7 @@ import java.util.Map;
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter  {
 
     @Resource
-    private  RedisConnectionFactory redisConnectionFactory;
+    private RedisConnectionFactory redisConnectionFactory;
 
 
     @Resource
@@ -44,9 +48,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     //private  AuthenticationEntryPoint authenticationEntryPoint;
 
 
+  //  @Resource
+  //  private WhaleJdbcClientDetailsService whaleJdbcClientDetailsService;
     @Resource
-    private WhaleJdbcClientDetailsService whaleJdbcClientDetailsService;
-
+    private  DataSource dataSource;
     /**
      * 密码认证
      */
@@ -99,13 +104,17 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     }
 
-
-
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        // 读取客户端配置
-        clients.withClientDetails(whaleJdbcClientDetailsService);
+        clients.withClientDetails(clientDetails());
     }
+    @Bean
+    public ClientDetailsService clientDetails() {
+        //s使用数据存客户端信息
+        return new JdbcClientDetailsService(dataSource);
+    }
+
+
 
 
     @Override

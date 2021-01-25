@@ -8,22 +8,23 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.whale.generator.netty.common.domain.NettyUser;
 import com.whale.generator.netty.common.mapper.NettyUserMapper;
 import com.whale.generator.netty.common.service.NettyUserService;
-
-
+/**
+ * @Author: shenyao
+ * @Date: Created by 2021/1/22 20:20
+ * @description: ${description}
+ */
 @Service
 @RequiredArgsConstructor
-public class NettyUserServiceImpl extends ServiceImpl<NettyUserMapper, NettyUser> implements NettyUserService {
-
+public class NettyUserServiceImpl extends ServiceImpl<NettyUserMapper, NettyUser> implements NettyUserService{
 
     private final NettyUserMapper nettyUserMapper;
 
 
     @Override
     public List<NettyUser> getByUserIds(List<Integer> userIds) {
-        if (userIds == null || userIds.size() < 1) {
-            return null;
-        }
-        return nettyUserMapper.getByUserIds(userIds);
+       // return nettyUserMapper.;
+        return null;
     }
-}
 
+
+}

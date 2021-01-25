@@ -7,14 +7,20 @@ import com.whale.provider.security.exception.CustomAuthenticationEntryPoint;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
@@ -30,21 +36,22 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Configuration
+@RefreshScope
 @EnableResourceServer
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
     @Resource
     private PermitProps permitProps;
 
-    //@Resource
-    //private WhaleUserAuthenticationConverter whaleUserAuthenticationConverter;
+    @Resource
+    private WhaleUserAuthenticationConverter whaleUserAuthenticationConverter;
 
     @Resource
     private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
     @Resource
-    private RestTemplate restTemplate;
+    private RedisConnectionFactory redisConnectionFactory;
 
     @Value("${security.oauth2.resourceId}")
     private String resourceId;
@@ -52,24 +59,39 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
    // @Resource
    // private RemoteTokenServices remoteTokenServices;
 
+
+    @Resource
+    private RestTemplate restTemplate;
+
     /**
      * 配置校验token方式
-     * @param resources
+     * @param
      * @throws Exception
      */
-    //@Override
-    //public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-    //    DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
-    //    //accessTokenConverter.setUserTokenConverter(whaleUserAuthenticationConverter);
-    //    remoteTokenServices.setAccessTokenConverter(accessTokenConverter);
-    //    remoteTokenServices.setRestTemplate(restTemplate);
-    //    resources.tokenServices(remoteTokenServices);
-    //    resources.authenticationEntryPoint(customAuthenticationEntryPoint);
-    //    log.info("注入{}",resourceId);
-    //    resources.resourceId(resourceId);
-    //    super.configure(resources);
-    //}
+    @Override
+    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+        DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
+        accessTokenConverter.setUserTokenConverter(whaleUserAuthenticationConverter);
+        RemoteTokenServices remoteTokenServices = new RemoteTokenServices();
+        remoteTokenServices.setAccessTokenConverter(accessTokenConverter);
+        remoteTokenServices.setRestTemplate(restTemplate);
+        remoteTokenServices.setClientId("whale");
+        remoteTokenServices.setClientSecret("$2a$10$AaffQSqPMC9m4VnCwK4rMuLfVYI.wyC2YU1ZuU4Zc1U0z0rnH/h2S");
+        resources.tokenServices(remoteTokenServices);
 
+        resources.authenticationEntryPoint(customAuthenticationEntryPoint);
+        log.info("注入{}",resourceId);
+        resources.resourceId(resourceId);
+        super.configure(resources);
+    }
+
+   //@Bean
+   //@Primary
+   //public RedisTokenStore tokenStore() {
+   //    RedisTokenStore tokenStore = new RedisTokenStore(redisConnectionFactory);
+   //    tokenStore.setPrefix("user-token:");
+   //    return tokenStore;
+   //}
 
 
     /**
@@ -79,8 +101,6 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
      */
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        List<String> usrls = permitProps.getIgnoreUrls();
-
         String[] urls = Convert.toStrArray(permitProps.getIgnoreUrls());
         log.info("忽略路径有："+permitProps.getIgnoreUrls());
         http.headers().frameOptions().disable();

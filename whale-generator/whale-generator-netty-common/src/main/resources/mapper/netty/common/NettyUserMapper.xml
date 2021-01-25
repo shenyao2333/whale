@@ -29,14 +29,4 @@
     id, user_name, real_name, qq, we_chat, `password`, phone, sex, email, avatar, `status`, 
     created, updated, province, city, county, address, `type`, del
   </sql>
-
-  <select id="getByUserIds" resultMap="BaseResultMap">
-    select
-     <include refid="Base_Column_List" />
-    from sys_user where del = '0'
-    and id in
-    <foreach close=")" collection="userIds" item="userId" open="(" separator=",">
-      #{userId,jdbcType=INTEGER}
-    </foreach>
-  </select>
 </mapper>
