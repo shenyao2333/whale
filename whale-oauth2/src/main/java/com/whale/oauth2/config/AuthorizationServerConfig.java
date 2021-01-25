@@ -4,7 +4,7 @@ package com.whale.oauth2.config;
 import com.whale.oauth2.handler.ExceptionTranslator;
 import com.whale.oauth2.service.WhaleJdbcClientDetailsService;
 import com.whale.oauth2.service.impl.WhaleUserDetailService;
-import com.whale.provider.common.domain.WhaleUser;
+import com.whale.provider.security.domain.WhaleUser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -42,6 +42,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     //@Resource
     //private  AuthenticationEntryPoint authenticationEntryPoint;
+
+
     @Resource
     private WhaleJdbcClientDetailsService whaleJdbcClientDetailsService;
 

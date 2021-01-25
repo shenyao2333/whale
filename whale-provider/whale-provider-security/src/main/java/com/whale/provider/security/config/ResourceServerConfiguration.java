@@ -1,14 +1,12 @@
 package com.whale.provider.security.config;
 
-import cn.hutool.core.convert.Convert;
 
+import cn.hutool.core.convert.Convert;
 import com.whale.provider.security.component.WhaleUserAuthenticationConverter;
 import com.whale.provider.security.exception.CustomAuthenticationEntryPoint;
-import com.whale.provider.security.handler.AuthenticationEntryPoint;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,9 +16,12 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author sy
@@ -36,34 +37,38 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     @Resource
     private PermitProps permitProps;
 
-    @Resource
-    private WhaleUserAuthenticationConverter whaleUserAuthenticationConverter;
+    //@Resource
+    //private WhaleUserAuthenticationConverter whaleUserAuthenticationConverter;
+
     @Resource
     private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+
     @Resource
     private RestTemplate restTemplate;
 
-    //@Value("${security.oauth2.resourceId}")
-    //private String resourceId;
+    @Value("${security.oauth2.resourceId}")
+    private String resourceId;
 
+   // @Resource
+   // private RemoteTokenServices remoteTokenServices;
 
     /**
      * 配置校验token方式
      * @param resources
      * @throws Exception
      */
-    @Override
-    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-        DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
-        accessTokenConverter.setUserTokenConverter(whaleUserAuthenticationConverter);
-        RemoteTokenServices tokenServices = new RemoteTokenServices();
-        tokenServices.setAccessTokenConverter(accessTokenConverter);
-        tokenServices.setRestTemplate(restTemplate);
-        resources.tokenServices(tokenServices);
-        resources.authenticationEntryPoint(customAuthenticationEntryPoint);
-       // resources.resourceId(resourceId);
-        super.configure(resources);
-    }
+    //@Override
+    //public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+    //    DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
+    //    //accessTokenConverter.setUserTokenConverter(whaleUserAuthenticationConverter);
+    //    remoteTokenServices.setAccessTokenConverter(accessTokenConverter);
+    //    remoteTokenServices.setRestTemplate(restTemplate);
+    //    resources.tokenServices(remoteTokenServices);
+    //    resources.authenticationEntryPoint(customAuthenticationEntryPoint);
+    //    log.info("注入{}",resourceId);
+    //    resources.resourceId(resourceId);
+    //    super.configure(resources);
+    //}
 
 
 
@@ -74,6 +79,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
      */
     @Override
     public void configure(HttpSecurity http) throws Exception {
+        List<String> usrls = permitProps.getIgnoreUrls();
 
         String[] urls = Convert.toStrArray(permitProps.getIgnoreUrls());
         log.info("忽略路径有："+permitProps.getIgnoreUrls());
@@ -81,6 +87,16 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         http.authorizeRequests().antMatchers(urls).permitAll();
         http.authorizeRequests().requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll();
         http.authorizeRequests().anyRequest().authenticated().and().csrf().disable();
+    }
+
+
+    public static void main(String[] args) {
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            list.add("值："+i);
+        }
+        Iterator<String> iterator = list.iterator();
+
     }
 
 

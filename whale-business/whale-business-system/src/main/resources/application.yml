@@ -11,5 +11,4 @@ security:
         - /swagger-ui.html
         - /webjars/**
         - /doc.html
-    #resource:
-    #  id: 1
+        #- /sys/**

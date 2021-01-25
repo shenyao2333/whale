@@ -43,7 +43,6 @@ public class AliyunSecretKeyServiceImpl implements AliyunSecretKeyService {
     @Override
     public OssSTSVo getOssSTS() {
 
-        System.out.println("进来了");
         Object o = redisUtil.get(stsKey);
         if (o!=null){
             return  (OssSTSVo)o;
