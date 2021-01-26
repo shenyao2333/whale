@@ -17,9 +17,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.springframework.web.client.RestTemplate;
 
@@ -50,48 +52,29 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     @Resource
     private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
-    @Resource
-    private RedisConnectionFactory redisConnectionFactory;
 
     @Value("${security.oauth2.resourceId}")
     private String resourceId;
 
-   // @Resource
-   // private RemoteTokenServices remoteTokenServices;
-
-
     @Resource
-    private RestTemplate restTemplate;
+    private RedisConnectionFactory redisConnectionFactory;
 
     /**
      * 配置校验token方式
      * @param
      * @throws Exception
      */
-    @Override
-    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-        DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
-        accessTokenConverter.setUserTokenConverter(whaleUserAuthenticationConverter);
-        RemoteTokenServices remoteTokenServices = new RemoteTokenServices();
-        remoteTokenServices.setAccessTokenConverter(accessTokenConverter);
-        remoteTokenServices.setRestTemplate(restTemplate);
-        remoteTokenServices.setClientId("whale");
-        remoteTokenServices.setClientSecret("$2a$10$AaffQSqPMC9m4VnCwK4rMuLfVYI.wyC2YU1ZuU4Zc1U0z0rnH/h2S");
-        resources.tokenServices(remoteTokenServices);
+   @Override
+   public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+       DefaultAccessTokenConverter defaultAccessTokenConverter=new DefaultAccessTokenConverter();
+       defaultAccessTokenConverter.setUserTokenConverter(whaleUserAuthenticationConverter);
+       resources.authenticationEntryPoint(customAuthenticationEntryPoint);
+       resources.resourceId(resourceId);
+       super.configure(resources);
+   }
 
-        resources.authenticationEntryPoint(customAuthenticationEntryPoint);
-        log.info("注入{}",resourceId);
-        resources.resourceId(resourceId);
-        super.configure(resources);
-    }
 
-   //@Bean
-   //@Primary
-   //public RedisTokenStore tokenStore() {
-   //    RedisTokenStore tokenStore = new RedisTokenStore(redisConnectionFactory);
-   //    tokenStore.setPrefix("user-token:");
-   //    return tokenStore;
-   //}
+
 
 
     /**
@@ -107,6 +90,13 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         http.authorizeRequests().antMatchers(urls).permitAll();
         http.authorizeRequests().requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll();
         http.authorizeRequests().anyRequest().authenticated().and().csrf().disable();
+    }
+
+    @Bean
+    public TokenStore tokenStore() {
+        RedisTokenStore tokenStore = new RedisTokenStore(redisConnectionFactory);
+        tokenStore.setPrefix("whale:");
+        return tokenStore;
     }
 
 

@@ -1,6 +1,6 @@
 security:
   oauth2:
-    resourceId: 1
+    resourceId: 2
     client:
       ignore-urls:
         - /v2/api-docs
