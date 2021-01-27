@@ -2,11 +2,12 @@ package com.whale.oauth2.config;
 
 
 import com.whale.oauth2.handler.ExceptionTranslator;
-//import com.whale.oauth2.service.WhaleJdbcClientDetailsService;
+import com.whale.oauth2.service.impl.WhaleJdbcClientDetailsService;
 import com.whale.oauth2.service.impl.WhaleUserDetailService;
 import com.whale.provider.security.domain.WhaleUser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,7 +22,6 @@ import org.springframework.security.oauth2.provider.client.JdbcClientDetailsServ
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
-import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -39,32 +39,21 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Resource
     private RedisConnectionFactory redisConnectionFactory;
-
-
     @Resource
     private  WhaleUserDetailService userDetailService;
 
     //@Resource
     //private  AuthenticationEntryPoint authenticationEntryPoint;
 
+    @Resource
+    private WhaleJdbcClientDetailsService whaleJdbcClientDetailsService;
 
-  //  @Resource
-  //  private WhaleJdbcClientDetailsService whaleJdbcClientDetailsService;
     @Resource
     private  DataSource dataSource;
-    /**
-     * 密码认证
-     */
     @Resource
     private   AuthenticationManager authenticationManager;
 
 
-    @Bean
-    public TokenStore tokenStore() {
-        RedisTokenStore tokenStore = new RedisTokenStore(redisConnectionFactory);
-        tokenStore.setPrefix("whale:");
-        return tokenStore;
-    }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
@@ -72,8 +61,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         endpoints
                 //允许 GET、POST 请求获取 token，即访问端点：oauth/token
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)
-                .tokenStore(tokenStore())
                 .tokenEnhancer(tokenEnhancer())
+                .tokenStore(tokenStore())
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailService)
                 .reuseRefreshTokens(true)
@@ -106,12 +95,20 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.withClientDetails(clientDetails());
+        clients.withClientDetails(whaleJdbcClientDetailsService);
     }
     @Bean
     public ClientDetailsService clientDetails() {
         //s使用数据存客户端信息
         return new JdbcClientDetailsService(dataSource);
+    }
+
+    @Bean
+    @Primary
+    public TokenStore tokenStore() {
+        RedisTokenStore tokenStore = new RedisTokenStore(redisConnectionFactory);
+        tokenStore.setPrefix("whale:");
+        return tokenStore;
     }
 
 
@@ -127,8 +124,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 //允许表单认证
                 .allowFormAuthenticationForClients()
                 .checkTokenAccess("permitAll()");
-        ;
-
     }
 
 

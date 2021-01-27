@@ -11,9 +11,12 @@ import com.whale.business.system.domain.vo.OssSTSVo;
 import com.whale.business.system.service.AliyunSecretKeyService;
 import com.whale.provider.basices.redis.RedisUtil;
 import com.whale.provider.basices.web.GrabException;
+import com.whale.provider.basices.web.R;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 /**
  * @Author: shenyao
@@ -24,7 +27,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AliyunSecretKeyServiceImpl implements AliyunSecretKeyService {
 
-
     @Value("${oss.accessKeyId}")
     private String accessKeyId ;
     @Value("${oss.accessKeySecret}")
@@ -33,19 +35,18 @@ public class AliyunSecretKeyServiceImpl implements AliyunSecretKeyService {
     private String roleArn ;
     @Value("${oss.roleSessionName}")
     private String roleSessionName;
-
-
-    private final String endpoint = "sts.cn-shenzhen.aliyuncs.com";
     private final RedisUtil redisUtil;
-    private String stsKey="aliyunSecret:sts";
 
 
     @Override
-    public OssSTSVo getOssSTS() {
+    public OssSTSVo getOssSts() {
 
+        String stsKey = "aliyunSecret:sts";
         Object o = redisUtil.get(stsKey);
         if (o!=null){
-            return  (OssSTSVo)o;
+            OssSTSVo vo = (OssSTSVo)o;
+            vo.setExpiration(redisUtil.getExpire(stsKey));
+            return vo;
         }
         String policy = "{\n" +
                 "    \"Version\": \"1\", \n" +
@@ -62,6 +63,7 @@ public class AliyunSecretKeyServiceImpl implements AliyunSecretKeyService {
                 "    ]\n" +
                 "}";
         try {
+            String endpoint = "sts.cn-shenzhen.aliyuncs.com";
             DefaultProfile.addEndpoint("", "", "Sts", endpoint);
             IClientProfile profile = DefaultProfile.getProfile("", accessKeyId, accessKeySecret);
             DefaultAcsClient client = new DefaultAcsClient(profile);
@@ -70,21 +72,19 @@ public class AliyunSecretKeyServiceImpl implements AliyunSecretKeyService {
             request.setRoleArn(roleArn);
             request.setRoleSessionName(roleSessionName);
             request.setPolicy(policy);
-            request.setDurationSeconds(2000L);
+            request.setDurationSeconds(2800L);
             final AssumeRoleResponse response = client.getAcsResponse(request);
             AssumeRoleResponse.Credentials credentials = response.getCredentials();
-            OssSTSVo ossSTSVo = new OssSTSVo();
-            ossSTSVo.setAccessKey(credentials.getAccessKeyId());
-            ossSTSVo.setSecurityToken(credentials.getSecurityToken());
-            ossSTSVo.setAccessKeySecret(credentials.getAccessKeySecret());
-            String expiration = credentials.getExpiration();
-            ossSTSVo.setExpiration(Long.parseLong(expiration));
-            redisUtil.set(stsKey,ossSTSVo,1800);
-            return ossSTSVo;
+            OssSTSVo ossStsVo = new OssSTSVo();
+            ossStsVo.setAccessKey(credentials.getAccessKeyId());
+            ossStsVo.setSecurityToken(credentials.getSecurityToken());
+            ossStsVo.setAccessKeySecret(credentials.getAccessKeySecret());
+            ossStsVo.setExpiration(2800L);
+            redisUtil.set(stsKey,ossStsVo,2700);
+            return ossStsVo;
         } catch (ClientException e) {
             throw new GrabException(6023,e.getErrMsg());
         }
-
     }
 
 }

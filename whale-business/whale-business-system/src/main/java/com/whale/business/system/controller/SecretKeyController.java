@@ -30,8 +30,8 @@ public class SecretKeyController {
 
     @GetMapping("/getOssSTS")
     @ApiOperation(value = "获取STS临时授权访问OSS")
-    public R<OssSTSVo> getOssSTS(){
-        OssSTSVo vo = aliyunSecretKeyService.getOssSTS();
+    public R<OssSTSVo> getOssSts(){
+        OssSTSVo vo = aliyunSecretKeyService.getOssSts();
         return R.ok(vo);
     }
 

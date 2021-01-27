@@ -10,6 +10,6 @@ import com.whale.business.system.domain.vo.OssSTSVo;
 
 public interface AliyunSecretKeyService {
 
-    OssSTSVo getOssSTS();
+    OssSTSVo getOssSts();
 
 }
