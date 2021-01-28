@@ -10,7 +10,6 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.scheduling.annotation.EnableAsync;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * @Author: shenyao
@@ -19,7 +18,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @EnableDiscoveryClient
 @EnableAsync
-@EnableSwagger2
 @EnableCaching
 @SpringBootApplication(scanBasePackages = "com.whale", exclude  = {SecurityAutoConfiguration.class})
 @MapperScan("com.whale.**.mapper")

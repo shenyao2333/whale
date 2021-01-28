@@ -16,7 +16,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableDiscoveryClient
 @EnableAsync
-@EnableSwagger2
 @EnableCaching
 @MapperScan(basePackages = "com.whale.*.mapper")
 @SpringBootApplication(scanBasePackages = "com.whale")

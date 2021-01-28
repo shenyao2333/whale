@@ -30,6 +30,12 @@
             <version>${version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.whale.ms</groupId>
+            <artifactId>whale-provider-swagger</artifactId>
+            <version>${version}</version>
+        </dependency>
+
 
     </dependencies>
 
