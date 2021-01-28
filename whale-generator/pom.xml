@@ -20,6 +20,7 @@
         <module>whale-generator-netty-server</module>
         <module>whale-generator-netty-client</module>
         <module>whale-generator-rocketmq</module>
+
     </modules>
 
     <dependencies>
