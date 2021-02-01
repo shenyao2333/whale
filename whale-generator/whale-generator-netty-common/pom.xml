@@ -16,6 +16,13 @@
 
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.whale.ms</groupId>
+            <artifactId>whale-provider-swagger</artifactId>
+            <version>${version}</version>
+        </dependency>
+
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
@@ -30,6 +37,8 @@
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
         </dependency>
+
+
 
         <dependency>
             <groupId>com.whale.ms</groupId>
