@@ -43,16 +43,16 @@
         </dependency>
 
         <!--启用 Kryo高速序列化功能-->
-        <dependency>
+      <!--  <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo-serialization-kryo</artifactId>
         </dependency>
 
-        <!--dubbo通信-->
+        &lt;!&ndash;dubbo通信&ndash;&gt;
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-dubbo</artifactId>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

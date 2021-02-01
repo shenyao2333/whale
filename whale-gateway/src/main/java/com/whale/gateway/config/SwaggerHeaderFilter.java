@@ -3,6 +3,7 @@ package com.whale.gateway.config;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -13,8 +14,8 @@ import org.springframework.web.server.ServerWebExchange;
  * @date Created in 2020.8.10 20:39
  * @description swagger 相关配置
  */
-@Component
 @Slf4j
+@Configuration
 public class SwaggerHeaderFilter  extends AbstractGatewayFilterFactory  {
 
     private static final String HEADER_NAME = "X-Forwarded-Prefix";

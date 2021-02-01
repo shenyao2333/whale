@@ -18,7 +18,6 @@ import java.util.List;
 @Slf4j
 @Component
 @Primary
-@AllArgsConstructor
 public class SwaggerProvider implements SwaggerResourcesProvider {
 
 
@@ -32,8 +31,8 @@ public class SwaggerProvider implements SwaggerResourcesProvider {
     @Override
     public List<SwaggerResource> get() {
         List<SwaggerResource> resources = new ArrayList<>();
-        resources.add(swaggerResource("登陆模块","/business-social"));
-        resources.add(swaggerResource("系统模块","/whale-business-system"));
+        resources.add(swaggerResource("认证模块","/oauth2"));
+        resources.add(swaggerResource("系统模块","/business-system"));
         resources.add(swaggerResource("第三方模块","/"));
         resources.add(swaggerResource("任务模块","/"));
         return resources;
