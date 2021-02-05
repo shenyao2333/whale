@@ -32,4 +32,5 @@
 - [ ] es做搜索引擎
 - [x] Redis缓存
 - [x] mybatis-plus
+- [ ] 分布式事务Seata
 
