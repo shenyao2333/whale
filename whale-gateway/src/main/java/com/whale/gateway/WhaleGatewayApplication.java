@@ -15,7 +15,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableCaching
 @EnableDiscoveryClient
 @EnableAsync
-@SpringBootApplication(exclude= {DataSourceAutoConfiguration.class})
+@SpringBootApplication(scanBasePackages = "com.whale",exclude= {DataSourceAutoConfiguration.class})
 public class WhaleGatewayApplication  {
 
     public static void main(String[] args) {
