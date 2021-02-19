@@ -11,4 +11,3 @@ security:
         - /swagger-ui.html
         - /webjars/**
         - /doc.html
-        #- /sys/**

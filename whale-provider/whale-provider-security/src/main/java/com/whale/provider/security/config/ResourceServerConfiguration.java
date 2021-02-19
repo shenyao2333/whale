@@ -75,10 +75,6 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
    }
 
 
-
-
-
-
     /**
      * 对匹配的资源进行放行
      * @param http
@@ -96,15 +92,6 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 
 
 
-
-    public static void main(String[] args) {
-        ArrayList<String> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            list.add("值："+i);
-        }
-        Iterator<String> iterator = list.iterator();
-
-    }
 
 
 
