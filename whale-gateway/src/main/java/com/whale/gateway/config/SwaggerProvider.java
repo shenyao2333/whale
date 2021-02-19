@@ -29,7 +29,7 @@ public class SwaggerProvider implements SwaggerResourcesProvider {
     /**
      * swagger2默认的url后缀SwaggerProvider
      */
-    private static String API_URI = "/v2/api-docs";
+    private static final String API_URI = "/v2/api-docs";
     private final GatewayProperties gatewayProperties;
     private final RouteLocator routeLocator;
 
@@ -45,9 +45,8 @@ public class SwaggerProvider implements SwaggerResourcesProvider {
                     .filter(predicateDefinition -> ("Path").equalsIgnoreCase(predicateDefinition.getName()))
                     .forEach(predicateDefinition -> resources.add(swaggerResource(route.getId(),
                             predicateDefinition.getArgs().get(NameUtils.GENERATED_NAME_PREFIX + "0")
-                                    .replace("**", "v2/api-docs"))));
+                                    .replace("**", API_URI))));
         });
-        log.info("加载完毕");
         return resources;
     }
 
@@ -55,7 +54,7 @@ public class SwaggerProvider implements SwaggerResourcesProvider {
         log.info("name:{},location:{}",name,location);
         SwaggerResource swaggerResource = new SwaggerResource();
         swaggerResource.setName(name);
-        swaggerResource.setLocation(location+API_URI);
+        swaggerResource.setLocation(location);
         swaggerResource.setSwaggerVersion("1.0.0");
         return swaggerResource;
     }

@@ -10,14 +10,14 @@ spring:
           uri: lb://whale-oauth2
           order: 0
           predicates:
-            - Path=/oauth2/**
+            - Path=/whale-oauth2/**
           filters:
             - StripPrefix=1
         - id: whale-business-system
-          uri: lb://business-system
+          uri: lb://whale-business-system
           order: 0
           predicates:
-            - Path=/business-system/**
+            - Path=/whale-business-system/**
           filters:
             - StripPrefix=1
 logging:

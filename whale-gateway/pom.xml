@@ -14,21 +14,6 @@
     <artifactId>whale-gateway</artifactId>
 
     <dependencies>
-        <dependency>
-            <groupId>com.whale.ms</groupId>
-            <artifactId>whale-provider-basics</artifactId>
-            <version>${version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-web</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.google.guava</groupId>
-                    <artifactId>guava</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
 
         <dependency>
             <groupId>com.whale.ms</groupId>
@@ -39,18 +24,18 @@
                     <groupId>com.google.guava</groupId>
                     <artifactId>guava</artifactId>
                 </exclusion>
-                <!--<exclusion>
+                <exclusion>
                     <groupId>io.springfox</groupId>
                     <artifactId>springfox-spring-web</artifactId>
-                </exclusion>-->
+                </exclusion>
             </exclusions>
         </dependency>
 
-
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -69,30 +54,23 @@
         </dependency>
 
 
-      <!--  &lt;!&ndash; # 没添加该依赖的话不能从application配置文件配置sentinel&ndash;&gt;
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
 
-        &lt;!&ndash;连接sentinel控制台&ndash;&gt;
         <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-transport-simple-http</artifactId>
+            <groupId>com.alibaba.nacos</groupId>
+            <artifactId>nacos-client</artifactId>
         </dependency>
 
-        &lt;!&ndash; # 提供sentinel核心功能&ndash;&gt;
+        <!--和注册中心-->
         <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-core</artifactId>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
 
-        &lt;!&ndash;该依赖提供了sentinel对spring cloud gateway框架的适配&ndash;&gt;
-        <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-spring-cloud-gateway-adapter</artifactId>
-        </dependency>
--->
+
 
     </dependencies>
 

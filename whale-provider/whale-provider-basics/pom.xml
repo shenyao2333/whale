@@ -69,7 +69,6 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-
         </dependency>
 
         <dependency>
@@ -101,10 +100,6 @@
             <artifactId>hutool-all</artifactId>
         </dependency>
 
-<!--        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
-        </dependency>-->
 
 
         <dependency>

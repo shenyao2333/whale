@@ -20,7 +20,7 @@
 - [ ] oAuth2单点登录
 - [ ] SpringSecurity子模块配置
 - [x] Gateway网关
-- [ ] Gateway集成swagger
+- [x] Gateway集成swagger
 - [ ] OpenFeign通信
 - [ ] RPC调用
 - [ ] Camunda工作流
