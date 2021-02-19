@@ -15,6 +15,8 @@
 
 
     <dependencies>
+
+
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
@@ -30,7 +32,16 @@
             <artifactId>swagger-bootstrap-ui</artifactId>
         </dependency>
 
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-context</artifactId>
+        </dependency>
+
+
     </dependencies>
+
+
 
     
 </project>

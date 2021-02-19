@@ -20,11 +20,11 @@ import java.util.List;
  * Date: 2020/3/27 13:51
  * @Description 处理全局异常
  */
-@RestControllerAdvice
+
 public class GlobalExceptionHandler {
 
 
-    @ResponseStatus(HttpStatus.OK)
+   /* @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})
     public <T> R serviceException(MethodArgumentNotValidException ex) {
         //获取参数校验错误集合
@@ -43,11 +43,11 @@ public class GlobalExceptionHandler {
     }
 
 
-    /**
+    *//**
      * 参数类型
      * @param ex
      * @return
-     */
+     *//*
     @ExceptionHandler(value = {TypeMismatchException.class})
     public R serviceException(TypeMismatchException ex) {
         String  message = String.format("参数类型不匹配，类型应该为: %s", ex.getRequiredType());
@@ -56,46 +56,46 @@ public class GlobalExceptionHandler {
 
 
 
-    /**
+    *//**
      * 请求方式错误
      * @param ex
      * @return
-     */
+     *//*
     @ExceptionHandler(value = {HttpRequestMethodNotSupportedException.class})
     public R serviceException(HttpRequestMethodNotSupportedException ex, HttpServletRequest request) {
         return R.fail(R.CodeStatus.REQUEST, "请求方式错误！不能使用"+ request.getMethod());
     }
 
-    /**
+    *//**
      * 索引重复
      * @param ex
      * @return
-     */
+     *//*
     @ExceptionHandler(value = {DuplicateKeyException.class})
     public R serviceException(DuplicateKeyException ex) {
         return R.fail(R.CodeStatus.DATA, "索引重复");
     }
 
-    /**
+    *//**
      * 数据异常
      * @param ex
      * @return
-     */
+     *//*
     @ExceptionHandler(value = {SQLException.class})
     public R serviceException(SQLException ex) {
         return R.fail(R.CodeStatus.DATA, "索引重复");
     }
 
 
-    /**
+    *//**
      * 自定义异常
      * @param ex
      * @return
-     */
+     *//*
     @ExceptionHandler(value = {GrabException.class})
     public R serviceException(GrabException ex) {
         return R.fail(ex.getCode(), ex.getMsg());
-    }
+    }*/
 
 
 

@@ -29,9 +29,12 @@ public class SwaggerProvider implements SwaggerResourcesProvider {
     /**
      * swagger2默认的url后缀SwaggerProvider
      */
-    private static final String API_URI = "/v2/api-docs";
+    private static String API_URI = "/v2/api-docs";
     private final GatewayProperties gatewayProperties;
     private final RouteLocator routeLocator;
+
+
+
     @Override
     public List<SwaggerResource> get() {
         List<SwaggerResource> resources = new ArrayList<>();
@@ -44,7 +47,7 @@ public class SwaggerProvider implements SwaggerResourcesProvider {
                             predicateDefinition.getArgs().get(NameUtils.GENERATED_NAME_PREFIX + "0")
                                     .replace("**", "v2/api-docs"))));
         });
-
+        log.info("加载完毕");
         return resources;
     }
 
