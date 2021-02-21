@@ -69,6 +69,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
        DefaultAccessTokenConverter defaultAccessTokenConverter=new DefaultAccessTokenConverter();
        defaultAccessTokenConverter.setUserTokenConverter(whaleUserAuthenticationConverter);
+       defaultAccessTokenConverter.setUserTokenConverter(whaleUserAuthenticationConverter);
        resources.authenticationEntryPoint(customAuthenticationEntryPoint);
        resources.resourceId(resourceId);
        super.configure(resources);

@@ -1,6 +1,8 @@
 security:
   oauth2:
     resourceId: 2
+    resource:
+      token-info-uri: http://cloud-auth/oauth/check_token
     client:
       ignore-urls:
         - /v2/api-docs
