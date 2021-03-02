@@ -5,6 +5,7 @@ import cn.hutool.core.convert.Convert;
 import com.whale.provider.security.component.WhaleUserAuthenticationConverter;
 import com.whale.provider.security.exception.CustomAuthenticationEntryPoint;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -41,7 +42,7 @@ import java.util.stream.Collectors;
 @Configuration
 @RefreshScope
 @EnableResourceServer
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
     @Resource
@@ -60,6 +61,14 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     @Resource
     private RedisConnectionFactory redisConnectionFactory;
 
+    @Resource
+    private RestTemplate restTemplate;
+
+    @Resource
+    private  RemoteTokenServices tokenServices;
+
+
+
     /**
      * 配置校验token方式
      * @param
@@ -67,13 +76,18 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
      */
    @Override
    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-       DefaultAccessTokenConverter defaultAccessTokenConverter=new DefaultAccessTokenConverter();
-       defaultAccessTokenConverter.setUserTokenConverter(whaleUserAuthenticationConverter);
-       defaultAccessTokenConverter.setUserTokenConverter(whaleUserAuthenticationConverter);
+       DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
+       accessTokenConverter.setUserTokenConverter(whaleUserAuthenticationConverter);
+       tokenServices.setAccessTokenConverter(accessTokenConverter);
+       tokenServices.setRestTemplate(restTemplate);
+       resources.tokenServices(tokenServices);
        resources.authenticationEntryPoint(customAuthenticationEntryPoint);
        resources.resourceId(resourceId);
        super.configure(resources);
    }
+
+
+
 
 
     /**

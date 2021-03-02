@@ -3,7 +3,10 @@ security:
     resourceId: 2
     resource:
       token-info-uri: http://127.0.0.1:8000/oauth/check_token
+      preferTokenInfo: true
     client:
+      access-token-uri: http://127.0.0.1:8000/oauth/token
+      user-authorization-uri: http://127.0.0.1:8000/oauth/authorize
       ignore-urls:
         - /v2/api-docs
         - /swagger-resources

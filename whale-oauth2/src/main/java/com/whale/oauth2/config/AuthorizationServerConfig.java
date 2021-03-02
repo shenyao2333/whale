@@ -19,6 +19,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
+import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
@@ -51,7 +52,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Resource
     private  DataSource dataSource;
     @Resource
-    private   AuthenticationManager authenticationManager;
+    private  AuthenticationManager authenticationManager;
 
 
 
@@ -66,9 +67,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailService)
                 .reuseRefreshTokens(true)
+                .pathMapping("/oauth/confirm_access", "/token/confirm_access")
                 .exceptionTranslator(new ExceptionTranslator())
         ;
     }
+
 
 
 
@@ -120,10 +123,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 //开启/oauth/token_key验证端口无权限访问
                 .tokenKeyAccess("permitAll()")
                 // 开启/oauth/check_token验证端口认证权限访问
-                .checkTokenAccess("isAuthenticated()")
+                .checkTokenAccess("permitAll()")
                 //允许表单认证
-                .allowFormAuthenticationForClients()
-                .checkTokenAccess("permitAll()");
+                .allowFormAuthenticationForClients();
     }
 
 
