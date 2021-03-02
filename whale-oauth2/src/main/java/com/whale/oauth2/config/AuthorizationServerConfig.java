@@ -120,7 +120,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 //开启/oauth/token_key验证端口无权限访问
                 .tokenKeyAccess("permitAll()")
                 // 开启/oauth/check_token验证端口认证权限访问
-                //.checkTokenAccess("isAuthenticated()")
+                .checkTokenAccess("isAuthenticated()")
                 //允许表单认证
                 .allowFormAuthenticationForClients()
                 .checkTokenAccess("permitAll()");
