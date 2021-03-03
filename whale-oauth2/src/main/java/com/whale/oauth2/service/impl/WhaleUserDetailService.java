@@ -1,16 +1,15 @@
 package com.whale.oauth2.service.impl;
 
+import com.whale.oauth2.domain.SecurityUser;
 import com.whale.oauth2.domain.SysUser;
 import com.whale.oauth2.service.SysUserService;
 import com.whale.provider.basices.web.GrabException;
-import com.whale.provider.security.domain.WhaleUser;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import java.util.Base64;
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class WhaleUserDetailService implements UserDetailsService {
         if (sysUsers!=null&&sysUsers.size()>0){
             SysUser sysUser = sysUsers.get(0);
             if (sysUser.getType()==0){
-                return new WhaleUser(sysUser.getId(),sysUser.getRealName(),sysUser.getAvatar(),sysUser.getUserName(),sysUser.getPassword(),AuthorityUtils.NO_AUTHORITIES);
+                return new SecurityUser(sysUser.getId(),sysUser.getRealName(),sysUser.getAvatar(),sysUser.getUserName(),sysUser.getPassword(),AuthorityUtils.NO_AUTHORITIES);
             }
         }
         throw new GrabException(2001,"账号不存在！");

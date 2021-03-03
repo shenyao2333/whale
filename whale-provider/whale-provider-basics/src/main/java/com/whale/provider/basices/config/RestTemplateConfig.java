@@ -31,7 +31,6 @@ public class RestTemplateConfig {
 	 * @return
 	 */
 	@Bean
-	@LoadBalanced
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
 		return builder.build();
 	}

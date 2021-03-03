@@ -3,8 +3,6 @@ package com.whale.oauth2.controller;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.whale.oauth2.domain.dto.LoginDto;
-import com.whale.oauth2.service.impl.WhaleUserDetailService;
-import com.whale.provider.basices.redis.RedisUtil;
 import com.whale.provider.basices.web.GrabException;
 import com.whale.provider.basices.web.R;
 import com.whale.provider.common.utils.RestTemplateUtil;
@@ -34,8 +32,6 @@ public class AuthController {
 
     private final RestTemplateUtil restTemplateUtil;
     private final TokenStore tokenStore;
-    private final RedisUtil redisUtil;
-    private final WhaleUserDetailService sysUserService;
 
 
     @PostMapping("/login")

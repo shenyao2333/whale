@@ -2,6 +2,8 @@
 package com.whale.provider.security.component;
 
 
+import com.whale.provider.security.domain.WhaleUser;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,20 +20,22 @@ import java.util.Map;
  * @author Aijm
  * @since 2019/7/28
  */
+@Slf4j
 @Service
 public class WhaleUserAuthenticationConverter extends DefaultUserAuthenticationConverter {
 
 
     @Override
     public Authentication extractAuthentication(Map<String, ?> map) {
+        log.info("map对象->"+map);
         if (map.containsKey("user_name")) {
             Object principal = map.get("user_name");
            //Object obj = map.get(AdditionalToken.USER_ID);
            //Long userId = Long.valueOf(String.valueOf(obj));
            //Object objType = map.get(AdditionalToken.USER_TYPE);
            //Object tenantId = map.get(AdditionalToken.TENANT_ID);
-            //WhaleUser user = new WhaleUser(1,"WhaleUser","","");
-            return new UsernamePasswordAuthenticationToken(null, "N/A", AuthorityUtils.NO_AUTHORITIES);
+            WhaleUser user = new WhaleUser(1,"WhaleUser","","shenyao");
+            return new UsernamePasswordAuthenticationToken(user, "N/A", AuthorityUtils.NO_AUTHORITIES);
         } else {
             return null;
         }

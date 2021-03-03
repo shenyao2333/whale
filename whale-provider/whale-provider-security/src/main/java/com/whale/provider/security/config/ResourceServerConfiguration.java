@@ -6,7 +6,6 @@ import com.whale.provider.security.component.WhaleUserAuthenticationConverter;
 import com.whale.provider.security.exception.CustomAuthenticationEntryPoint;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -30,7 +29,7 @@ import javax.annotation.Resource;
 @Configuration
 @RefreshScope
 @EnableResourceServer
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
     @Resource
@@ -38,8 +37,6 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 
     @Resource
     private WhaleUserAuthenticationConverter whaleUserAuthenticationConverter;
-
-
 
     @Resource
     private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
@@ -51,6 +48,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 
     @Resource
     private RemoteTokenServices remoteTokenServices;
+
 
     @Resource
     private RestTemplate restTemplate;
@@ -73,6 +71,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
    }
 
 
+
     /**
      * 对匹配的资源进行放行
      * @param http
@@ -82,15 +81,10 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     public void configure(HttpSecurity http) throws Exception {
         String[] urls = Convert.toStrArray(permitProps.getIgnoreUrls());
         log.info("忽略路径有："+permitProps.getIgnoreUrls());
-        http.headers().frameOptions().disable();
-        http.authorizeRequests().antMatchers(urls).permitAll();
-        http.authorizeRequests().requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll();
-        http.authorizeRequests().anyRequest().authenticated().and().csrf().disable();
+       // http.headers().frameOptions().disable();
+        http.authorizeRequests().antMatchers("/test/**").permitAll();
+        //http.authorizeRequests().anyRequest().authenticated().and().csrf().disable();
     }
-
-
-
-
 
 
 

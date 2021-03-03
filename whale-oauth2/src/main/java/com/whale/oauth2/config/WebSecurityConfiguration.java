@@ -32,7 +32,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private WhaleUserDetailService myUserDetailService;
 
 
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
