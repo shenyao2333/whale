@@ -1,5 +1,7 @@
 package com.whale.provider.basices.config;
 
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -23,25 +25,14 @@ import java.util.List;
 public class RestTemplateConfig {
 
 
-
-/*
-	@Bean
-	public RestTemplate restTemplate(ClientHttpRequestFactory factory){
-		return new RestTemplate(factory);
-	}
-*/
-
-
 	/**
-	 * 请求非200的异常不抛出
+	 * RestTemplate的声明
+	 * @param builder
 	 * @return
 	 */
 	@Bean
-	public RestTemplate restTemplate( ClientHttpRequestFactory factory){
-		RestTemplate restTemplate = new RestTemplate(factory);
-		restTemplate.getMessageConverters().set(1, new StringHttpMessageConverter(StandardCharsets.UTF_8));
-		restTemplate.getMessageConverters().add(new WxMappingJackson2HttpMessageConverter());
-		return restTemplate;
+	public RestTemplate restTemplate(RestTemplateBuilder builder) {
+		return builder.build();
 	}
 
 	@Bean
@@ -55,15 +46,5 @@ public class RestTemplateConfig {
 	}
 
 
-	/**
-	 * 解决微信返回json Content-Type 值却是 text/plain 的问题
-	 */
-	public class WxMappingJackson2HttpMessageConverter extends MappingJackson2HttpMessageConverter {
-		public WxMappingJackson2HttpMessageConverter(){
-			List<MediaType> mediaTypes = new ArrayList<>();
-			mediaTypes.add(MediaType.TEXT_PLAIN);
-			mediaTypes.add(MediaType.TEXT_HTML);
-			setSupportedMediaTypes(mediaTypes);
-		}
-	}
+
 }

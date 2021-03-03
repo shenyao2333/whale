@@ -1,10 +1,10 @@
 package com.whale.oauth2.config;
 
 
+import com.whale.oauth2.domain.SecurityUser;
 import com.whale.oauth2.handler.ExceptionTranslator;
 import com.whale.oauth2.service.impl.WhaleJdbcClientDetailsService;
 import com.whale.oauth2.service.impl.WhaleUserDetailService;
-import com.whale.provider.security.domain.WhaleUser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -19,7 +19,6 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
-import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
@@ -41,18 +40,13 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Resource
     private RedisConnectionFactory redisConnectionFactory;
     @Resource
-    private  WhaleUserDetailService userDetailService;
-
-    //@Resource
-    //private  AuthenticationEntryPoint authenticationEntryPoint;
-
+    private WhaleUserDetailService userDetailService;
     @Resource
     private WhaleJdbcClientDetailsService whaleJdbcClientDetailsService;
-
     @Resource
-    private  DataSource dataSource;
+    private DataSource dataSource;
     @Resource
-    private  AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;
 
 
 
@@ -66,12 +60,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .tokenStore(tokenStore())
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailService)
-                .reuseRefreshTokens(true)
-                .pathMapping("/oauth/confirm_access", "/token/confirm_access")
+                .reuseRefreshTokens(false)
                 .exceptionTranslator(new ExceptionTranslator())
         ;
     }
-
 
 
 
@@ -82,7 +74,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Bean
     public TokenEnhancer tokenEnhancer() {
         return (accessToken, authentication) -> {
-            WhaleUser userDetails =(WhaleUser) authentication.getUserAuthentication().getPrincipal();
+            SecurityUser userDetails =(SecurityUser) authentication.getUserAuthentication().getPrincipal();
             Map<String, Object> info = new HashMap<String, Object>(3){
                 {
                     put("userName", userDetails.getUsername());

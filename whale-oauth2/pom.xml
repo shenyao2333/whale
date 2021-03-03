@@ -24,16 +24,17 @@
         </dependency>
 
 
-        <dependency>
-            <groupId>com.whale.ms</groupId>
-            <artifactId>whale-provider-security</artifactId>
-            <version>${version}</version>
-        </dependency>
 
         <dependency>
             <groupId>com.whale.ms</groupId>
             <artifactId>whale-provider-swagger</artifactId>
             <version>${version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-oauth2</artifactId>
         </dependency>
 
 
@@ -49,7 +50,7 @@
                 <executions>
                     <execution>
                         <goals>
-                            <goal>repackage</goal><!--可以把依赖的包都打包到生成的Jar包中 -->
+                            <goal>repackage</goal>
                         </goals>
                     </execution>
                 </executions>

@@ -5,33 +5,20 @@ import cn.hutool.core.convert.Convert;
 import com.whale.provider.security.component.WhaleUserAuthenticationConverter;
 import com.whale.provider.security.exception.CustomAuthenticationEntryPoint;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
-import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
-import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
-import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.stream.Collectors;
+
 
 /**
  * @author sy
@@ -58,16 +45,13 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     @Value("${security.oauth2.resourceId}")
     private String resourceId;
 
+
     @Resource
-    private RedisConnectionFactory redisConnectionFactory;
+    private RemoteTokenServices remoteTokenServices;
+
 
     @Resource
     private RestTemplate restTemplate;
-
-    @Resource
-    private  RemoteTokenServices tokenServices;
-
-
 
     /**
      * 配置校验token方式
@@ -78,15 +62,13 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
        DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
        accessTokenConverter.setUserTokenConverter(whaleUserAuthenticationConverter);
-       tokenServices.setAccessTokenConverter(accessTokenConverter);
-       tokenServices.setRestTemplate(restTemplate);
-       resources.tokenServices(tokenServices);
+       remoteTokenServices.setAccessTokenConverter(accessTokenConverter);
+       remoteTokenServices.setRestTemplate(restTemplate);
+       resources.tokenServices(remoteTokenServices);
        resources.authenticationEntryPoint(customAuthenticationEntryPoint);
        resources.resourceId(resourceId);
        super.configure(resources);
    }
-
-
 
 
 
@@ -99,15 +81,10 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     public void configure(HttpSecurity http) throws Exception {
         String[] urls = Convert.toStrArray(permitProps.getIgnoreUrls());
         log.info("忽略路径有："+permitProps.getIgnoreUrls());
-        http.headers().frameOptions().disable();
-        http.authorizeRequests().antMatchers(urls).permitAll();
-        http.authorizeRequests().requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll();
-        http.authorizeRequests().anyRequest().authenticated().and().csrf().disable();
+       // http.headers().frameOptions().disable();
+        http.authorizeRequests().antMatchers("/test/**").permitAll();
+        //http.authorizeRequests().anyRequest().authenticated().and().csrf().disable();
     }
-
-
-
-
 
 
 
