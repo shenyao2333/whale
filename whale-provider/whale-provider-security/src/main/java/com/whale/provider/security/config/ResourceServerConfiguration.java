@@ -1,14 +1,13 @@
 package com.whale.provider.security.config;
 
 
-import cn.hutool.core.convert.Convert;
 import com.whale.provider.security.component.WhaleUserAuthenticationConverter;
 import com.whale.provider.security.exception.CustomAuthenticationEntryPoint;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -72,9 +71,10 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
      */
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        String[] urls = Convert.toStrArray(permitProps.getIgnoreUrls());
-        http.authorizeRequests().antMatchers(urls).permitAll();
-
+        http.headers().frameOptions().disable();
+        http.authorizeRequests().antMatchers("/test/**").permitAll();
+        http.authorizeRequests().requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll();
+        http.authorizeRequests().anyRequest().authenticated().and().csrf().disable();
     }
 
 
