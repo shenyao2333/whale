@@ -8,29 +8,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
-import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
-import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
-import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.stream.Collectors;
+
 
 /**
  * @author sy
@@ -50,6 +39,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     @Resource
     private WhaleUserAuthenticationConverter whaleUserAuthenticationConverter;
 
+
+
     @Resource
     private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
@@ -57,8 +48,12 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     @Value("${security.oauth2.resourceId}")
     private String resourceId;
 
+
     @Resource
-    private RedisConnectionFactory redisConnectionFactory;
+    private RemoteTokenServices remoteTokenServices;
+
+    @Resource
+    private RestTemplate restTemplate;
 
     /**
      * 配置校验token方式
@@ -67,9 +62,11 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
      */
    @Override
    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-       DefaultAccessTokenConverter defaultAccessTokenConverter=new DefaultAccessTokenConverter();
-       defaultAccessTokenConverter.setUserTokenConverter(whaleUserAuthenticationConverter);
-       defaultAccessTokenConverter.setUserTokenConverter(whaleUserAuthenticationConverter);
+       DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
+       accessTokenConverter.setUserTokenConverter(whaleUserAuthenticationConverter);
+       remoteTokenServices.setAccessTokenConverter(accessTokenConverter);
+       remoteTokenServices.setRestTemplate(restTemplate);
+       resources.tokenServices(remoteTokenServices);
        resources.authenticationEntryPoint(customAuthenticationEntryPoint);
        resources.resourceId(resourceId);
        super.configure(resources);
