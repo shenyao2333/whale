@@ -69,10 +69,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
      */
     @Override
     public void configure(WebSecurity web) {
-        AntPathMatcher antPathMatcher = new AntPathMatcher();
-        boolean match = antPathMatcher.match("/", "/");
-
-
         web.ignoring().antMatchers("/auth/**");
     }
 
