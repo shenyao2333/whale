@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -34,22 +35,14 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 
     @Resource
     private PermitProps permitProps;
-
     @Resource
     private WhaleUserAuthenticationConverter whaleUserAuthenticationConverter;
-
     @Resource
     private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
-
-
     @Value("${security.oauth2.resourceId}")
     private String resourceId;
-
-
     @Resource
     private RemoteTokenServices remoteTokenServices;
-
-
     @Resource
     private RestTemplate restTemplate;
 
@@ -80,10 +73,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     @Override
     public void configure(HttpSecurity http) throws Exception {
         String[] urls = Convert.toStrArray(permitProps.getIgnoreUrls());
-        log.info("忽略路径有："+permitProps.getIgnoreUrls());
-       // http.headers().frameOptions().disable();
-        http.authorizeRequests().antMatchers("/test/**").permitAll();
-        //http.authorizeRequests().anyRequest().authenticated().and().csrf().disable();
+        http.authorizeRequests().antMatchers(urls).permitAll();
+
     }
 
 
