@@ -38,8 +38,8 @@ public class AuthServerHandler extends ChannelInboundHandlerAdapter{
         }
 
         String token = msg.getToken();
-        if(StrUtil.isBlank(token)||!redisUtil.hasKey(SysConstant.tokenBegin + token)){
-            if (StrUtil.isBlank(token)||!redisUtil.hasKey(SysConstant.tokenBegin + token)){
+        if(StrUtil.isBlank(token)||!redisUtil.hasKey(SysConstant.TOKEN_BEGIN + token)){
+            if (StrUtil.isBlank(token)||!redisUtil.hasKey(SysConstant.TOKEN_BEGIN + token)){
                 Msg.Base build = new Msg.Base().toBuilder()
                         .setContent("请先进行登录！")
                         .setCmd(Cmd.Command.SYSTEM)

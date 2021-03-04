@@ -1,6 +1,8 @@
 package com.whale.provider.security.config;
 
 
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.convert.Convert;
 import com.whale.provider.security.component.WhaleUserAuthenticationConverter;
 import com.whale.provider.security.exception.CustomAuthenticationEntryPoint;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +20,7 @@ import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
@@ -71,8 +74,9 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
      */
     @Override
     public void configure(HttpSecurity http) throws Exception {
+        String[] urls = Convert.toStrArray(permitProps.getIgnoreUrls());
         http.headers().frameOptions().disable();
-        http.authorizeRequests().antMatchers("/test/**").permitAll();
+        http.authorizeRequests().antMatchers(urls).permitAll();
         http.authorizeRequests().requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll();
         http.authorizeRequests().anyRequest().authenticated().and().csrf().disable();
     }

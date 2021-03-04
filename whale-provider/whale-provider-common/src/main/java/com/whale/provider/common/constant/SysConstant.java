@@ -8,7 +8,7 @@ package com.whale.provider.common.constant;
 public interface SysConstant {
 
 
-    String tokenBegin = "whale:auth:";
-
+    String TOKEN_BEGIN = "whale:auth:";
+    String PHONE_LOG_AUTH  = "phoneAuth:";
 
 }

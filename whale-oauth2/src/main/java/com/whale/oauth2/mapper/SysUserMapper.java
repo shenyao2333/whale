@@ -10,6 +10,8 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
 
     List<SysUser> selectByUserName(@Param("userName")String userName);
 
+    List<SysUser> selectByPhone(@Param("phone")String phone);
+
 
 
 }

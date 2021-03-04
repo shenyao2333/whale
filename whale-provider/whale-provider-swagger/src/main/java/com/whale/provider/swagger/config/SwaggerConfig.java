@@ -3,6 +3,7 @@ package com.whale.provider.swagger.config;
 import com.github.xiaoymin.swaggerbootstrapui.annotations.EnableSwaggerBootstrapUI;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -21,6 +22,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @date: 2021/1/28 17:04
  * @description
  */
+@Configuration
 @EnableSwagger2
 @EnableSwaggerBootstrapUI
 public class SwaggerConfig {
@@ -34,8 +36,6 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
                 .paths(PathSelectors.any())
                 .build();
-               // .securitySchemes(Collections.singletonList(securitySchemes()))
-               // .securityContexts(Collections.singletonList(securityContexts()));
     }
 
 

@@ -1,8 +1,7 @@
 package com.whale.oauth2.config;
 
 
-import cn.hutool.core.convert.Convert;
-import com.whale.oauth2.service.impl.WhaleUserDetailService;
+import com.whale.oauth2.service.impl.WhaleUserDetailServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,7 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.util.AntPathMatcher;
+import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 
 import javax.annotation.Resource;
 
@@ -27,7 +26,7 @@ import javax.annotation.Resource;
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Resource
-    private WhaleUserDetailService myUserDetailService;
+    private WhaleUserDetailServiceImpl myUserDetailService;
 
 
     @Bean
@@ -62,6 +61,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(myUserDetailService).passwordEncoder(passwordEncoder());
     }
 
+
+
+
     /**
      * 配置忽略的URL
      * @param web
@@ -74,7 +76,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider(PasswordEncoder passwordEncoder,  WhaleUserDetailService myUserDetailService ) {
+    public DaoAuthenticationProvider authenticationProvider(PasswordEncoder passwordEncoder, WhaleUserDetailServiceImpl myUserDetailService ) {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setHideUserNotFoundExceptions(false);
         provider.setUserDetailsService(myUserDetailService);

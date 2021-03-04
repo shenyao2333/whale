@@ -55,7 +55,7 @@ public class TestController {
     @GetMapping("/test")
     public void saf(){
         String token = "63e5c835-ccc6-41c4-a032-f2a8d007ac51";
-        boolean b = redisUtil.hasKey(SysConstant.tokenBegin + token);
+        boolean b = redisUtil.hasKey(SysConstant.TOKEN_BEGIN + token);
         System.out.println(b);
 
     }

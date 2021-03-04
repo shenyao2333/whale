@@ -1,6 +1,7 @@
 package com.whale.oauth2.handler;
 
 
+import com.whale.provider.basices.web.GrabException;
 import com.whale.provider.basices.web.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +26,9 @@ public class ExceptionTranslator implements WebResponseExceptionTranslator {
     @Override
     public ResponseEntity translate(Exception e) throws Exception {
         if (e instanceof InvalidGrantException){
-            return ResponseEntity.ok(R.fail(3001,"密码错误！"));
+            return ResponseEntity.ok(R.fail(3001,e.getMessage()));
         }else if (e instanceof UsernameNotFoundException) {
-            return ResponseEntity.ok(R.fail(3002,"账号不存在！"));
+            return ResponseEntity.ok(R.fail(3002,e.getMessage()));
         }else if (e instanceof UnsupportedGrantTypeException) {
             return ResponseEntity.ok(R.fail(3003,"不支持该认证方式！"));
         }else if (e instanceof InvalidScopeException){
@@ -36,8 +37,10 @@ public class ExceptionTranslator implements WebResponseExceptionTranslator {
             return ResponseEntity.ok(R.fail(3001,"账号不存在！"));
         }else if (e instanceof InvalidTokenException){
             return ResponseEntity.ok(R.fail(3004,"token失效！"));
+        }else if (e instanceof GrabException) {
+            return ResponseEntity.ok(R.fail(3004,((GrabException) e).getMsg()));
         }
-        return ResponseEntity.ok(R.fail(2003,"登陆错误"));
+        return ResponseEntity.ok(R.fail(2003,"登陆错误!"));
     }
 
 
