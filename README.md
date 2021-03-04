@@ -17,8 +17,9 @@
 ### 使用技术
 
 - [x] nacos注册中心
-- [ ] oAuth2单点登录
-- [ ] SpringSecurity子模块配置
+- [x] oAuth2单点登录
+- [x] oAuth2多种登录方式
+- [x] SpringSecurity子模块配置
 - [x] Gateway网关
 - [x] Gateway集成swagger
 - [ ] OpenFeign通信

@@ -28,10 +28,13 @@ public class SecurityUtil {
 	 */
 	public WhaleUser getUser() {
 		Authentication authentication = getAuthentication();
+		System.out.println(authentication);
 		if (authentication==null){
 			return null;
 		}
-		return (WhaleUser) authentication.getPrincipal();
+		Object principal = authentication.getPrincipal();
+		System.out.println(principal);
+		return principal==null?null:(WhaleUser)principal;
 	}
 
 

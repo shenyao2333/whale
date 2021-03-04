@@ -27,29 +27,15 @@ public class WhaleUserAuthenticationConverter extends DefaultUserAuthenticationC
 
     @Override
     public Authentication extractAuthentication(Map<String, ?> map) {
-        log.info("map对象->"+map);
-        if (map.containsKey("user_name")) {
-            Object principal = map.get("user_name");
-           //Object obj = map.get(AdditionalToken.USER_ID);
-           //Long userId = Long.valueOf(String.valueOf(obj));
-           //Object objType = map.get(AdditionalToken.USER_TYPE);
-           //Object tenantId = map.get(AdditionalToken.TENANT_ID);
-            WhaleUser user = new WhaleUser(1,"WhaleUser","","shenyao");
+        if (map.containsKey("userName")) {
+            String userName =(String) map.get("userName");
+            Integer userId = (Integer) map.get("userId");
+            String avatar = (String) map.get("avatar");
+            WhaleUser user = new WhaleUser(userId,userName,avatar,userName);
             return new UsernamePasswordAuthenticationToken(user, "N/A", AuthorityUtils.NO_AUTHORITIES);
         } else {
             return null;
         }
     }
 
-
-    private Collection<? extends GrantedAuthority> getAuthorities(Map<String, ?> map) {
-        Object authorities = map.get("authorities");
-        if (authorities instanceof String) {
-            return AuthorityUtils.commaSeparatedStringToAuthorityList((String)authorities);
-        } else if (authorities instanceof Collection) {
-            return AuthorityUtils.commaSeparatedStringToAuthorityList(StringUtils.collectionToCommaDelimitedString((Collection)authorities));
-        } else {
-            throw new IllegalArgumentException("Authorities must be either a String or a Collection");
-        }
-    }
 }
