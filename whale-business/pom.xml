@@ -15,7 +15,7 @@
 
     <modules>
         <module>whale-business-system</module>
-        <module>whale-business-system</module>
+        <module>whale-business-order</module>
     </modules>
 
 
