@@ -39,7 +39,9 @@ public class SecretKeyController {
     @GetMapping("/test")
     public R<OssSTSVo> test(){
         System.out.println("-----");
-        return R.ok("成功");
+        OssSTSVo ossSTSVo = new OssSTSVo();
+        ossSTSVo.setAccessKey("234");
+        return R.ok(ossSTSVo);
     }
 
 

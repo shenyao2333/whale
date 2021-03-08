@@ -18,8 +18,9 @@ public class TestController {
 
 
     @GetMapping("/test1")
-    public void sdf(){
+    public R<Integer> sdf(){
         System.out.println("进来了---");
+        return R.ok(32);
     }
 
     @GetMapping("/test2")
