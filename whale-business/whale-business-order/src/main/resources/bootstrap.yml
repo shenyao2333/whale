@@ -16,6 +16,7 @@ security:
         - /swagger-ui.html
         - /webjars/**
         - /doc.html
+        -
 feign:
   httpclient:
     connection-timeout: 6000
