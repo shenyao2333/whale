@@ -10,6 +10,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.util.NestedServletException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
@@ -119,6 +120,10 @@ public class GlobalExceptionHandler {
     public R serviceException(IndexOutOfBoundsException e) {
         return R.fail(-1,"数组越界，"+e.getMessage());
     }
+
+
+
+
 
 
 

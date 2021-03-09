@@ -27,7 +27,10 @@ public class TestController {
     @GetMapping("/testFei")
     public R testFei(){
         R<Object> test = testFeign.getTest();
-        return R.ok(test.getData());
+        if (test==null){
+            return R.fail("feign调用失败！");
+        }
+        return R.ok();
     }
 
 

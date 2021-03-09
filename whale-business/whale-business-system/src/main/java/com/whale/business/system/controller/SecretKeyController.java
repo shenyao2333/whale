@@ -37,8 +37,14 @@ public class SecretKeyController {
 
 
     @GetMapping("/test")
-    public R<OssSTSVo> test(){
+    public R<OssSTSVo> test()  {
+
         System.out.println("-----");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         OssSTSVo ossSTSVo = new OssSTSVo();
         ossSTSVo.setAccessKey("234");
         return R.ok(ossSTSVo);

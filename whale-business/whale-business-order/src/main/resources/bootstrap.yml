@@ -16,11 +16,11 @@ security:
         - /swagger-ui.html
         - /webjars/**
         - /doc.html
-        -
 feign:
-  httpclient:
-    connection-timeout: 6000
-    connection-timer-repeat: 6000
   sentinel:
     enabled: true
-
+  client:
+    config:
+      default:
+        connectTimeout: 16000
+        readTimeout: 16000

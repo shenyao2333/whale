@@ -1,4 +1,4 @@
-package com.whale.provider.basices.config;
+package com.whale.provider.basices.interceptor;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
