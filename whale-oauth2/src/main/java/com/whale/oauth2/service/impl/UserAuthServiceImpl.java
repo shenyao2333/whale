@@ -21,26 +21,11 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class UserAuthServiceImpl implements UserAuthService {
 
-    private final ResourceServerTokenServices resourceServerTokenServices;
-    private final AccessTokenConverter accessTokenConverter;
+
 
 
     @Override
     public WhaleUser  getUserInfoByToken(String value) {
-
-
-        OAuth2AccessToken token = this.resourceServerTokenServices.readAccessToken(value);
-
-        if (token == null) {
-
-            throw new InvalidTokenException("Token was not recognised");
-        } else if (token.isExpired()) {
-            throw new InvalidTokenException("Token has expired");
-        } else {
-            OAuth2Authentication authentication = this.resourceServerTokenServices.loadAuthentication(token.getValue());
-            Map<String, ?> response = this.accessTokenConverter.convertAccessToken(token, authentication);
-            System.out.println(response);
-        }
         return null;
 
     }

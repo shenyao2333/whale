@@ -1,7 +1,9 @@
 package com.whale.oauth2.config;
 
 
+import cn.hutool.core.convert.Convert;
 import com.whale.oauth2.service.impl.WhaleUserDetailServiceImpl;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,6 +30,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Resource
     private WhaleUserDetailServiceImpl myUserDetailService;
 
+   //@Resource
+   //private PermitProps permitProps;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -51,7 +55,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 // 无状态模式，不需要session
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+       // String[] urls = Convert.toStrArray(permitProps.getIgnoreUrls());
+       // http.authorizeRequests().antMatchers(urls).permitAll()
+       // .anyRequest().authenticated()
+        ;
     }
 
 

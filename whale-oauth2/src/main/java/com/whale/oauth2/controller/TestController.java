@@ -5,6 +5,10 @@ import com.whale.api.oauth2.dubbo.service.UserAuthService;
 import com.whale.provider.basices.web.R;
 import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -19,9 +23,12 @@ import org.springframework.web.bind.annotation.*;
 public class TestController {
 
     private final UserAuthService userAuthService;
+
+
     @GetMapping("/test")
     @ResponseBody
     public R test(){
+        System.out.println("----进来---");
         return R.ok();
     }
 
@@ -29,9 +36,17 @@ public class TestController {
 
     @GetMapping("/token")
     public R token(String token){
-        WhaleUser userInfoByToken = userAuthService.getUserInfoByToken(token);
-        System.out.println(userInfoByToken);
-        return R.ok(userInfoByToken);
+        SecurityContext context = SecurityContextHolder.getContext();
+
+
+        Authentication authentication = context.getAuthentication();
+
+        Object principal = authentication.getPrincipal();
+
+
+
+        System.out.println(principal);
+        return R.ok();
     }
 
 

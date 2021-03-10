@@ -7,7 +7,6 @@ security:
       clientSecret: 123456
       accessTokenUri: http://127.0.0.1:8000/oauth/token
       userAuthorizationUri: http://127.0.0.1:8000/oauth/authorize
-      checkTokenEndpointUrl: dsf
       tokenName: token
       ignore-urls:
         - /v2/api-docs
@@ -19,8 +18,7 @@ security:
         - /webjars/**
         - /doc.html
         - /oauth/**
-
-
+        - /test2/**
 
 
 dubbo:
@@ -28,7 +26,7 @@ dubbo:
     check: false
   scan:
     # com.whale.api.dubbo 服务扫描基准包
-    base-packages: com.whale.business.order.service
+    base-packages: com.whale.oauth2.service
   application:
     name: ${spring.application.name}
     id: ${spring.application.name}
