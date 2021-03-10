@@ -18,21 +18,48 @@ SpringColudAlibaba的脚手架，快速搭建一套完整可用的微服务器�
 ### 使用技术
 
 - [x] nacos注册中心
+
+  [安装教程](https://blog.csdn.net/qq_39381892/article/details/113715094)     [官方文档](https://nacos.io/zh-cn/docs/quick-start.html)
+
 - [x] oAuth2单点登录
+
 - [x] oAuth2多种登录方式
+
+  文档完善中....
+
 - [x] SpringSecurity子模块配置
+
+  [博客案例](https://blog.csdn.net/qq_39381892/article/details/108438599)
+
 - [x] Gateway网关
+
+  [介绍说明](https://blog.csdn.net/qq_39381892/article/details/108438599)
+
 - [x] Gateway集成swagger
+
 - [x] OpenFeign通信
-- [ ] RPC调用
+
+- [ ] Dubbo的RPC调用 
+
+    [官方文档](https://github.com/alibaba/spring-cloud-alibaba/blob/master/spring-cloud-alibaba-examples/spring-cloud-alibaba-com.whale.api.dubbo-examples/README_CN.md)      
+
 - [ ] Camunda工作流
+
 - [ ] RocketMQ消息中间键
+
 - [ ] xxl任务调度
+
 - [ ] Sentiel限流
+
 - [ ] Ribbon负载均衡
+
 - [x] Netty聊天
+
 - [ ] es做搜索引擎
+
 - [x] Redis缓存
+
 - [x] mybatis-plus
+
 - [ ] 分布式事务Seata
 

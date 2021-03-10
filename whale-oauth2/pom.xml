@@ -38,6 +38,14 @@
         </dependency>
 
 
+        <dependency>
+            <groupId>com.whale.ms</groupId>
+            <artifactId>whale-api-oauth2</artifactId>
+            <version>${version}</version>
+        </dependency>
+
+
+
     </dependencies>
 
 

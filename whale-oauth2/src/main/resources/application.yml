@@ -20,3 +20,24 @@ security:
         - /doc.html
         - /oauth/**
 
+
+
+
+dubbo:
+  consumer:
+    check: false
+  scan:
+    # com.whale.api.dubbo 服务扫描基准包
+    base-packages: com.whale.business.order.service
+  application:
+    name: ${spring.application.name}
+    id: ${spring.application.name}
+  registry:
+    #挂载到 Spring Cloud 注册中心
+    address: spring-cloud://localhost
+  protocol:
+    name: dubbo
+    port: -1
+  cloud:
+    #配置订阅服务多个服务用,隔开,不配置默认订阅注册中心所有服务
+    subscribed-services: 'whale-business-system'

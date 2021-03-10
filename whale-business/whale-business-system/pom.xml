@@ -35,6 +35,13 @@
             <version>${version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.whale.ms</groupId>
+            <artifactId>whale-api-order</artifactId>
+            <version>${version}</version>
+        </dependency>
+
+
     </dependencies>
 
 </project>

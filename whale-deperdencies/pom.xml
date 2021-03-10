@@ -30,6 +30,7 @@
         <github.pagehelper.version>1.2.13</github.pagehelper.version>
         <stream-rocketmq.version>2.2.0.RELEASE</stream-rocketmq.version>
         <oss.version>3.5.0</oss.version>
+        <dubbo.version>2.7.5</dubbo.version>
     </properties>
 
 
@@ -60,11 +61,11 @@
             </dependency>
 
             <!--启用 Kryo高速序列化功能-->
-            <dependency>
-                <groupId>org.apache.dubbo</groupId>
-                <artifactId>dubbo-serialization-kryo</artifactId>
-                <version>${dubbo-kryo.version}</version>
-            </dependency>
+           <!-- <dependency>
+                <groupId>org.apache.com.whale.api.dubbo</groupId>
+                <artifactId>com.whale.api.dubbo-serialization-kryo</artifactId>
+                <version>${com.whale.api.dubbo-kryo.version}</version>
+            </dependency>-->
 
 
             <!--前端api展示 开始-->
@@ -149,6 +150,14 @@
                 <artifactId>aliyun-sdk-oss</artifactId>
                 <version>${oss.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo</artifactId>
+                <version>${dubbo.version}</version>
+            </dependency>
+
+
 
         </dependencies>
 
