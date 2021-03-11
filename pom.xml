@@ -25,6 +25,7 @@
         <module>whale-gateway</module>
         <module>whale-oauth2</module>
         <module>whale-business</module>
+        <module>whale-job</module>
     </modules>
 
 
@@ -32,6 +33,7 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <xxl-job.version>2.3.0</xxl-job.version>
     </properties>
 
 

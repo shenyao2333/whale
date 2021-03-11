@@ -9,8 +9,6 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.apache.commons.lang.StringUtils.trim;
-import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.springframework.util.ObjectUtils.isEmpty;
 
 /**
@@ -21,7 +19,7 @@ import static org.springframework.util.ObjectUtils.isEmpty;
 public class StringUtil extends org.apache.commons.lang3.StringUtils {
     private static final char SEPARATOR = '_';
     private static final String CHARSET = "UTF-8";
-    private static String number="0123456789";
+    private static final String NUMBER ="0123456789";
     public static final String allChar = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 
@@ -31,11 +29,10 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
      * @return
      */
     public static String getRanNum(int length){
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (int i=0;i<length;i++){
-            int i1 = new Random().nextInt(number.length());
-            sb.append(number.charAt(i1));
-
+            int i1 = new Random().nextInt(NUMBER.length());
+            sb.append(NUMBER.charAt(i1));
         }
         return sb.toString();
     }

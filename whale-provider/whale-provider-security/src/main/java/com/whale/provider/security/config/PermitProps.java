@@ -27,4 +27,5 @@ public class PermitProps {
 	@Setter
 	private List<String> ignoreUrls = new ArrayList<>();
 
+
 }

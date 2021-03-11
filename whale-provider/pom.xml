@@ -18,6 +18,7 @@
         <module>whale-provider-common</module>
         <module>whale-provider-security</module>
         <module>whale-provider-swagger</module>
+        <module>whale-provider-job</module>
     </modules>
 
     <dependencies>

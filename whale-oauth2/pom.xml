@@ -21,6 +21,12 @@
             <groupId>com.whale.ms</groupId>
             <artifactId>whale-provider-common</artifactId>
             <version>${version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.alibaba.cloud</groupId>
+                    <artifactId>spring-cloud-starter-dubbo</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
 
@@ -32,11 +38,6 @@
         </dependency>
 
 
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-oauth2</artifactId>
-        </dependency>
-
 
         <dependency>
             <groupId>com.whale.ms</groupId>
@@ -45,11 +46,20 @@
         </dependency>
 
 
+      <!--  <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-oauth2</artifactId>
+        </dependency>-->
+
+
         <dependency>
             <groupId>com.whale.ms</groupId>
             <artifactId>whale-provider-security</artifactId>
             <version>${version}</version>
         </dependency>
+
+
+
     </dependencies>
 
 

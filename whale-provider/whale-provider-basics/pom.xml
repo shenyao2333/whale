@@ -36,6 +36,12 @@
             <artifactId>lombok</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
 
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -53,20 +59,13 @@
             <artifactId>spring-cloud-starter-dubbo</artifactId>
             <exclusions>
                 <exclusion>
-                    <groupId>org.apache</groupId>
-                    <artifactId>dubbo</artifactId>
-                </exclusion>
-                <exclusion>
                     <groupId>org.springframework.cloud</groupId>
                     <artifactId>spring-cloud-openfeign-core</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.dubbo</groupId>
-            <artifactId>dubbo</artifactId>
-        </dependency>
+
 
         <dependency>
             <groupId>com.alibaba.cloud</groupId>

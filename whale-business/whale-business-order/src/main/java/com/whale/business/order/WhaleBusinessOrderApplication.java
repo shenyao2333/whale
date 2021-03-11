@@ -22,16 +22,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication(scanBasePackages = "com.whale")
 @MapperScan(basePackages = {"com.whale.**.mapper"})
 @EnableSwagger2
-@EnableFeignClients
+@EnableFeignClients("com.whale")
 @EnableSwaggerBootstrapUI
 public class WhaleBusinessOrderApplication {
 
-
-
     public static void main(String[] args) {
-
         SpringApplication.run(WhaleBusinessOrderApplication.class, args);
     }
-
 
 }

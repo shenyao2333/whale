@@ -1,9 +1,8 @@
 package com.whale.oauth2.config;
 
 
-import cn.hutool.core.convert.Convert;
 import com.whale.oauth2.service.impl.WhaleUserDetailServiceImpl;
-import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,7 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
+import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
 
 import javax.annotation.Resource;
 
@@ -30,8 +29,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Resource
     private WhaleUserDetailServiceImpl myUserDetailService;
 
-   //@Resource
-   //private PermitProps permitProps;
+    @Value("${security.oauth2.client.client-id}")
+    private String clientId;
+    @Value("${security.oauth2.client.client-secret}")
+    private String secret;
+    @Value("${security.oauth2.authorization.check-token-access}")
+    private String checkTokenEndpointUrl;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -57,10 +60,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // 无状态模式，不需要session
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-       // String[] urls = Convert.toStrArray(permitProps.getIgnoreUrls());
-       // http.authorizeRequests().antMatchers(urls).permitAll()
-       // .anyRequest().authenticated()
-        ;
+         http.authorizeRequests().anyRequest().authenticated();
     }
 
 
@@ -91,6 +91,15 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         provider.setUserDetailsService(myUserDetailService);
         provider.setPasswordEncoder(passwordEncoder);
         return provider;
+    }
+
+    @Bean
+    public RemoteTokenServices tokenService() {
+        RemoteTokenServices tokenService = new RemoteTokenServices();
+        tokenService.setClientId(clientId);
+        tokenService.setClientSecret(secret);
+        tokenService.setCheckTokenEndpointUrl(checkTokenEndpointUrl);
+        return tokenService;
     }
 
 

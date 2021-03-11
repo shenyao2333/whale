@@ -1,8 +1,8 @@
 # whale 
-## 
+### 介绍
 SpringColudAlibaba的脚手架，快速搭建一套完整可用的微服务器架构，所用技术点选用目前比较流行的可靠的方案。
 
-### 平台简介    
+### 服务说明    
 
 
 |     模块 |    说明  |   端口号   |
@@ -10,6 +10,7 @@ SpringColudAlibaba的脚手架，快速搭建一套完整可用的微服务器�
 |   whale-business-system   | 网关     |  7000    |
 |   whale-oauth2   | 登录     |  8000    |
 |   whale-business-system   | 业务模块-系统     |  9000    |
+| whale-business-order | 业务模块-订单 | 9200 |
 |   whale-generator-netty-server   |    netty服务端  |  14000，12240    |
 |      |      |      |
 
@@ -39,7 +40,7 @@ SpringColudAlibaba的脚手架，快速搭建一套完整可用的微服务器�
 
 - [x] OpenFeign通信
 
-- [ ] Dubbo的RPC调用 
+- [x] Dubbo的RPC调用 
 
     [官方文档](https://github.com/alibaba/spring-cloud-alibaba/blob/master/spring-cloud-alibaba-examples/spring-cloud-alibaba-com.whale.api.dubbo-examples/README_CN.md)      
 
@@ -49,9 +50,11 @@ SpringColudAlibaba的脚手架，快速搭建一套完整可用的微服务器�
 
 - [ ] xxl任务调度
 
+    [官方文档](https://www.xuxueli.com/xxl-job)
+
 - [ ] Sentiel限流
 
-- [ ] Ribbon负载均衡
+- [x] Ribbon负载均衡
 
 - [x] Netty聊天
 

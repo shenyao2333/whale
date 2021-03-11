@@ -23,7 +23,7 @@ import java.io.IOException;
 /**
  * 自定义Token异常信息
  * @author Aijm
- * @since 2019/11/20
+ * @since 2021/01/20
  */
 @Slf4j
 @Component

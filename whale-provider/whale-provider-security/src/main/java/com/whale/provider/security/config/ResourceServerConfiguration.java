@@ -19,7 +19,6 @@ import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 
 /**
@@ -42,10 +41,14 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
     @Value("${security.oauth2.resourceId}")
     private String resourceId;
-    @Resource
-    private RemoteTokenServices remoteTokenServices;
+
+
     @Resource
     private RestTemplate restTemplate;
+
+    @Resource
+    private RemoteTokenServices remoteTokenServices;
+
 
     /**
      * 配置校验token方式

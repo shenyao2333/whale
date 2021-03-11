@@ -29,7 +29,7 @@ public class RestTemplateUtil {
 
 
     /**
-     * 封装的get请求，暂时只支持map传参，并且value只支持基本类型和String
+     * 封装的get请求，只支持map传参，并且value只支持基本类型和String
      *
      * @param url
      * @param map

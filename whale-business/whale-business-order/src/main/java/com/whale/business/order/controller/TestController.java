@@ -1,9 +1,11 @@
 package com.whale.business.order.controller;
 
-import com.whale.business.order.feign.system.TestFeign;
+import com.whale.api.order.feign.TestOrderFeign;
+import com.whale.api.order.system.feign.TestSystemFeign;
+import com.whale.business.order.service.impl.Test2Feign;
 import com.whale.provider.basices.web.R;
-import com.whale.api.dubbo.domain.vo.OrderInfoVo;
-import com.whale.api.dubbo.service.TestDubboService;
+import com.whale.api.order.domain.vo.OrderInfoVo;
+import com.whale.api.order.dubbo.service.TestDubboService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class TestController {
 
-    private final TestFeign testFeign;
-
-   private final TestDubboService testDubboService;
+    private final TestDubboService testDubboService;
+    private final TestSystemFeign systemFeign;
+    private final Test2Feign test2Feign;
 
     @GetMapping("/test")
     public R test1(){
@@ -29,15 +31,25 @@ public class TestController {
     }
 
 
+
     @GetMapping("/testFei")
     public R testFei(){
-        R<Object> test = testFeign.getTest();
-        if (test==null){
+        R<Object> objectR = systemFeign.getTest();
+        if (objectR==null){
             return R.fail("feign调用失败！");
         }
         return R.ok();
     }
 
+
+    @GetMapping("/testFei2")
+    public R testFei2(){
+        R<Object> objectR = test2Feign.getTest();
+        if (objectR==null){
+            return R.fail("feign调用失败！");
+        }
+        return R.ok();
+    }
 
 
    @GetMapping("/testDubbo")

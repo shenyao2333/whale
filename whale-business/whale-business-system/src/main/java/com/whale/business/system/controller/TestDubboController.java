@@ -1,8 +1,8 @@
 package com.whale.business.system.controller;
 
 import com.whale.provider.basices.web.R;
-import com.whale.api.dubbo.domain.vo.OrderInfoVo;
-import com.whale.api.dubbo.service.TestDubboService;
+import com.whale.api.order.domain.vo.OrderInfoVo;
+import com.whale.api.order.dubbo.service.TestDubboService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.apache.dubbo.config.annotation.Reference;

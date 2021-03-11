@@ -25,8 +25,11 @@ public class ExceptionTranslator implements WebResponseExceptionTranslator {
 
     @Override
     public ResponseEntity translate(Exception e) throws Exception {
-        if (e instanceof InvalidGrantException){
-            return ResponseEntity.ok(R.fail(3001,e.getMessage()));
+        if (e instanceof GrabException){
+            GrabException gr =  (GrabException) e;
+            return ResponseEntity.ok(R.fail(gr.getCode(),gr.getMsg()));
+        }else if (e instanceof InvalidGrantException){
+            return ResponseEntity.ok(R.fail(3001,"密码错误！"));
         }else if (e instanceof UsernameNotFoundException) {
             return ResponseEntity.ok(R.fail(3002,e.getMessage()));
         }else if (e instanceof UnsupportedGrantTypeException) {
@@ -37,8 +40,6 @@ public class ExceptionTranslator implements WebResponseExceptionTranslator {
             return ResponseEntity.ok(R.fail(3001,"账号不存在！"));
         }else if (e instanceof InvalidTokenException){
             return ResponseEntity.ok(R.fail(3004,"token失效！"));
-        }else if (e instanceof GrabException) {
-            return ResponseEntity.ok(R.fail(3004,((GrabException) e).getMsg()));
         }
         return ResponseEntity.ok(R.fail(2003,"登陆错误!"));
     }

@@ -1,9 +1,7 @@
 package com.whale.business.order.service.impl;
 
-import com.whale.provider.security.domain.WhaleUser;
-import com.whale.provider.security.utils.SecurityUtil;
-import com.whale.api.dubbo.domain.vo.OrderInfoVo;
-import com.whale.api.dubbo.service.TestDubboService;
+import com.whale.api.order.domain.vo.OrderInfoVo;
+import com.whale.api.order.dubbo.service.TestDubboService;
 import org.apache.dubbo.config.annotation.Service;
 
 import java.util.UUID;
@@ -25,11 +23,6 @@ public class TestDubboServiceImpl implements TestDubboService {
         orderInfoVo.setOrderId(orderId);
         orderInfoVo.setOrderSn(UUID.randomUUID().toString());
         orderInfoVo.setStatus(0);
-
-
-        WhaleUser user = SecurityUtil.getUser();
-       // System.out.println(user.getRealName());
-
 
         return orderInfoVo;
     }

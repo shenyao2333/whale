@@ -15,6 +15,12 @@
 
     <artifactId>whale-api-system</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>com.whale.ms</groupId>
+            <artifactId>whale-provider-basics</artifactId>
+            <version>${version}</version>
+        </dependency>
+    </dependencies>
 
 </project>

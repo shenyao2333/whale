@@ -38,7 +38,7 @@ public class WhaleUserDetailServiceImpl implements WhaleUserDetailService {
                 return new SecurityUser(sysUser.getId(),sysUser.getRealName(),sysUser.getAvatar(),sysUser.getUserName(),sysUser.getPassword(),AuthorityUtils.NO_AUTHORITIES);
             }
         }
-        throw new UsernameNotFoundException("账号不存在！");
+        throw new GrabException(2003,"账号不存在！");
     }
 
 
@@ -53,7 +53,7 @@ public class WhaleUserDetailServiceImpl implements WhaleUserDetailService {
         }
         List<SysUser> sysUsers = sysUserService.selectByPhone(mobile);
         if (sysUsers==null||sysUsers.size()<1){
-            throw new UsernameNotFoundException("手机号错误！");
+            throw new GrabException(2323,"手机号错误！");
         }
         SysUser sysUser = sysUsers.get(0);
         if (sysUser.getType()==0){
