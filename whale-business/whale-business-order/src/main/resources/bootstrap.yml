@@ -45,3 +45,7 @@ dubbo:
   cloud:
     #配置订阅服务多个服务用,隔开,不配置默认订阅注册中心所有服务
     subscribed-services: 'whale-business-system'
+
+whale-business-order:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule

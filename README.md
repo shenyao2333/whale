@@ -66,3 +66,6 @@ SpringColudAlibaba的脚手架，快速搭建一套完整可用的微服务器�
 
 - [ ] 分布式事务Seata
 
+- [ ] 集成docker部署
+- [ ] 设计模式
+
