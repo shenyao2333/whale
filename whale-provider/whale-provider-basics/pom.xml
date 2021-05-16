@@ -93,7 +93,7 @@
             <groupId>com.alibaba.nacos</groupId>
             <artifactId>nacos-client</artifactId>
         </dependency>
-
+        <!-- 配置和注册中心 结束-->
 
         <dependency>
             <groupId>mysql</groupId>
@@ -115,29 +115,8 @@
 
 
         <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-registry-prometheus</artifactId>
-        </dependency>
-
-
-        <dependency>
             <groupId>org.redisson</groupId>
             <artifactId>redisson</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>net.coobird</groupId>
-            <artifactId>thumbnailator</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>net.sourceforge.tess4j</groupId>
-            <artifactId>tess4j</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>net.sf.ezmorph</groupId>
-            <artifactId>ezmorph</artifactId>
         </dependency>
 
         <!--  PDF -开始 -->

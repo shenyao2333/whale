@@ -65,6 +65,27 @@ public class QrCodeUtils {
         return image;
     }
 
+
+    public static BufferedImage createImage(String content, InputStream logStream, boolean needCompress) throws Exception {
+        Hashtable<EncodeHintType, Object> hints = new Hashtable<EncodeHintType, Object>();
+        hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
+        hints.put(EncodeHintType.CHARACTER_SET, CHARSET);
+        hints.put(EncodeHintType.MARGIN, 1);
+        BitMatrix bitMatrix = new MultiFormatWriter().encode(content, BarcodeFormat.QR_CODE, QRCODE_SIZE, QRCODE_SIZE,
+                hints);
+        int width = bitMatrix.getWidth();
+        int height = bitMatrix.getHeight();
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                image.setRGB(x, y, bitMatrix.get(x, y) ? 0xFF000000 : 0xFFFFFFFF);
+            }
+        }
+        // 插入图片
+        QrCodeUtils.insertImage(image, logStream, needCompress);
+        return image;
+    }
+
     /**
      * 插入LOGO
      *
@@ -112,6 +133,55 @@ public class QrCodeUtils {
             }
         }
     }
+
+
+    /**
+     * 插入LOGO
+     *
+     * @param source       二维码图片
+     * @param inputStream     LOGO输入流
+     * @param needCompress 是否压缩
+     * @throws IOException
+     */
+    private static void insertImage(BufferedImage source, InputStream inputStream, boolean needCompress) throws IOException {
+        try {
+            Image src = ImageIO.read(inputStream);
+            int width = src.getWidth(null);
+            int height = src.getHeight(null);
+            if (needCompress) { // 压缩LOGO
+                if (width > LOGO_WIDTH) {
+                    width = LOGO_WIDTH;
+                }
+                if (height > LOGO_HEIGHT) {
+                    height = LOGO_HEIGHT;
+                }
+                Image image = src.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+                BufferedImage tag = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+                Graphics g = tag.getGraphics();
+                g.drawImage(image, 0, 0, null);
+                g.dispose();
+                src = image;
+            }
+            // 插入LOGO
+            Graphics2D graph = source.createGraphics();
+            int x = (QRCODE_SIZE - width) / 2;
+            int y = (QRCODE_SIZE - height) / 2;
+            graph.drawImage(src, x, y, width, height, null);
+            Shape shape = new RoundRectangle2D.Float(x, y, width, width, 6, 6);
+            graph.setStroke(new BasicStroke(3f));
+            graph.draw(shape);
+            graph.dispose();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            if (inputStream != null) {
+                inputStream.close();
+            }
+        }
+    }
+
+
 
     /**
      * 生成二维码(内嵌LOGO)
@@ -214,6 +284,12 @@ public class QrCodeUtils {
         ImageIO.write(image, FORMAT, output);
     }
 
+    public static void encode(String content, InputStream inputStream, OutputStream output)
+            throws Exception {
+        BufferedImage image = QrCodeUtils.createImage(content, inputStream, true);
+        ImageIO.write(image, FORMAT, output);
+    }
+
     /**
      * 生成二维码
      *
@@ -222,6 +298,21 @@ public class QrCodeUtils {
      * @throws Exception
      */
     public static void encode(String content, OutputStream output) throws Exception {
-        QrCodeUtils.encode(content, null, output, false);
+        QrCodeUtils.encode(content, null, output, true);
     }
+
+
+    /**
+     * 生成二维码
+     *
+     * @param content 内容
+     * @param output  输出流
+     * @param logStream  log输入流
+     * @throws Exception
+     */
+    public static void encode(String content, OutputStream output,InputStream logStream) throws Exception {
+        QrCodeUtils.encode(content, logStream, output);
+    }
+
+
 }
