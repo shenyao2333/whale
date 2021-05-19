@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 public class TestTask {
 
     private static Logger logger = LoggerFactory.getLogger(TestTask.class);
-    /**
+
      /**
      * 1、简单任务示例（Bean模式）
      */

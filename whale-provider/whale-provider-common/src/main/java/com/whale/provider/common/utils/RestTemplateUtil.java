@@ -49,6 +49,16 @@ public class RestTemplateUtil {
     }
 
 
+    public JSONObject  doPost(String url, Map<String,String> headers,  JSONObject param) {
+        HttpHeaders httpHeaders = getHead();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        for (String key : headers.keySet()){
+            httpHeaders.add(key,headers.get(key));
+        }
+        return postWithJson(url, httpHeaders, param, JSONObject.class);
+    }
+
+
     public JSONObject  doPost(String url, Map<String,String> headers, Map<String,String> headersParams , JSONObject param) {
         url = this.completionUrl(url, headersParams);
         HttpHeaders httpHeaders = getHead();
