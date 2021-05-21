@@ -1,4 +1,4 @@
-package com.whale.provider.basices.utils;
+package com.whale.provider.common.utils;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;

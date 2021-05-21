@@ -1,4 +1,4 @@
-package com.whale.provider.basices.utils;
+package com.whale.provider.common.utils;
 
 
 import java.lang.reflect.Field;

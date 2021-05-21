@@ -1,4 +1,4 @@
-package com.whale.provider.basices.utils;
+package com.whale.provider.common.utils;
 
 import com.itextpdf.text.pdf.AcroFields;
 import com.itextpdf.text.pdf.BaseFont;

@@ -1,4 +1,4 @@
-package com.whale.provider.basices.utils;
+package com.whale.provider.common.utils;
 
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;

@@ -1,4 +1,4 @@
-package com.whale.provider.basices.utils;
+package com.whale.provider.common.utils;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
