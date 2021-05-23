@@ -5,6 +5,7 @@ import com.whale.oauth2.service.impl.WhaleUserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,6 +16,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
+import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.Resource;
 
@@ -24,7 +27,7 @@ import javax.annotation.Resource;
  * @description Spring security的http配置
  */
 @Configuration
-public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
     @Resource
     private WhaleUserDetailServiceImpl myUserDetailService;
@@ -100,6 +103,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         tokenService.setClientSecret(secret);
         tokenService.setCheckTokenEndpointUrl(checkTokenEndpointUrl);
         return tokenService;
+    }
+
+
+    @Override
+    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+        configurer.defaultContentType(MediaType.APPLICATION_JSON);
     }
 
 

@@ -35,7 +35,7 @@ public class WhaleUserDetailServiceImpl implements WhaleUserDetailService {
         if (sysUsers!=null&&sysUsers.size()>0){
             SysUser sysUser = sysUsers.get(0);
             if (sysUser.getType()==0){
-                return new SecurityUser(sysUser.getId(),sysUser.getRealName(),sysUser.getAvatar(),sysUser.getUserName(),sysUser.getPassword(),AuthorityUtils.NO_AUTHORITIES);
+                return new SecurityUser(sysUser.getUserId(),sysUser.getRealName(),sysUser.getAvatar(),sysUser.getUserName(),sysUser.getPassword(),AuthorityUtils.NO_AUTHORITIES);
             }
         }
         throw new GrabException(2003,"账号不存在！");
@@ -57,7 +57,8 @@ public class WhaleUserDetailServiceImpl implements WhaleUserDetailService {
         }
         SysUser sysUser = sysUsers.get(0);
         if (sysUser.getType()==0){
-            return new SecurityUser(sysUser.getId(),sysUser.getRealName(),sysUser.getAvatar(),sysUser.getUserName(),sysUser.getPassword(),AuthorityUtils.NO_AUTHORITIES);
+            return new SecurityUser(sysUser.getUserId(),sysUser.getRealName(),sysUser.getAvatar(),sysUser.getUserName(),
+                    sysUser.getPassword(),AuthorityUtils.NO_AUTHORITIES);
         }
         throw new GrabException(3002,"手机号错误！");
     }

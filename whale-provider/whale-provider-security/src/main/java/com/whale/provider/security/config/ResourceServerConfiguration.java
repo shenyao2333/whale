@@ -1,6 +1,5 @@
 package com.whale.provider.security.config;
 
-
 import cn.hutool.core.convert.Convert;
 import com.whale.provider.security.component.WhaleUserAuthenticationConverter;
 import com.whale.provider.security.exception.CustomAuthenticationEntryPoint;
@@ -47,7 +46,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     private RestTemplate restTemplate;
 
     @Resource
-    private RemoteTokenServices remoteTokenServices;
+    private RemoteTokenServices remoteTokenService;
 
 
     /**
@@ -59,9 +58,9 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
        DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
        accessTokenConverter.setUserTokenConverter(whaleUserAuthenticationConverter);
-       remoteTokenServices.setAccessTokenConverter(accessTokenConverter);
-       remoteTokenServices.setRestTemplate(restTemplate);
-       resources.tokenServices(remoteTokenServices);
+       remoteTokenService.setAccessTokenConverter(accessTokenConverter);
+       remoteTokenService.setRestTemplate(restTemplate);
+       resources.tokenServices(remoteTokenService);
        resources.authenticationEntryPoint(customAuthenticationEntryPoint);
        resources.resourceId(resourceId);
        super.configure(resources);

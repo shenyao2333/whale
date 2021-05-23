@@ -1,6 +1,6 @@
 security:
   oauth2:
-    resourceId: 1
+    resourceId: 2
     resource:
       token-info-uri: http://127.0.0.1:8000/oauth/check_token
     client:
@@ -44,3 +44,6 @@ dubbo:
   cloud:
     #配置订阅服务多个服务用,隔开,不配置默认订阅注册中心所有服务
     subscribed-services: 'whale-business-order'
+
+logging:
+  level: debug

@@ -24,8 +24,9 @@ public class ExecutorConfig {
     public static ExecutorService threadPool() {
         int max = Runtime.getRuntime().availableProcessors();
         log.info("初始化线程数："+max);
-        return new ThreadPoolExecutor(max / 2 + 1, max,
-                0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(max / 2 + 1, max,
+                60, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
+        return threadPoolExecutor;
     }
 
 

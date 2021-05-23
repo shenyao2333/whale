@@ -17,9 +17,9 @@ import lombok.Data;
 public class SysUser implements Serializable {
 
 
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "user_id", type = IdType.AUTO)
     @ApiModelProperty(value="")
-    private Integer id;
+    private Integer userId;
 
     /**
      * 使用名

@@ -23,7 +23,6 @@ public class TestDubboServiceImpl implements TestDubboService {
         orderInfoVo.setOrderId(orderId);
         orderInfoVo.setOrderSn(UUID.randomUUID().toString());
         orderInfoVo.setStatus(0);
-
         return orderInfoVo;
     }
 }

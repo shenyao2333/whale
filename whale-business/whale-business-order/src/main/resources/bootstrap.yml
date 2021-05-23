@@ -1,11 +1,11 @@
 security:
   oauth2:
-    resourceId: 2
+    resourceId: 3
     resource:
       token-info-uri: http://127.0.0.1:8000/oauth/check_token
     client:
       client-id: order
-      client-secret: 123456
+      client-secret: whale
       access-token-uri: http://127.0.0.1:8000/oauth/token
       user-authorization-uri: http://127.0.0.1:8000/oauth/authorize
       ignore-urls:
@@ -51,14 +51,9 @@ whale-business-order:
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
 
 
-# 此处为SpringAdminClient配置，需要暴露Actuator节点
-management:
-  #  暴露所有的endpoint 注意生产环境安全问题
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  # 展示endpoint细节信息
-  endpoint:
-    health:
-      show-details: ALWAYS
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    com.whale: debug
+    org.springframework: debug
+    org.spring.springboot.dao: debug

@@ -10,12 +10,14 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2RefreshToken;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Base64;
 import java.util.HashMap;
 
 /**
@@ -75,6 +77,18 @@ public class AuthController {
         OAuth2RefreshToken refreshToken = accessToken.getRefreshToken();
         tokenStore.removeRefreshToken(refreshToken);
         return R.ok("退出成功！");
+    }
+
+
+    public static void main(String[] args) {
+        String whale = new BCryptPasswordEncoder().encode("123456");
+
+        System.out.println(whale);
+
+        String namePwd="whale:whale";
+        byte[] bytes = namePwd.getBytes();
+        String basic = Base64.getEncoder().encodeToString(bytes);
+        System.out.println(basic);
     }
 
 }

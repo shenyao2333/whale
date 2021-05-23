@@ -7,7 +7,7 @@ security:
       check-token-access: http://127.0.0.1:8000/oauth/check_token
     client:
       clientId: whale
-      clientSecret: 123456
+      clientSecret: whale
       accessTokenUri: http://127.0.0.1:8000/oauth/token
       user-authorization-uri: http://127.0.0.1:8000/oauth/authorize
       ignore-urls:
@@ -19,3 +19,9 @@ security:
         - /webjars/**
         - /doc.html
         - /test/**
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    com.whale: debug
+    org.springframework: debug
+    org.spring.springboot.dao: debug
