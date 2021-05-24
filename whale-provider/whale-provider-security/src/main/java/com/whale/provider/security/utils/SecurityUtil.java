@@ -6,6 +6,7 @@ import com.whale.provider.security.domain.WhaleUser;
 import lombok.experimental.UtilityClass;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 
 
 /**
@@ -15,6 +16,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
  */
 @UtilityClass
 public class SecurityUtil {
+
+
 
 	/**
 	 * 获取Authentication
@@ -31,6 +34,13 @@ public class SecurityUtil {
 		if (authentication==null){
 			return null;
 		}
+
+		//userAuthentication;
+		System.out.println(authentication);
+		authentication.getPrincipal();
+		System.out.println(authentication.getName());
+		System.out.println(authentication.getDetails());
+		System.out.println(authentication.getPrincipal());
 		return (WhaleUser)authentication.getPrincipal();
 	}
 

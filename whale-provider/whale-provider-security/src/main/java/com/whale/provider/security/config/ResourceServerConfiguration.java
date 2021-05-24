@@ -14,7 +14,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
@@ -46,7 +45,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     private RestTemplate restTemplate;
 
     @Resource
-    private RemoteTokenServices remoteTokenService;
+    private RemoteTokenService remoteTokenService;
 
 
     /**

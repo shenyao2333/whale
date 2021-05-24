@@ -12,9 +12,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
  * @date Created in 2020.10.7 20:11
  * @description
  */
-@EnableCaching
 @EnableDiscoveryClient
-@EnableAsync
 @SpringBootApplication(scanBasePackages = "com.whale",exclude= {DataSourceAutoConfiguration.class})
 public class WhaleGatewayApplication  {
 

@@ -22,7 +22,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @MapperScan(basePackages = {"com.whale.**.mapper"})
 @EnableSwagger2
 @EnableSwaggerBootstrapUI
-@EnableFeignClients
+@EnableFeignClients("com.whale")
 public class WhaleBusinessSystemApplication {
 
     public static void main(String[] args) {

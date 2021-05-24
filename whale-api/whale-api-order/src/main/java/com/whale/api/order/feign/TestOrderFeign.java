@@ -1,7 +1,9 @@
 package com.whale.api.order.feign;
 
+import com.whale.api.order.feign.fallback.TestOrderFeignFallback;
 import com.whale.provider.basices.web.R;
-import org.springframework.http.MediaType;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
@@ -9,10 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @date: 2021/3/10 17:13
  * @description
  */
-
+@Service
+@FeignClient(value ="whale-business-order", fallback = TestOrderFeignFallback.class)
 public interface TestOrderFeign {
 
 
-    @GetMapping(value = "/test",consumes ={MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.ALL_VALUE} )
+    @GetMapping(value = "/test/testDubbo" )
     R<Object> test();
 }

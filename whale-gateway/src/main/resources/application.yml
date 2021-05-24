@@ -8,16 +8,23 @@ spring:
       routes:
         - id: whale-oauth2
           uri: lb://whale-oauth2
-          order: 0
+          order: 20
           predicates:
             - Path=/whale-oauth2/**
           filters:
             - StripPrefix=1
         - id: whale-business-system
           uri: lb://whale-business-system
-          order: 0
+          order: 1
           predicates:
-            - Path=/whale-business-system/**
+            - Path=/whale-system/**
+          filters:
+            - StripPrefix=1
+        - id: whale-business-order
+          uri: lb://whale-business-order
+          order: 10
+          predicates:
+            - Path=/whale-order/**
           filters:
             - StripPrefix=1
 logging:

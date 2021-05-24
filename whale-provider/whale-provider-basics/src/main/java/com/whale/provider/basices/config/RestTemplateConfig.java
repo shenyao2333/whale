@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -46,6 +47,8 @@ public class RestTemplateConfig   {
 		List<MediaType> mediaTypes = new ArrayList<>(jacksonConverter.getSupportedMediaTypes());
 		// 将头为text_plain
 		mediaTypes.add(MediaType.TEXT_PLAIN);
+		mediaTypes.add(MediaType.TEXT_HTML);
+		mediaTypes.add(MediaType.APPLICATION_FORM_URLENCODED);
 		jacksonConverter.setSupportedMediaTypes(mediaTypes);
 		restTemplate.setErrorHandler(setErrorHandler());
 		restTemplate.getMessageConverters().add(jacksonConverter);

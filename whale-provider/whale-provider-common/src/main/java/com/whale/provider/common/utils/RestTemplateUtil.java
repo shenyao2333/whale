@@ -108,7 +108,9 @@ public class RestTemplateUtil {
     public  JSONObject doGet(String url) {
         // get请求并返回
         log.info("rest----->GET请求，url为："+url);
-        return restTemplate.getForObject(url, JSONObject.class);
+        HttpHeaders head = this.getHead();
+        HttpEntity<String> requestEntity = new HttpEntity<>(null, head);
+        return restTemplate.exchange(url, HttpMethod.GET, requestEntity, JSONObject.class).getBody();
     }
 
     /**
@@ -119,16 +121,20 @@ public class RestTemplateUtil {
      */
     public  JSONObject doGet(String url,Map<String,String> params) {
         url =  this.completionUrl(url,params);
+        HttpHeaders head = this.getHead();
+        HttpEntity<String> requestEntity = new HttpEntity<>(null, head);
         log.info("rest----->GET请求，url为："+url);
-        // get请求并返回
-        return restTemplate.getForObject(url, JSONObject.class);
+        return  restTemplate.exchange(url, HttpMethod.GET, requestEntity, JSONObject.class).getBody();
+
     }
 
 
     public JSONObject doGetWithHead(String url, HashMap<String, String> headers) {
         HttpHeaders head = this.getHead();
-        for (String key : headers.keySet()){
-            head.add(key,headers.get(key));
+        if (headers!=null&&headers.size()>0){
+            for (String key : headers.keySet()){
+                head.add(key,headers.get(key));
+            }
         }
         HttpEntity<String> requestEntity = new HttpEntity<>(null, head);
         ResponseEntity<JSONObject> response = restTemplate.exchange(url, HttpMethod.GET, requestEntity, JSONObject.class);

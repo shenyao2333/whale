@@ -1,5 +1,6 @@
 package com.whale.business.system.controller;
 
+import com.whale.api.order.feign.TestOrderFeign;
 import com.whale.provider.basices.web.R;
 import com.whale.api.order.domain.vo.OrderInfoVo;
 import com.whale.api.order.dubbo.service.TestDubboService;
@@ -24,10 +25,18 @@ public class TestDubboController {
     @Reference
     private TestDubboService testDubboService;
 
+    private final TestOrderFeign testOrderFeign;
+
     @GetMapping("/getOrderInfo")
     public R getOrderInfo(Integer orderId){
         OrderInfoVo orderInfoVo = testDubboService.getOrderInfoVo(orderId);
         return R.ok(orderInfoVo);
+    }
+
+    @GetMapping("/getOrderInfo2")
+    public R getOrderInfo2(Integer orderId){
+        R<Object> test = testOrderFeign.test();
+        return R.ok(test);
     }
 
 

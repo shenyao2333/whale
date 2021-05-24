@@ -25,10 +25,10 @@ import java.util.Map;
 /**
  * @Author: shenyao
  * @Date: Created by 2021/5/23 22:13
- * @description:
+ * @description: 向认证中心获取用户信息时，返回的数据都变成字符串了，所以重新定义loadAuthentication方法逻辑
  */
-//@Primary
-//@Component
+@Primary
+@Component
 @RequiredArgsConstructor
 public class RemoteTokenService extends RemoteTokenServices {
 
@@ -46,7 +46,10 @@ public class RemoteTokenService extends RemoteTokenServices {
         headers.set("Authorization", this.getAuthorizationHeader(oAuth2ClientProperties.getClientId(), oAuth2ClientProperties.getClientSecret()));
         headers.set("Accept","application/json");
         Map<String, Object> map = this.postForMap(resourceServerProperties.getTokenInfoUri(), formData, headers);
-        if (map.containsKey("error")) {
+        if (map.containsKey("status")&& !(Boolean)map.get("status")){
+            this.logger.debug("check_token returned error: " + map.get("msg"));
+            throw new InvalidTokenException(accessToken);
+        }else if (map.containsKey("error")) {
             if (this.logger.isDebugEnabled()) {
                 this.logger.debug("check_token returned error: " + map.get("error"));
             }

@@ -41,7 +41,7 @@ public class AuthController {
     public R login(@RequestBody @Valid LoginDto loginDto){
         HashMap<String, String> headMap = new HashMap<String, String>(1){
             {
-                put("Authorization","Basic d2hhbGU6MTIzNDU2");
+                put("Authorization","Basic d2hhbGU6d2hhbGU=");
             }
         };
         HashMap<String, String> paramsMap = new HashMap<String, String>(1){

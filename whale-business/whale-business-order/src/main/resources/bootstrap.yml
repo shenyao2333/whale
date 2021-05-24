@@ -4,7 +4,7 @@ security:
     resource:
       token-info-uri: http://127.0.0.1:8000/oauth/check_token
     client:
-      client-id: order
+      client-id: whale
       client-secret: whale
       access-token-uri: http://127.0.0.1:8000/oauth/token
       user-authorization-uri: http://127.0.0.1:8000/oauth/authorize
@@ -16,6 +16,7 @@ security:
         - /swagger-ui.html
         - /webjars/**
         - /doc.html
+        - /test/test
 feign:
   sentinel:
     enabled: true
@@ -53,7 +54,3 @@ whale-business-order:
 
 logging:
   config: classpath:logback-spring.xml
-  level:
-    com.whale: debug
-    org.springframework: debug
-    org.spring.springboot.dao: debug

@@ -29,7 +29,7 @@ public class SwaggerProvider implements SwaggerResourcesProvider {
     /**
      * swagger2默认的url后缀SwaggerProvider
      */
-    private static final String API_URI = "/v2/api-docs";
+    private static final String API_URI = "v2/api-docs";
     private final GatewayProperties gatewayProperties;
     private final RouteLocator routeLocator;
 
@@ -51,7 +51,7 @@ public class SwaggerProvider implements SwaggerResourcesProvider {
     }
 
     private SwaggerResource swaggerResource(String name, String location) {
-        log.info("name:{},location:{}",name,location);
+        log.info("加载swagger---> name:{},location:{}",name,location);
         SwaggerResource swaggerResource = new SwaggerResource();
         swaggerResource.setName(name);
         swaggerResource.setLocation(location);
