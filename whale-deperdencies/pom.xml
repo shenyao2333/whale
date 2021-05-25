@@ -68,11 +68,11 @@
             </dependency>
 
             <!--启用 Kryo高速序列化功能-->
-           <!-- <dependency>
-                <groupId>org.apache.com.whale.api.dubbo</groupId>
-                <artifactId>com.whale.api.dubbo-serialization-kryo</artifactId>
-                <version>${com.whale.api.dubbo-kryo.version}</version>
-            </dependency>-->
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-serialization-kryo</artifactId>
+                <version>${dubbo-kryo.version}</version>
+            </dependency>
 
 
             <!--前端api展示 开始-->

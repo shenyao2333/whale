@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,6 +15,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.DefaultUserAuthenticationConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
@@ -29,17 +32,16 @@ import javax.annotation.Resource;
 @RefreshScope
 @EnableResourceServer
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
-public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
+public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter  {
 
     @Resource
     private PermitProps permitProps;
-    @Resource
-    private WhaleUserAuthenticationConverter whaleUserAuthenticationConverter;
+
     @Resource
     private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+
     @Value("${security.oauth2.resourceId}")
     private String resourceId;
-
 
     @Resource
     private RestTemplate restTemplate;
@@ -47,6 +49,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     @Resource
     private RemoteTokenService remoteTokenService;
 
+    @Resource
+    private DefaultAccessTokenConverter defaultAccessTokenConverter;
 
     /**
      * 配置校验token方式
@@ -55,15 +59,15 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
      */
    @Override
    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-       DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
-       accessTokenConverter.setUserTokenConverter(whaleUserAuthenticationConverter);
-       remoteTokenService.setAccessTokenConverter(accessTokenConverter);
+       remoteTokenService.setAccessTokenConverter(defaultAccessTokenConverter);
        remoteTokenService.setRestTemplate(restTemplate);
        resources.tokenServices(remoteTokenService);
        resources.authenticationEntryPoint(customAuthenticationEntryPoint);
        resources.resourceId(resourceId);
        super.configure(resources);
    }
+
+
 
 
 
@@ -80,6 +84,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         http.authorizeRequests().requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll();
         http.authorizeRequests().anyRequest().authenticated().and().csrf().disable();
     }
+
+
 
 
 

@@ -2,6 +2,8 @@ package com.whale.business.order.service.impl;
 
 import com.whale.api.order.domain.vo.OrderInfoVo;
 import com.whale.api.order.dubbo.service.TestDubboService;
+import com.whale.provider.basices.web.GlobalExceptionHandler;
+import com.whale.provider.basices.web.GrabException;
 import com.whale.provider.security.domain.WhaleUser;
 import com.whale.provider.security.utils.SecurityUtil;
 import org.apache.dubbo.config.annotation.Service;
@@ -25,8 +27,10 @@ public class TestDubboServiceImpl implements TestDubboService {
         orderInfoVo.setOrderId(orderId);
         orderInfoVo.setOrderSn(UUID.randomUUID().toString());
         orderInfoVo.setStatus(0);
-        WhaleUser user = SecurityUtil.getUser();
-        System.out.println(user);
+        if (orderInfoVo!=null){
+            throw new GrabException("假装错误！");
+        }
+
         return orderInfoVo;
     }
 }

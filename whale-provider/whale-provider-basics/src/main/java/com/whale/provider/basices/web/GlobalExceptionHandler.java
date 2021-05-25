@@ -1,5 +1,6 @@
 package com.whale.provider.basices.web;
 
+import org.apache.dubbo.rpc.filter.ExceptionFilter;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
@@ -120,8 +121,6 @@ public class GlobalExceptionHandler {
     public R serviceException(IndexOutOfBoundsException e) {
         return R.fail(-1,"数组越界，"+e.getMessage());
     }
-
-
 
 
 

@@ -1,6 +1,8 @@
 package com.whale.provider.security.config;
 
 import cn.hutool.core.codec.Base64;
+import com.whale.provider.security.component.WhaleUserAuthenticationConverter;
+import com.whale.provider.security.domain.WhaleUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
@@ -9,8 +11,12 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.oauth2.common.exceptions.InvalidTokenException;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.OAuth2Request;
 import org.springframework.security.oauth2.provider.token.AccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
@@ -36,7 +42,7 @@ public class RemoteTokenService extends RemoteTokenServices {
     private final RestTemplate restTemplate;
     private final OAuth2ClientProperties oAuth2ClientProperties;
     private final ResourceServerProperties resourceServerProperties;
-
+    private final DefaultAccessTokenConverter defaultAccessTokenConverter;
 
     @Override
     public OAuth2Authentication loadAuthentication(String accessToken) throws  InvalidTokenException {
@@ -58,7 +64,7 @@ public class RemoteTokenService extends RemoteTokenServices {
             this.logger.debug("check_token returned active attribute: " + map.get("active"));
             throw new InvalidTokenException(accessToken);
         } else {
-            return tokenConverter.extractAuthentication(map);
+            return defaultAccessTokenConverter.extractAuthentication(map);
         }
     }
 
@@ -83,6 +89,8 @@ public class RemoteTokenService extends RemoteTokenServices {
         }
         return restTemplate.exchange(path, HttpMethod.POST, new HttpEntity(formData, headers), Map.class, new Object[0]).getBody();
     }
+
+
 
 
 }

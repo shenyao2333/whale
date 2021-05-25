@@ -2,12 +2,12 @@ security:
   oauth2:
     resourceId: 2
     resource:
-      token-info-uri: http://127.0.0.1:8000/oauth/check_token
+      token-info-uri: http://127.0.0.1:8000/whale-oauth2/oauth/check_token
     client:
       client-id: whale
       client-secret: whale
-      access-token-uri: http://127.0.0.1:8000/oauth/token
-      user-authorization-uri: http://127.0.0.1:8000/oauth/authorize
+      access-token-uri: http://127.0.0.1:8000/whale-oauth2/oauth/token
+      user-authorization-uri: http://127.0.0.1:8000/whale-oauth2/oauth/authorize
       ignore-urls:
         - /v2/api-docs
         - /swagger-resources/**
@@ -27,6 +27,8 @@ feign:
         connectTimeout: 16000
         readTimeout: 16000
 dubbo:
+  provider:
+    filter: -exception
   consumer:
     check: false
   scan:
@@ -41,6 +43,8 @@ dubbo:
   protocol:
     name: dubbo
     port: -1
+    serialization: kryo
+
   cloud:
     #配置订阅服务多个服务用,隔开,不配置默认订阅注册中心所有服务
     subscribed-services: 'whale-business-order'

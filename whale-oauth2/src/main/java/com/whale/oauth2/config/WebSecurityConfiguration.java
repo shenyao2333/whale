@@ -32,13 +32,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter imple
     @Resource
     private WhaleUserDetailServiceImpl myUserDetailService;
 
-    @Value("${security.oauth2.client.client-id}")
-    private String clientId;
-    @Value("${security.oauth2.client.client-secret}")
-    private String secret;
-    @Value("${security.oauth2.authorization.check-token-access}")
-    private String checkTokenEndpointUrl;
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -96,14 +89,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter imple
         return provider;
     }
 
-    @Bean
-    public RemoteTokenServices tokenService() {
-        RemoteTokenServices tokenService = new RemoteTokenServices();
-        tokenService.setClientId(clientId);
-        tokenService.setClientSecret(secret);
-        tokenService.setCheckTokenEndpointUrl(checkTokenEndpointUrl);
-        return tokenService;
-    }
 
 
     @Override

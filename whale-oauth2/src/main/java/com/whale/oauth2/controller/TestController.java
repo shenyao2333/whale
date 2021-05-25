@@ -33,7 +33,7 @@ public class TestController {
         //Object forObject = restTemplate.getForObject("http://127.0.0.1:8000/test/test2", JSONObject.class);
         //System.out.println(forObject);
         //return R.ok(forObject);
-        JSONObject jsonObject = restTemplateUtil.doGet("http://127.0.0.1:8000/test/test2",null);
+        JSONObject jsonObject = restTemplateUtil.doGet("http://127.0.0.1:8000/whale-oauth2/test/test2",null);
         System.out.println("----进来---");
         return R.ok(jsonObject);
 
@@ -65,6 +65,10 @@ public class TestController {
         System.out.println(principal);
         return R.ok();
     }
+
+
+
+
 
 
 

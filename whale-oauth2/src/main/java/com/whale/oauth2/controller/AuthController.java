@@ -6,6 +6,8 @@ import com.whale.oauth2.domain.dto.LoginDto;
 import com.whale.provider.basices.web.GrabException;
 import com.whale.provider.basices.web.R;
 import com.whale.provider.common.utils.RestTemplateUtil;
+import com.whale.provider.security.domain.WhaleUser;
+import com.whale.provider.security.utils.SecurityUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -78,6 +80,9 @@ public class AuthController {
         tokenStore.removeRefreshToken(refreshToken);
         return R.ok("退出成功！");
     }
+
+
+
 
 
     public static void main(String[] args) {
