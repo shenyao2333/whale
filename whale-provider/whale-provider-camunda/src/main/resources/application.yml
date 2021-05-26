@@ -1,0 +1,13 @@
+camunda:
+  bpm:
+    admin-user:
+      id: sy
+      password: sy91aa
+      firstName: Demo
+    filter:
+      create: All tasks
+
+
+
+server:
+  port: 9030

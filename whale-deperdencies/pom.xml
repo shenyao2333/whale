@@ -38,6 +38,8 @@
         <pdfbox.version>2.0.19</pdfbox.version>
         <itext-asian.version>5.2.0</itext-asian.version>
         <itextpdf.version>5.4.3</itextpdf.version>
+        <jaxb-impl.version>2.2.3</jaxb-impl.version>
+        <camunda.spring-boot.version>7.15.0</camunda.spring-boot.version>
     </properties>
 
 
@@ -210,6 +212,20 @@
             </dependency>
             <!--  PDF -结束 -->
 
+
+            <!--工作流 开始-->
+            <dependency>
+                <groupId>org.camunda.bpm.springboot</groupId>
+                <artifactId>camunda-bpm-spring-boot-starter-webapp</artifactId>
+                <version>${camunda.spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-impl</artifactId>
+                <version>${jaxb-impl.version}</version>
+            </dependency>
+            <!--工作流 结束-->
 
         </dependencies>
 

@@ -19,6 +19,7 @@
         <module>whale-provider-security</module>
         <module>whale-provider-swagger</module>
         <module>whale-provider-job</module>
+        <module>whale-provider-camunda</module>
     </modules>
 
     <dependencies>

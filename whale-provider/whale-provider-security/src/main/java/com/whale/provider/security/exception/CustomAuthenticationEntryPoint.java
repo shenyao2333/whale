@@ -40,7 +40,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint,
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 		response.setStatus(HttpStatus.HTTP_OK);
 		response.getWriter()
-				.print(JSONObject.toJSONString(R.fail(R.CodeStatus.POWER,"请先登录！")));
+				.print(JSONObject.toJSONString(R.fail(R.CodeStatus.POWER,"无权限访问")));
 	}
 
 
@@ -58,7 +58,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint,
 		httpServletResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
 		httpServletResponse.setStatus(HttpStatus.HTTP_OK);
 		httpServletResponse.getWriter()
-				.print(JSONObject.toJSONString(R.fail(R.CodeStatus.POWER,"暂无权限！")));
+				.print(JSONObject.toJSONString(R.fail(R.CodeStatus.POWER,"权限不足！")));
 
 	}
 }
