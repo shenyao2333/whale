@@ -51,12 +51,8 @@ public class PDFUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        ByteArrayInputStream ret = new ByteArrayInputStream(out.toByteArray());
-        return ret;
-
+        return new ByteArrayInputStream(out.toByteArray());
     }
-
-
 
 
 
@@ -124,7 +120,6 @@ public class PDFUtil {
         try {
             //生成图片保存
             byte[] data = pdfToPic(PDDocument.load(file),200);
-            File imageFile = new File(imageFilePath);
             //按比例压缩图片
             ImageThumbUtil.thumbImage(data, 1, imageFilePath);
             return true;

@@ -6,7 +6,8 @@ camunda:
       firstName: Demo
     filter:
       create: All tasks
-
+    database:
+      type: mysql
 
 
 server:
