@@ -6,6 +6,7 @@ import com.whale.oauth2.granter.PhoneSmsCustomTokenGranter;
 import com.whale.oauth2.handler.ExceptionTranslator;
 import com.whale.oauth2.service.WhaleUserDetailService;
 import com.whale.oauth2.service.impl.WhaleJdbcClientDetailsService;
+import com.whale.provider.security.domain.WhaleUser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -102,7 +103,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
 
 
-
     /**
      * token增强，添加oauth2默认返回的数据
      * @return
@@ -110,7 +110,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Bean
     public TokenEnhancer tokenEnhancer() {
         return (accessToken, authentication) -> {
-            SecurityUser userDetails =(SecurityUser) authentication.getUserAuthentication().getPrincipal();
+            WhaleUser userDetails =(WhaleUser) authentication.getUserAuthentication().getPrincipal();
             Map<String, Object> info = new HashMap<String, Object>(3){
                 {
                     put("userName", userDetails.getUsername());

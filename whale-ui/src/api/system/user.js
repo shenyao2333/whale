@@ -4,7 +4,7 @@ import { praseStrEmpty } from "@/utils/entfrm";
 // 查询用户列表
 export function listUser(query) {
   return request({
-    url: '/system/user/list',
+    url: '/whale-system/system/user/list',
     method: 'get',
     params: query
   })
@@ -13,7 +13,7 @@ export function listUser(query) {
 // 查询用户列表(不分页)
 export function listAllUser(query) {
   return request({
-    url: '/system/user/userList',
+    url: '/whale-system/system/user/userList',
     method: 'get',
     params: query
   })
@@ -23,7 +23,7 @@ export function listAllUser(query) {
 // 查询用户详细
 export function getUser(userId) {
   return request({
-    url: '/system/user/' + praseStrEmpty(userId),
+    url: '/whale-system/system/user/' + praseStrEmpty(userId),
     method: 'get'
   })
 }
@@ -31,7 +31,7 @@ export function getUser(userId) {
 // 新增用户
 export function addUser(data) {
   return request({
-    url: '/system/user/save',
+    url: '/whale-system/system/user/save',
     method: 'post',
     data: data
   })
@@ -40,7 +40,7 @@ export function addUser(data) {
 // 修改用户
 export function editUser(data) {
   return request({
-    url: '/system/user/update',
+    url: '/whale-system/system/user/update',
     method: 'put',
     data: data
   })
@@ -49,7 +49,7 @@ export function editUser(data) {
 // 删除用户
 export function delUser(userId) {
   return request({
-    url: '/system/user/remove/' + userId,
+    url: '/whale-system/system/user/remove/' + userId,
     method: 'delete'
   })
 }
@@ -57,7 +57,7 @@ export function delUser(userId) {
 // 导出用户
 export function exportUser(query) {
   return request({
-    url: '/system/user/exportUser',
+    url: '/whale-system/system/user/exportUser',
     method: 'get',
     params: query
   })
@@ -70,7 +70,7 @@ export function resetPwd(id, password) {
     password
   }
   return request({
-    url: '/system/user/resetPwd',
+    url: '/whale-system/system/user/resetPwd',
     method: 'put',
     data: data
   })
@@ -83,7 +83,7 @@ export function changeStatus(id, status) {
     status
   }
   return request({
-    url: '/system/user/changeStatus',
+    url: '/whale-system/system/user/changeStatus',
     method: 'put',
     data: data
   })
@@ -92,7 +92,7 @@ export function changeStatus(id, status) {
 // 查询用户个人信息
 export function getProfile() {
   return request({
-    url: '/system/user/profile',
+    url: '/whale-system/system/user/profile',
     method: 'get'
   })
 }
@@ -100,7 +100,7 @@ export function getProfile() {
 // 修改用户个人信息
 export function updateProfile(data) {
   return request({
-    url: '/system/user/updateProfile',
+    url: '/whale-system/system/user/updateProfile',
     method: 'put',
     data: data
   })
@@ -113,7 +113,7 @@ export function updatePwd(password, newPassword) {
     newPassword
   }
   return request({
-    url: '/system/user/updatePwd',
+    url: '/whale-system/system/user/updatePwd',
     method: 'put',
     params: data
   })
@@ -122,7 +122,7 @@ export function updatePwd(password, newPassword) {
 // 用户头像上传
 export function uploadAvatar(data) {
   return request({
-    url: '/system/user/updateAvatar',
+    url: '/whale-system/system/user/updateAvatar',
     method: 'put',
     data: data
   })
@@ -131,7 +131,7 @@ export function uploadAvatar(data) {
 // 下载用户导入模板
 export function importTemplate() {
   return request({
-    url: '/system/user/importTemplate',
+    url: '/whale-system/system/user/importTemplate',
     method: 'get'
   })
 }

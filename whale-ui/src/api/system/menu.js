@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 查询菜单列表
 export function listMenu(query) {
   return request({
-    url: '/system/menu/list',
+    url: '/whale-system/system/menu/list',
     method: 'get',
     params: query
   })
@@ -12,7 +12,7 @@ export function listMenu(query) {
 // 查询菜单详细
 export function getMenu(menuId) {
   return request({
-    url: '/system/menu/' + menuId,
+    url: '/whale-system/system/menu/' + menuId,
     method: 'get'
   })
 }
@@ -20,7 +20,7 @@ export function getMenu(menuId) {
 // 查询菜单下拉树结构
 export function menuTree(query) {
   return request({
-    url: '/system/menu/menuTree',
+    url: '/whale-system/system/menu/menuTree',
     method: 'get',
     params: query
   })
@@ -29,7 +29,7 @@ export function menuTree(query) {
 // 根据角色ID查询菜单下拉树结构
 export function roleMenuTree(roleId) {
   return request({
-    url: '/system/menu/roleMenuTree/' + roleId,
+    url: '/whale-system/system/menu/roleMenuTree/' + roleId,
     method: 'get'
   })
 }
@@ -37,7 +37,7 @@ export function roleMenuTree(roleId) {
 // 新增菜单
 export function addMenu(data) {
   return request({
-    url: '/system/menu/save',
+    url: '/whale-system/system/menu/save',
     method: 'post',
     data: data
   })
@@ -46,7 +46,7 @@ export function addMenu(data) {
 // 修改菜单
 export function editMenu(data) {
   return request({
-    url: '/system/menu/update',
+    url: '/whale-system/system/menu/update',
     method: 'put',
     data: data
   })
@@ -55,7 +55,7 @@ export function editMenu(data) {
 // 删除菜单
 export function delMenu(menuId) {
   return request({
-    url: '/system/menu/remove/' + menuId,
+    url: '/whale-system/system/menu/remove/' + menuId,
     method: 'delete'
   })
 }

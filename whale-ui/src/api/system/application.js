@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 查询应用列表
 export function listApplication(query) {
   return request({
-    url: '/system/application/list',
+    url: '/whale-system/system/application/list',
     method: 'get',
     params: query
   })
@@ -12,7 +12,7 @@ export function listApplication(query) {
 // 查询应用树
 export function treeApplication(query) {
   return request({
-    url: '/system/application/tree',
+    url: '/whale-system/system/application/tree',
     method: 'get',
     params: query
   })
@@ -21,7 +21,7 @@ export function treeApplication(query) {
 // 查询应用详细
 export function getApplication(id) {
   return request({
-    url: '/system/application/' + id,
+    url: '/whale-system/system/application/' + id,
     method: 'get'
   })
 }
@@ -29,7 +29,7 @@ export function getApplication(id) {
 // 新增应用
 export function addApplication(data) {
   return request({
-    url: '/system/application/save',
+    url: '/whale-system/system/application/save',
     method: 'post',
     data: data
   })
@@ -38,7 +38,7 @@ export function addApplication(data) {
 // 修改应用
 export function editApplication(data) {
   return request({
-    url: '/system/application/update',
+    url: '/whale-system/system/application/update',
     method: 'put',
     data: data
   })
@@ -47,7 +47,7 @@ export function editApplication(data) {
 // 删除应用
 export function delApplication(id) {
   return request({
-    url: '/system/application/remove/' + id,
+    url: '/whale-system/system/application/remove/' + id,
     method: 'delete'
   })
 }
@@ -57,7 +57,7 @@ export function delApplication(id) {
 // 导出应用
 export function exportApplication(query) {
   return request({
-    url: '/system/application/export',
+    url: '/whale-system/system/application/export',
     method: 'get',
     params: query
   })

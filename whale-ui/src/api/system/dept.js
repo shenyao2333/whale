@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 查询部门列表
 export function listDept(query) {
   return request({
-    url: '/system/dept/list',
+    url: '/whale-system/system/dept/list',
     method: 'get',
     params: query
   })
@@ -12,7 +12,7 @@ export function listDept(query) {
 // 查询部门详细
 export function getDept(deptId) {
   return request({
-    url: '/system/dept/' + deptId,
+    url: '/whale-system/system/dept/' + deptId,
     method: 'get'
   })
 }
@@ -20,7 +20,7 @@ export function getDept(deptId) {
 // 查询部门下拉树结构
 export function deptTree() {
   return request({
-    url: '/system/dept/deptTree',
+    url: '/whale-system/system/dept/deptTree',
     method: 'get'
   })
 }
@@ -28,7 +28,7 @@ export function deptTree() {
 // 根据角色ID查询部门树结构
 export function roleDeptTree(roleId) {
   return request({
-    url: '/system/dept/roleDeptTree/' + roleId,
+    url: '/whale-system/system/dept/roleDeptTree/' + roleId,
     method: 'get'
   })
 }
@@ -36,7 +36,7 @@ export function roleDeptTree(roleId) {
 // 新增部门
 export function addDept(data) {
   return request({
-    url: '/system/dept/save',
+    url: '/whale-system/system/dept/save',
     method: 'post',
     data: data
   })
@@ -45,7 +45,7 @@ export function addDept(data) {
 // 修改部门
 export function editDept(data) {
   return request({
-    url: '/system/dept/update',
+    url: '/whale-system/system/dept/update',
     method: 'put',
     data: data
   })
@@ -54,7 +54,7 @@ export function editDept(data) {
 // 删除部门
 export function delDept(deptId) {
   return request({
-    url: '/system/dept/remove/' + deptId,
+    url: '/whale-system/system/dept/remove/' + deptId,
     method: 'delete'
   })
 }

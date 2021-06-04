@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 查询参数列表
 export function listConfig(query) {
   return request({
-    url: '/system/config/list',
+    url: '/whale-system/system/config/list',
     method: 'get',
     params: query
   })
@@ -12,7 +12,7 @@ export function listConfig(query) {
 // 查询参数详细
 export function getConfig(configId) {
   return request({
-    url: '/system/config/' + configId,
+    url: '/whale-system/system/config/' + configId,
     method: 'get'
   })
 }
@@ -20,7 +20,7 @@ export function getConfig(configId) {
 // 根据参数键名查询参数值
 export function getByKey(configKey) {
   return request({
-    url: '/system/config/getByKey/' + configKey,
+    url: '/whale-system/system/config/getByKey/' + configKey,
     method: 'get'
   })
 }
@@ -28,7 +28,7 @@ export function getByKey(configKey) {
 // 新增参数配置
 export function addConfig(data) {
   return request({
-    url: '/system/config/save',
+    url: '/whale-system/system/config/save',
     method: 'post',
     data: data
   })
@@ -37,7 +37,7 @@ export function addConfig(data) {
 // 修改参数配置
 export function editConfig(data) {
   return request({
-    url: '/system/config/update',
+    url: '/whale-system/system/config/update',
     method: 'put',
     data: data
   })
@@ -46,7 +46,7 @@ export function editConfig(data) {
 // 删除参数配置
 export function delConfig(configId) {
   return request({
-    url: '/system/config/remove/' + configId,
+    url: '/whale-system/system/config/remove/' + configId,
     method: 'delete'
   })
 }

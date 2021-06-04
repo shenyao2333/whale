@@ -7,10 +7,10 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-@ConfigurationProperties("spring.datasource.druid")
+@ConfigurationProperties("spring.datasource")
 public class DruidDataSourceProperties {
 	private String username;
 	private String password;
-	private String jdbcUrl;
-	private String driverClassName;
+	private String url;
+	private String type;
 }

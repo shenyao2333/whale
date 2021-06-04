@@ -17,48 +17,43 @@ public class SecurityUser extends User {
 
     @Getter
     @Setter
-    private String realName;
+    private String nickName;
 
 
     @Getter
-    @Setter
     private String avatar;
 
 
     @Getter
-    @Setter
     private Integer userId;
 
+    @Getter
+    private Integer deptId;
 
+    @Getter
+    private String userName;
 
-    public SecurityUser(Integer userId,String realName, String avatar,
-                     String username) {
-        super(username, "" ,  AuthorityUtils.NO_AUTHORITIES);
+    public SecurityUser(Integer userId,String nickName, String avatar,
+                     String userName) {
+        super(userName, "" ,  AuthorityUtils.NO_AUTHORITIES);
         this.userId = userId;
-        this.realName = realName;
+        this.nickName = nickName;
         this.avatar = avatar;
+        this.userName = userName;
     }
 
 
-    public SecurityUser(Integer userId,String realName, String avatar,
+    public SecurityUser(Integer userId,String nickName, String avatar,
                      String username, String password,
                      Collection<? extends GrantedAuthority> authorities) {
         super(username, password , authorities);
         this.userId = userId;
-        this.realName = realName;
+        this.nickName = nickName;
         this.avatar = avatar;
+        this.userName = userName;
     }
 
 
-    public boolean isAdmin() {
-        return isAdmin(this.userId);
-    }
-
-
-
-    public static boolean isAdmin(Integer id) {
-        return id != null && 1 == id;
-    }
 
 
 

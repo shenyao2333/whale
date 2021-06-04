@@ -46,12 +46,13 @@ public class WhaleUser  extends User {
 
 
     public WhaleUser(Integer userId,String realName, String avatar,
-                     String username, String password,
+                     String username, String password,Integer deptId,
                      Collection<? extends GrantedAuthority> authorities) {
         super(username, password , authorities);
         this.userId = userId;
         this.realName = realName;
         this.avatar = avatar;
+        this.deptId = deptId;
     }
 
 

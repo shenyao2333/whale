@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 查询备份列表
 export function listBackup(query) {
   return request({
-    url: '/system/backup/list',
+    url: '/whale-system/system/backup/list',
     method: 'get',
     params: query
   })
@@ -12,7 +12,7 @@ export function listBackup(query) {
 // 查询备份详细
 export function getBackup(backupId) {
   return request({
-    url: '/system/backup/' + backupId,
+    url: '/whale-system/system/backup/' + backupId,
     method: 'get'
   })
 }
@@ -20,7 +20,7 @@ export function getBackup(backupId) {
 // 新增备份配置
 export function addBackup(data) {
   return request({
-    url: '/system/backup/save',
+    url: '/whale-system/system/backup/save',
     method: 'post',
     data: data
   })
@@ -29,7 +29,7 @@ export function addBackup(data) {
 // 修改备份配置
 export function editBackup(data) {
   return request({
-    url: '/system/backup/update',
+    url: '/whale-system/system/backup/update',
     method: 'put',
     data: data
   })
@@ -38,7 +38,7 @@ export function editBackup(data) {
 // 删除备份配置
 export function delBackup(backupId) {
   return request({
-    url: '/system/backup/remove/' + backupId,
+    url: '/whale-system/system/backup/remove/' + backupId,
     method: 'delete'
   })
 }
@@ -46,7 +46,7 @@ export function delBackup(backupId) {
 // 还原备份
 export function restoreBackup(backupId) {
   return request({
-    url: '/system/backup/restore/' + backupId,
+    url: '/whale-system/system/backup/restore/' + backupId,
     method: 'delete'
   })
 }

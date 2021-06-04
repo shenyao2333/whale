@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 查询角色列表
 export function listRole(query) {
   return request({
-    url: '/system/role/list',
+    url: '/whale-system/system/role/list',
     method: 'get',
     params: query
   })
@@ -12,7 +12,7 @@ export function listRole(query) {
 // 查询角色详细
 export function getRole(roleId) {
   return request({
-    url: '/system/role/' + roleId,
+    url: '/whale-system/system/role/' + roleId,
     method: 'get'
   })
 }
@@ -20,7 +20,7 @@ export function getRole(roleId) {
 // 新增角色
 export function addRole(data) {
   return request({
-    url: '/system/role/save',
+    url: '/whale-system/system/role/save',
     method: 'post',
     data: data
   })
@@ -29,7 +29,7 @@ export function addRole(data) {
 // 修改角色
 export function editRole(data) {
   return request({
-    url: '/system/role/update',
+    url: '/whale-system/system/role/update',
     method: 'put',
     data: data
   })
@@ -38,7 +38,7 @@ export function editRole(data) {
 // 角色数据权限
 export function dataScope(data) {
   return request({
-    url: '/system/role/dataScope',
+    url: '/whale-system/system/role/dataScope',
     method: 'put',
     data: data
   })
@@ -51,7 +51,7 @@ export function changeStatus(id, status) {
     status
   }
   return request({
-    url: '/system/role/changeStatus',
+    url: '/whale-system/system/role/changeStatus',
     method: 'put',
     data: data
   })
@@ -60,7 +60,7 @@ export function changeStatus(id, status) {
 // 删除角色
 export function delRole(roleId) {
   return request({
-    url: '/system/role/remove/' + roleId,
+    url: '/whale-system/system/role/remove/' + roleId,
     method: 'delete'
   })
 }
@@ -68,7 +68,7 @@ export function delRole(roleId) {
 // 导出角色
 export function exportRole(query) {
   return request({
-    url: '/system/role/export',
+    url: '/whale-system/system/role/export',
     method: 'get',
     params: query
   })

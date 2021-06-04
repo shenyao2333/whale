@@ -34,11 +34,7 @@ import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/**
- * 用户信息
- *
- * @author entfrm
- */
+
 @RestController
 @RequestMapping("/system/user")
 @AllArgsConstructor

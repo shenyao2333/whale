@@ -69,8 +69,8 @@ export default {
       codeUrl: require('../assets/images/captcha.jpg'),
       cookiePassword: "",
       loginForm: {
-        userName: "entfrm",
-        password: "123456",
+        userName: "",
+        password: "",
         rememberMe: false,
         code: "",
         time: "",

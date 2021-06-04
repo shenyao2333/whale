@@ -34,8 +34,8 @@ public class DynamicDataSourceConfig {
 	public DynamicDataSource dataSource() {
 		DynamicDataSource ds = new DynamicDataSource();
 		HikariDataSource dds = new HikariDataSource();
-		dds.setJdbcUrl(dataSourceProperties.getJdbcUrl());
-		dds.setDriverClassName(dataSourceProperties.getDriverClassName());
+		dds.setJdbcUrl(dataSourceProperties.getUrl());
+		dds.setDriverClassName(dataSourceProperties.getType());
 		dds.setUsername(dataSourceProperties.getUsername());
 		dds.setPassword(dataSourceProperties.getPassword());
 		ds.setDefaultTargetDataSource(dds);
@@ -50,8 +50,8 @@ public class DynamicDataSourceConfig {
 	@PostConstruct
 	public void init() {
 		DriverManagerDataSource dds = new DriverManagerDataSource();
-		dds.setUrl(dataSourceProperties.getJdbcUrl());
-		dds.setDriverClassName(dataSourceProperties.getDriverClassName());
+		dds.setUrl(dataSourceProperties.getUrl());
+		dds.setDriverClassName(dataSourceProperties.getType());
 		dds.setUsername(dataSourceProperties.getUsername());
 		dds.setPassword(dataSourceProperties.getPassword());
 		List<Map<String, Object>> dbList = new JdbcTemplate(dds).queryForList(DataSourceConstants.DS_QUERY_SQL);

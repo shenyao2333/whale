@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 查询字典类型列表
 export function listDict(query) {
   return request({
-    url: '/system/dict/list',
+    url: '/whale-system/system/dict/list',
     method: 'get',
     params: query
   })
@@ -12,7 +12,7 @@ export function listDict(query) {
 // 查询字典类型详细
 export function getDict(dictId) {
   return request({
-    url: '/system/dict/' + dictId,
+    url: '/whale-system/system/dict/' + dictId,
     method: 'get'
   })
 }
@@ -20,7 +20,7 @@ export function getDict(dictId) {
 // 新增字典类型
 export function addDict(data) {
   return request({
-    url: '/system/dict/save',
+    url: '/whale-system/system/dict/save',
     method: 'post',
     data: data
   })
@@ -29,7 +29,7 @@ export function addDict(data) {
 // 修改字典类型
 export function editDict(data) {
   return request({
-    url: '/system/dict/update',
+    url: '/whale-system/system/dict/update',
     method: 'put',
     data: data
   })
@@ -38,7 +38,7 @@ export function editDict(data) {
 // 删除字典类型
 export function delDict(dictId) {
   return request({
-    url: '/system/dict/remove/' + dictId,
+    url: '/whale-system/system/dict/remove/' + dictId,
     method: 'delete'
   })
 }
@@ -46,7 +46,7 @@ export function delDict(dictId) {
 // 导出字典类型
 export function exportDict(query) {
   return request({
-    url: '/system/dict/export',
+    url: '/whale-system/system/dict/export',
     method: 'get',
     params: query
   })
@@ -55,7 +55,7 @@ export function exportDict(query) {
 // 获取所有字典列表
 export function dictList() {
   return request({
-    url: '/system/dict/dictList',
+    url: '/whale-system/system/dict/dictList',
     method: 'get'
   })
 }

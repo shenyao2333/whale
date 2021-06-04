@@ -1,12 +1,4 @@
-/**
- * @program: entfrm
- *
- * @description: 控件大管家增删改查Api
- *
- * @author: entfrm开发团队-王翔
- *
- * @create: 2021-03-27
- **/
+
 import request from '@/utils/request'
 
 // 查询控件大管家列表

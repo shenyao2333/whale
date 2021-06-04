@@ -10,6 +10,7 @@ import com.whale.business.system.service.ClientDetailsService;
 import com.whale.provider.basices.web.R;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 public class ClientDetailsController {
 
     private final ClientDetailsService clientDetailsService;
-    private final PasswordEncoder passwordEncoder;
+
 
     private QueryWrapper<ClientDetails> getQueryWrapper(ClientDetails clientDetails) {
         return new QueryWrapper<ClientDetails>().like(StrUtil.isNotBlank(clientDetails.getClientId()), "client_id", clientDetails.getClientId());
@@ -49,7 +50,7 @@ public class ClientDetailsController {
     @PostMapping("/save")
     @ResponseBody
     public R save(@RequestBody ClientDetails clientDetails) {
-        clientDetails.setClientSecret(passwordEncoder.encode(clientDetails.getClientSecret()));
+        clientDetails.setClientSecret(new BCryptPasswordEncoder().encode(clientDetails.getClientSecret()));
         clientDetailsService.save(clientDetails);
         return R.ok();
     }
@@ -59,7 +60,7 @@ public class ClientDetailsController {
     @PutMapping("/update")
     @ResponseBody
     public R update(@RequestBody ClientDetails clientDetails) {
-        clientDetails.setClientSecret(passwordEncoder.encode(clientDetails.getClientSecret()));
+        clientDetails.setClientSecret(new BCryptPasswordEncoder().encode(clientDetails.getClientSecret()));
         clientDetailsService.updateById(clientDetails);
         return R.ok();
     }

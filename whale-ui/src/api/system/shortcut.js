@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 查询快捷方式列表
 export function listShortcut(query) {
   return request({
-    url: '/system/shortcut/list',
+    url: '/whale-system/system/shortcut/list',
     method: 'get',
     params: query
   })
@@ -12,7 +12,7 @@ export function listShortcut(query) {
 // 查询快捷方式列表
 export function shortcutList(query) {
   return request({
-    url: '/system/shortcut/shortcutList',
+    url: '/whale-system/system/shortcut/shortcutList',
     method: 'get',
     params: query
   })
@@ -21,7 +21,7 @@ export function shortcutList(query) {
 // 查询快捷方式详细
 export function getShortcut(shortcutId) {
   return request({
-    url: '/system/shortcut/' + shortcutId,
+    url: '/whale-system/system/shortcut/' + shortcutId,
     method: 'get'
   })
 }
@@ -29,7 +29,7 @@ export function getShortcut(shortcutId) {
 // 新增快捷方式配置
 export function addShortcut(data) {
   return request({
-    url: '/system/shortcut/save',
+    url: '/whale-system/system/shortcut/save',
     method: 'post',
     data: data
   })
@@ -38,7 +38,7 @@ export function addShortcut(data) {
 // 修改快捷方式配置
 export function editShortcut(data) {
   return request({
-    url: '/system/shortcut/update',
+    url: '/whale-system/system/shortcut/update',
     method: 'put',
     data: data
   })
@@ -47,7 +47,7 @@ export function editShortcut(data) {
 // 删除快捷方式配置
 export function delShortcut(shortcutId) {
   return request({
-    url: '/system/shortcut/remove/' + shortcutId,
+    url: '/whale-system/system/shortcut/remove/' + shortcutId,
     method: 'delete'
   })
 }

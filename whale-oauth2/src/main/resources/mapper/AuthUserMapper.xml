@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whale.oauth2.mapper.AuthUserMapper">
+
+
+ <resultMap id="LoginResultMap" type="com.whale.oauth2.domain.vo.AuthUserVo">
+   <id property="userId" column="user_id"/>
+   <result property="deptId" column="dept_id"/>
+   <result property="userName" column="user_name"/>
+   <result property="nickName" column="nick_name"/>
+   <result property="password" column="password"/>
+   <collection property="roleList" ofType="java.lang.String">
+     <result column="perms"/>
+   </collection>
+ </resultMap>
+
+ <select id="authUserByUserName" resultMap="LoginResultMap">
+    select u.id user_id, u.user_name , u.nick_name , u.password, u.dept_id,m.perms
+    from sys_user u
+    LEFT JOIN sys_user_role ur  on u.id =  ur.user_id
+    left join sys_role_menu rm on ur.role_id = ur.role_id
+    left join sys_menu m on  rm.menu_id = m.id  and m.type = 'F'
+    where u.user_name = #{userName,jdbcType=VARCHAR}
+    and u.status = 0  and m.type = 'F' and m.perms is not null
+ </select>
+
+
+</mapper>

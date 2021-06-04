@@ -13,6 +13,7 @@ import com.whale.business.system.service.UserRoleService;
 import com.whale.business.system.service.UserService;
 import com.whale.provider.basices.web.GrabException;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +28,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private final ConfigService configService;
     private final UserRoleService userRoleService;
     private final DeptService deptService;
-    private final PasswordEncoder passwordEncoder;
+
 
     @Override
     @Transactional
@@ -88,7 +89,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 // 验证是否存在这个用户
                 User u = baseMapper.selectOne(new QueryWrapper<User>().eq("user_name", user.getUserName()));
                 if (u == null) {
-                    user.setPassword(passwordEncoder.encode(password));
+                    user.setPassword(new BCryptPasswordEncoder().encode(password));
                     if(StrUtil.isNotBlank(user.getDeptName())){
                         Dept dept = deptService.getOne(new QueryWrapper<Dept>().eq("name", user.getDeptName()));
                         if(dept != null){

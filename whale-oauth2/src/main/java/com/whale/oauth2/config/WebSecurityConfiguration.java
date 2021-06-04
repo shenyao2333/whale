@@ -29,13 +29,12 @@ import javax.annotation.Resource;
 @Configuration
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
+
+    @Resource
+    private PasswordEncoder passwordEncoder;
     @Resource
     private WhaleUserDetailServiceImpl myUserDetailService;
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
 
 
@@ -63,7 +62,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter imple
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(myUserDetailService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(myUserDetailService).passwordEncoder(passwordEncoder);
     }
 
 
