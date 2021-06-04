@@ -1,7 +1,8 @@
 package com.whale.business.system.domain;
 
 import com.baomidou.mybatisplus.annotation.*;
-import com.entfrm.data.entity.BaseEntity;
+
+import com.whale.provider.common.domain.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

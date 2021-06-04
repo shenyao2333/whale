@@ -1,7 +1,8 @@
 package com.whale.business.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.entfrm.biz.system.entity.RoleDept;
+import com.whale.business.system.domain.RoleDept;
+
 
 /**
  * <p>

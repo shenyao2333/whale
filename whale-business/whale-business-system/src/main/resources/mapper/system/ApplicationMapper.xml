@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.entfrm.biz.system.mapper.ApplicationMapper">
+<mapper namespace="com.whale.business.system.mapper.ApplicationMapper">
 
-    <resultMap type="Application" id="ApplicationResult">
+    <resultMap type="com.whale.business.system.domain.Application" id="ApplicationResult">
         <result property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="type" column="type"/>

@@ -1,12 +1,13 @@
 package com.whale.business.system.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.entfrm.base.util.StrUtil;
-import com.entfrm.biz.system.entity.Menu;
-import com.entfrm.biz.system.mapper.MenuMapper;
-import com.entfrm.biz.system.service.MenuService;
-import com.entfrm.biz.system.vo.MenuVo;
-import com.entfrm.biz.system.vo.MetaVo;
+
+import com.whale.business.system.domain.Menu;
+import com.whale.business.system.mapper.MenuMapper;
+import com.whale.business.system.service.MenuService;
+import com.whale.business.system.vo.MenuVo;
+import com.whale.business.system.vo.MetaVo;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,14 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * <p>
- * 菜单权限表 服务实现类
- * </p>
- *
- * @author entfrm
- * @since 2019-01-30
- */
+
 @Service
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements MenuService {
 

@@ -1,7 +1,8 @@
 package com.whale.business.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.entfrm.biz.system.entity.Role;
+import com.whale.business.system.domain.Role;
+
 
 import java.util.List;
 

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.entfrm.biz.system.mapper.AreaMapper">
+<mapper namespace="com.whale.business.system.mapper.AreaMapper">
 
     <resultMap type="Area" id="AreaResult">
         <result property="id" column="id"/>

@@ -3,7 +3,10 @@ package com.whale.business.system.service.impl;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.whale.business.system.domain.Dept;
 import com.whale.business.system.domain.Role;
+import com.whale.business.system.domain.RoleDept;
+import com.whale.business.system.domain.RoleMenu;
 import com.whale.business.system.mapper.RoleMapper;
 import com.whale.business.system.service.DeptService;
 import com.whale.business.system.service.RoleDeptService;
@@ -12,17 +15,8 @@ import com.whale.business.system.service.RoleService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.*;
 
-/**
- * <p>
- * 角色信息表 服务实现类
- * </p>
- *
- * @author entfrm
- * @since 2019-01-30
- */
 @Service
 @AllArgsConstructor
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements RoleService {
@@ -75,7 +69,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
             List<Role> userRoles = baseMapper.selectRolesByUserId(userId);
             for (Role role : roles) {
                 for (Role userRole : userRoles) {
-                    if (role.getId() == userRole.getId()) {
+                    if (role.getId().equals(userRole.getId()) ) {
                         role.setFlag(true);
                         break;
                     }

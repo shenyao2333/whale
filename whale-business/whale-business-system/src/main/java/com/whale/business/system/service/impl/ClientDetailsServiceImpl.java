@@ -1,9 +1,10 @@
 package com.whale.business.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.entfrm.biz.system.entity.ClientDetails;
-import com.entfrm.biz.system.mapper.ClientDetailsMapper;
-import com.entfrm.biz.system.service.ClientDetailsService;
+
+import com.whale.business.system.domain.ClientDetails;
+import com.whale.business.system.mapper.ClientDetailsMapper;
+import com.whale.business.system.service.ClientDetailsService;
 import org.springframework.stereotype.Service;
 
 /**

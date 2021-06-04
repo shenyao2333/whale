@@ -40,6 +40,7 @@
         <itextpdf.version>5.4.3</itextpdf.version>
         <jaxb-impl.version>2.2.3</jaxb-impl.version>
         <camunda.spring-boot.version>7.15.0</camunda.spring-boot.version>
+        <easyexcel.version>2.2.6</easyexcel.version>
     </properties>
 
 
@@ -227,6 +228,13 @@
             </dependency>
             <!--工作流 结束-->
 
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>easyexcel</artifactId>
+                <version>${easyexcel.version}</version>
+            </dependency>
+
+
         </dependencies>
 
     </dependencyManagement>
@@ -243,7 +251,7 @@
         <developer>
             <id>liwemin</id>
             <name>Lusifer Lee</name>
-            <email>lee.lusifer@gmail.com</email>
+            <email>sy91aa@163.com</email>
         </developer>
     </developers>
 

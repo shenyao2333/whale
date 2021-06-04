@@ -1,9 +1,9 @@
 package com.whale.business.system.domain;
 
+import com.alibaba.excel.annotation.ExcelProperty;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.entfrm.base.annotation.Excel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -37,7 +37,7 @@ public class OperLog implements Serializable {
     /**
      * 模块标题
      */
-    @Excel(name = "标题")
+    @ExcelProperty(value = "标题")
     private String title;
 
     /**
@@ -48,43 +48,43 @@ public class OperLog implements Serializable {
     /**
      * 方法名称
      */
-    @Excel(name = "方法名称")
+    @ExcelProperty(value = "方法名称")
     private String method;
 
     /**
      * 用户代理
      */
-    @Excel(name = "用户代理")
+    @ExcelProperty(value = "用户代理")
     private String userAgent;
 
     /**
      * 操作人员
      */
-    @Excel(name = "操作人员")
+    @ExcelProperty(value= "操作人员")
     private String operName;
 
     /**
      * 终端编号
      */
-    @Excel(name = "客户端")
+    @ExcelProperty(value = "客户端")
     private String clientId;
 
     /**
      * 请求URL
      */
-    @Excel(name = "请求URL")
+    @ExcelProperty(value = "请求URL")
     private String operUrl;
 
     /**
      * 主机地址
      */
-    @Excel(name = "主机地址")
+    @ExcelProperty(value = "主机地址")
     private String operIp;
 
     /**
      * 操作地点
      */
-    @Excel(name = "操作地点")
+    @ExcelProperty(value = "操作地点")
     private String operAddr;
 
     /**
@@ -95,7 +95,7 @@ public class OperLog implements Serializable {
     /**
      * 操作状态（0正常 1异常）
      */
-    @Excel(name = "操作状态", convertExp = "0=正常,1=异常")
+    @ExcelProperty(value = "操作状态 0=正常,1=异常")
     private Integer status;
 
     /**
@@ -111,7 +111,7 @@ public class OperLog implements Serializable {
     /**
      * 操作时间
      */
-    @Excel(name = "操作时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
+    @ExcelProperty(value = "操作时间")
     private Date operTime;
 
     /** 开始时间 */

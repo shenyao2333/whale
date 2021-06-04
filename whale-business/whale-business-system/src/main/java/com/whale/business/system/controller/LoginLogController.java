@@ -58,9 +58,7 @@ public class LoginLogController {
         return R.ok();
     }
 
-    @SneakyThrows
-    @PreAuthorize("@ps.hasPerm('loginLog_export')" )
-    @GetMapping("/export" )
+
    // public R export(LoginLog loginLog) {
    //     List<LoginLog> list = loginLogService.list(getQueryWrapper(loginLog));
    //     ExcelUtil<LoginLog> util = new ExcelUtil<LoginLog>(LoginLog.class);

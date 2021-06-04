@@ -11,14 +11,7 @@ import lombok.experimental.Accessors;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * <p>
- * 部门表
- * </p>
- *
- * @author entfrm
- * @since 2019-01-30
- */
+
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)

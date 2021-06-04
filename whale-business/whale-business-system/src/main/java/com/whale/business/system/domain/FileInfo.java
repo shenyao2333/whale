@@ -9,12 +9,7 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * @author entfrm
- * @date 2019-09-30 14:17:03
- *
- * @description 文件对象 FileInfo
- */
+
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)

@@ -2,6 +2,7 @@ package com.whale.business.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.whale.business.system.domain.Menu;
+import com.whale.business.system.vo.MenuVo;
 
 
 import java.util.List;

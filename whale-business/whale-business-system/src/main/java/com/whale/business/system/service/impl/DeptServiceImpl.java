@@ -14,14 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-/**
- * <p>
- * 部门表 服务实现类
- * </p>
- *
- * @author entfrm
- * @since 2019-01-30
- */
+
 @Service
 public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements DeptService {
 

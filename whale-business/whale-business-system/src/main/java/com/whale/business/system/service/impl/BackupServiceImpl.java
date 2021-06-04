@@ -1,9 +1,9 @@
 package com.whale.business.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.entfrm.biz.system.entity.Backup;
-import com.entfrm.biz.system.mapper.BackupMapper;
-import com.entfrm.biz.system.service.BackupService;
+import com.whale.business.system.domain.Backup;
+import com.whale.business.system.mapper.BackupMapper;
+import com.whale.business.system.service.BackupService;
 import org.springframework.stereotype.Service;
 
 /**

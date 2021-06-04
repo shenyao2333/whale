@@ -3,6 +3,7 @@ package com.whale.business.system.service.impl;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.whale.business.system.domain.Dept;
 import com.whale.business.system.domain.User;
 import com.whale.business.system.domain.UserRole;
 import com.whale.business.system.mapper.UserMapper;
@@ -10,6 +11,7 @@ import com.whale.business.system.service.ConfigService;
 import com.whale.business.system.service.DeptService;
 import com.whale.business.system.service.UserRoleService;
 import com.whale.business.system.service.UserService;
+import com.whale.provider.basices.web.GrabException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -74,7 +76,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public String importUser(List<User> userList, Boolean isUpdateSupport) {
         if (userList == null || userList.size() == 0) {
-            throw new BaseException("导入用户数据不能为空！");
+            throw new GrabException("导入用户数据不能为空！");
         }
         int successNum = 0;
         int failureNum = 0;
@@ -113,7 +115,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
         if (failureNum > 0) {
             failureMsg.insert(0, "很抱歉，导入失败！共 " + failureNum + " 条数据格式不正确，错误如下：");
-            throw new BaseException(failureMsg.toString());
+            throw new GrabException(failureMsg.toString());
         } else {
             successMsg.insert(0, "恭喜您，数据已全部导入成功！共 " + successNum + " 条，数据如下：");
         }
