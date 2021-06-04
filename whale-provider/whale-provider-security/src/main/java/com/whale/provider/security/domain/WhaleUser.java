@@ -30,6 +30,10 @@ public class WhaleUser  extends User {
     @Setter
     private Integer userId;
 
+    @Setter
+    @Getter
+    private Integer deptId;
+
 
 
     public WhaleUser(Integer userId,String realName, String avatar,

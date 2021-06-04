@@ -30,6 +30,9 @@ public class R<T> implements Serializable {
 
     private boolean status;
 
+
+    private Long total;
+
     /**
      * 返回对象
      */
@@ -160,6 +163,22 @@ public class R<T> implements Serializable {
     public static <T> R<T> ok(String msg){
         return new R<T>(CodeStatus.OK,true,msg,null);
     }
+
+
+    public static <T> R<T> ok(T data, long total) {
+        return restData(data, total);
+    }
+
+    private static <T> R<T> restData(T data , long total) {
+        R<T> apiData = new R<>();
+        apiData.setCode(CodeStatus.OK);
+        apiData.setMsg("处理成功");
+        apiData.setTotal(total);
+        apiData.setData(data);
+        return apiData;
+    }
+
+
 
     public static <T> R<T> ok(T data){
         return new R<T>(CodeStatus.OK,true,"处理成功",data);

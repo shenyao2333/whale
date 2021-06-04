@@ -1,0 +1,518 @@
+$selectedColor: #f6f7ff;
+$lighterBlue: #409EFF;
+
+//表单设计器主体容器样式
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+//左侧控件区域样式
+.components-list {
+  padding: 8px;
+  box-sizing: border-box;
+  height: 100%;
+  //可拖拽控件小框框样式
+  .components-item {
+    display: inline-block;
+    width: 48%;
+    margin: 1%;
+    transition: transform 0ms !important;
+  }
+}
+
+//Vue拖拽组件组样式
+.components-draggable {
+  padding-bottom: 20px;
+}
+
+//左侧控件组标题样式
+.components-title {
+  font-size: 14px;
+  color: #222;
+  margin: 6px 2px;
+
+  .svg-icon {
+    color: #666;
+    font-size: 18px;
+  }
+}
+
+//可拖拽控件主体样式
+.components-body {
+  padding: 8px 10px;
+  background: $selectedColor;
+  font-size: 12px;
+  cursor: move;
+  border: 1px dashed $selectedColor;
+  border-radius: 3px;
+
+  .svg-icon {
+    color: #777;
+    font-size: 15px;
+  }
+
+  &:hover {
+    border: 1px dashed #787be8;
+    color: #787be8;
+
+    .svg-icon {
+      color: #787be8;
+    }
+  }
+}
+
+//左面板样式
+.left-board {
+  width: 260px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100vh;
+}
+
+//左面板滚动条样式
+.left-scrollbar {
+  height: calc(100vh - 42px);
+  overflow: hidden;
+}
+
+//中心躯干面板滚动条样式
+.center-scrollbar {
+  height: calc(100vh - 42px);
+  overflow: hidden;
+  border-left: 1px solid #f1e8e8;
+  border-right: 1px solid #f1e8e8;
+  box-sizing: border-box;
+}
+
+//中心躯干面板样式
+.center-board {
+  height: 100vh;
+  width: auto;
+  margin: 0 350px 0 260px;
+  box-sizing: border-box;
+}
+
+//控件为空提示样式
+.empty-info {
+  position: absolute;
+  top: 46%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 18px;
+  color: #ccb1ea;
+  letter-spacing: 4px;
+}
+
+//中心躯干面板标题样式
+.action-bar {
+  position: relative;
+  height: 42px;
+  text-align: right;
+  padding: 0 15px;
+  box-sizing: border-box;;
+  border: 1px solid #f1e8e8;
+  border-top: none;
+  border-left: none;
+
+  .sava-btn {
+    color: #67C23A;
+  }
+
+  .preview_btn {
+    color: #409EFF;
+  }
+
+  .json_view {
+    color: #909399;
+  }
+
+  .clear-btn {
+    color: #ff3d3d;
+  }
+
+  .delete-btn {
+    color: #ff3d3d;
+  }
+}
+
+//左面板上方Logo样式
+.logo-wrapper {
+  position: relative;
+  height: 42px;
+  background: #fff;
+  border-bottom: 1px solid #f1e8e8;
+  box-sizing: border-box;
+}
+
+//Logo样式
+.logo {
+  position: absolute;
+  left: 12px;
+  top: 6px;
+  line-height: 30px;
+  color: #00afff;
+  font-weight: 600;
+  font-size: 17px;
+  white-space: nowrap;
+
+  > img {
+    width: 30px;
+    height: 30px;
+    vertical-align: top;
+  }
+}
+
+//中心躯干面板控件展示区域样式
+.center-board-row {
+  padding: 12px 12px 15px 12px;
+  box-sizing: border-box;
+
+  & > .el-form {
+    // 69 = 12+15+42
+    height: calc(100vh - 69px);
+  }
+}
+
+//控件工程图绘制面板样式
+.drawing-board {
+  height: 100%;
+  position: relative;
+  //拖拽时显示的轨迹样式
+  .sortable-ghost {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    opacity: .8;
+    color: #000000 !important;
+
+    &::before {
+      content: " ";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 3px;
+      background: rgb(89, 89, 223);
+      z-index: 2;
+    }
+  }
+
+  //vue拖拽组件区域样式(组之间拖动样式)
+  .components-item.sortable-ghost {
+    width: 100%;
+    height: 60px;
+    background-color: $selectedColor;
+  }
+
+  //目前激活控件样式
+  .active-from-item {
+    //表单项样式
+    & > .el-form-item {
+      background: $selectedColor;
+      border-radius: 6px;
+    }
+
+    //复制删除按钮样式
+    & > .drawing-item-copy, & > .drawing-item-delete {
+      display: initial;
+    }
+
+    //行容器样式
+    & > .component-name {
+      color: $lighterBlue;
+    }
+  }
+
+  //表单项间距样式
+  .el-form-item {
+    margin-bottom: 15px;
+  }
+}
+
+//控件工程图绘制面板控件项样式
+.drawing-item {
+  position: relative;
+  cursor: move;
+  //设置控件项填充间距
+  .el-form-item {
+    padding: 12px 10px;
+  }
+}
+
+//行容器el-row样式
+.drawing-row-item {
+  position: relative;
+  cursor: move;
+  box-sizing: border-box;
+  border: 1px dashed #ccc;
+  border-radius: 3px;
+  padding: 0 2px;
+  margin-bottom: 15px;
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 4px;
+    /*隐藏滚轮*/
+    visibility: hidden;
+  }
+
+  &:hover {
+    /*滚动条 start*/
+    & > ::-webkit-scrollbar {
+      width: 6px;
+      height: 4px;
+      background-color: #F5F5F5;
+      visibility: visible;
+    }
+
+    /*定义滚动条轨道 内阴影+圆角*/
+    & > ::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px #ffffff;
+      background: #ffffff;
+    }
+
+    /*定义滑块 内阴影+圆角*/
+    & > ::-webkit-scrollbar-thumb {
+      border-radius: 3px;
+      -webkit-box-shadow: inset 0 0 6px rgb(211, 212, 211);
+      background-color: rgb(222, 224, 223);
+    }
+
+    & > ::-webkit-scrollbar-thumb:hover {
+      border-radius: 3px;
+      -webkit-box-shadow: inset 0 0 6px rgb(198, 198, 198);
+      background-color: rgb(207, 207, 207);
+    }
+  }
+
+  //内部行容器el-row样式
+  .drawing-row-item {
+    margin-bottom: 2px;
+  }
+
+  //内部列布局元素样式
+  .el-col {
+    margin-top: 22px;
+  }
+
+  //内部表单控件项样式
+  .el-form-item {
+    margin-bottom: 0;
+  }
+
+  //内部draggable样式
+  .drag-wrapper {
+    overflow: auto;
+    cursor: pointer;
+  }
+
+  //表单控件项激活样式
+  &.active-from-item {
+    border: 1px dashed $lighterBlue;
+  }
+
+  //行容器名称样式
+  .component-name {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 12px;
+    color: #bbb;
+    display: inline-block;
+    padding: 0 6px;
+  }
+}
+
+//设置|控件工程图绘制面板控件项||行容器el-row样式
+.drawing-item, .drawing-row-item {
+  &:hover {
+    //表单控件项样式
+    & > .el-form-item {
+      background: $selectedColor;
+      border-radius: 6px;
+    }
+
+    //复制按钮与删除按钮样式|显示初始值
+    & > .drawing-item-copy, & > .drawing-item-delete {
+      display: initial;
+    }
+  }
+
+  //复制按钮与删除按钮样式
+  & > .drawing-item-copy, & > .drawing-item-delete {
+    display: none;
+    position: absolute;
+    top: -10px;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 12px;
+    border: 1px solid;
+    cursor: pointer;
+    z-index: 1;
+  }
+
+  //复制按钮样式
+  & > .drawing-item-copy {
+    right: 56px;
+    border-color: $lighterBlue;
+    color: $lighterBlue;
+    background: #fff;
+
+    &:hover {
+      background: $lighterBlue;
+      color: #fff;
+    }
+  }
+
+  //删除按钮样式
+  & > .drawing-item-delete {
+    right: 24px;
+    border-color: #F56C6C;
+    color: #F56C6C;
+    background: #fff;
+
+    &:hover {
+      background: #F56C6C;
+      color: #fff;
+    }
+  }
+}
+
+//网页中文字设置字体
+input, textarea {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+}
+
+//右面板滚动区域样式
+.right-scrollbar {
+  .el-scrollbar__view {
+    padding: 12px 18px 15px 15px;
+  }
+}
+
+//滚动条包装区域样式
+.el-scrollbar__wrap {
+  box-sizing: border-box;
+  overflow-x: hidden !important;
+  margin-bottom: 0 !important;
+}
+
+//Tabs标签页切换面板样式
+.center-tabs {
+  //tabs标题头部样式
+  .el-tabs__header {
+    margin-bottom: 0 !important;
+  }
+
+  //tabs切换项样式
+  .el-tabs__item {
+    width: 50%;
+    text-align: center;
+  }
+
+  //tabs导航栏样式
+  .el-tabs__nav {
+    width: 100%;
+  }
+}
+
+//正则表达式项样式
+.reg-item {
+  padding: 12px 6px;
+  background: #f8f8f8;
+  position: relative;
+  border-radius: 4px;
+  //删除按钮样式
+  .close-btn {
+    position: absolute;
+    right: -6px;
+    top: -6px;
+    display: block;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    color: #fff;
+    text-align: center;
+    z-index: 1;
+    cursor: pointer;
+    font-size: 12px;
+
+    &:hover {
+      background: rgba(210, 23, 23, 0.5)
+    }
+  }
+
+  //相邻项间距样式
+  & + .reg-item {
+    margin-top: 18px;
+  }
+}
+
+//所有头部区域动作操作栏样式
+.action-bar {
+  //按钮间距样式
+  & .el-button + .el-button {
+    margin-left: 15px;
+  }
+
+  //图标样式
+  & i {
+    font-size: 20px;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+  }
+}
+
+//级联选择静态数据-树形选项节点样式
+.custom-tree-node {
+  width: 100%;
+  font-size: 14px;
+  //节点操作区域样式
+  .node-operation {
+    float: right;
+  }
+
+  //节点操作区域图标样式|采用*匹配
+  i[class*="el-icon"] + i[class*="el-icon"] {
+    margin-left: 6px;
+  }
+
+  //添加按钮样式
+  .el-icon-plus {
+    color: #409EFF;
+  }
+
+  //删除按钮样式
+  .el-icon-delete {
+    color: #157a0c;
+  }
+}
+
+//隐藏横向滚动条
+.el-scrollbar__view {
+  overflow-x: hidden;
+}
+
+//评分控件样式
+.el-rate {
+  display: inline-block;
+  vertical-align: text-top;
+}
+
+//上传控件提示样式
+.el-upload__tip {
+  line-height: 1.2;
+}
+
+
+

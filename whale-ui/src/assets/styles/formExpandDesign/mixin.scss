@@ -1,0 +1,43 @@
+//抽离抽屉标题栏样式
+@mixin action-bar {
+  //头部标题样式
+  .action-bar {
+    height: 33px;
+    background: #f2fafb;
+    padding: 0 15px;
+    box-sizing: border-box;
+    //头部标题内部按钮样式
+    .bar-btn {
+      display: inline-block;
+      padding: 0 6px;
+      line-height: 32px;
+      color: #8285f5;
+      cursor: pointer;
+      font-size: 14px;
+      user-select: none;
+
+      & i {
+        font-size: 20px;
+      }
+
+      //定义光标悬浮伪类
+      &:hover {
+        color: #4348d4;
+      }
+    }
+
+    //头部标题内部按钮间距样式
+    .bar-btn + .bar-btn {
+      margin-left: 8px;
+    }
+
+    //头部标题内部关闭按钮样式
+    .delete-btn {
+      color: #f56c6c;
+
+      &:hover {
+        color: #ea0b30;
+      }
+    }
+  }
+}
