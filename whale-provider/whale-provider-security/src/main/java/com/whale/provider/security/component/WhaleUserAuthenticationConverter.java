@@ -7,13 +7,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.provider.token.DefaultUserAuthenticationConverter;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
+import java.util.*;
 
 
 /**
@@ -33,11 +33,27 @@ public class WhaleUserAuthenticationConverter extends DefaultUserAuthenticationC
             String userName =(String) map.get("userName");
             Integer userId = (Integer) map.get("userId");
             String avatar = (String) map.get("avatar");
-            WhaleUser user = new WhaleUser(userId,userName,avatar,userName);
-            return new UsernamePasswordAuthenticationToken(user, "N/A", AuthorityUtils.NO_AUTHORITIES);
+            ArrayList<Integer> roleIds = (ArrayList<Integer>) map.get("roleIds");
+            ArrayList<String> authorities = (ArrayList<String>) map.get("authorities");
+            List<GrantedAuthority> authorityList = createAuthorityList(authorities);
+            WhaleUser user = new WhaleUser(userId,userName,avatar,userName,new HashSet<>(roleIds),authorityList);
+            return new UsernamePasswordAuthenticationToken(user, "N/A", authorityList);
         } else {
             return null;
         }
+    }
+
+    public List<GrantedAuthority> createAuthorityList(List<String> setList) {
+        if (setList != null) {
+            ArrayList<String> roleList = new ArrayList<>(setList);
+            List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>(roleList.size());
+            for (int var = 0; var < roleList.size(); var++) {
+                grantedAuthorities.add(new SimpleGrantedAuthority(roleList.get(var)));
+            }
+            return grantedAuthorities;
+        }
+        return AuthorityUtils.NO_AUTHORITIES;
+
     }
 
 

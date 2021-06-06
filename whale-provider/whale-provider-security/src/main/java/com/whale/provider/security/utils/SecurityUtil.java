@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -51,16 +52,30 @@ public class SecurityUtil {
 	 *
 	 * @return 角色集合
 	 */
-	public List<Integer> getRoles() {
+	public Set<Integer> getRoleIdList() {
 		Authentication authentication = getAuthentication();
-		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+		if (authentication==null){
+			return null;
+		}
+		WhaleUser user = (WhaleUser)authentication.getPrincipal();
+		return user.getRoleIds();
+	}
 
-		List<Integer> roleIds = new ArrayList<>();
-		authorities.stream()
-				.filter(granted -> StrUtil.startWith(granted.getAuthority(),"ROLE_"))
-				.forEach(granted -> {
-					String id = StrUtil.removePrefix(granted.getAuthority(), "ROLE_");
-					roleIds.add(Integer.parseInt(id));
+
+	/**
+	 * 获取用户角色信息
+	 *
+	 * @return 角色集合
+	 */
+	public List<String> getPermission() {
+		Authentication authentication = getAuthentication();
+		if (authentication==null){
+			return null;
+		}
+		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+		List<String> roleIds = new ArrayList<>();
+		authorities.forEach(granted -> {
+					roleIds.add(granted.getAuthority());
 				});
 		return roleIds;
 	}

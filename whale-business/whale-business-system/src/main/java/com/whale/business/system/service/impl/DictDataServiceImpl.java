@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.whale.business.system.domain.DictData;
 import com.whale.business.system.mapper.DictDataMapper;
 import com.whale.business.system.service.DictDataService;
+import com.whale.provider.basices.redis.RedisUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -29,18 +30,20 @@ public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictData> i
 
     private final String REDIS_DIR = "dictdata:";
     private final RedisTemplate redisTemplate;
+    private final RedisUtil redisUtil;
 
     @Override
     public List<DictData> getDictDataList(String dictType) {
+
         List<DictData> dictDataList = new ArrayList<>();
         //redis缓存
         String cacheKey = REDIS_DIR + dictType;
-        Object dicts = redisTemplate.opsForValue().get(cacheKey);
+        Object dicts = redisUtil.get(cacheKey);
         if (!StrUtil.isEmptyIfStr(dicts)) {
-            dictDataList = JSONUtil.toList(JSONUtil.parseArray(dicts.toString()), DictData.class);
+            dictDataList =(List<DictData>) dicts;
         } else {
             dictDataList = baseMapper.selectList(new QueryWrapper<DictData>().eq("dict_type", dictType).orderByAsc("sort"));
-            redisTemplate.opsForValue().set(cacheKey, JSONUtil.toJsonStr(dictDataList));
+            redisTemplate.opsForValue().set(cacheKey,dictDataList);
         }
         return dictDataList;
     }

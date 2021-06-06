@@ -1,6 +1,7 @@
 package com.whale.provider.security.service;
 
 import cn.hutool.core.util.StrUtil;
+import com.whale.provider.security.utils.SecurityUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,6 +11,7 @@ import org.springframework.util.PatternMatchUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * 接口权限判断工具
@@ -30,16 +32,11 @@ public class PermissionService {
         if (StrUtil.isBlank(permission)) {
             return false;
         }
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null) {
+        List<String> permissionList = SecurityUtil.getPermission();
+        if (permissionList ==null){
             return false;
         }
-
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        return authorities.stream()
-                .map(GrantedAuthority::getAuthority)
-                .filter(StringUtils::hasText)
-                .anyMatch(x -> PatternMatchUtils.simpleMatch(permission, x));
+        return  permissionList.contains(permission);
     }
 
     /**

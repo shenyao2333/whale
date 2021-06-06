@@ -59,7 +59,7 @@ public class MenuController {
     public R getMenus() {
         List<Application> applications = applicationService.list(new QueryWrapper<Application>().orderByAsc("sort"));
         Set<Menu> menuSet = new HashSet<>();
-        SecurityUtil.getRoles().forEach(roleId -> menuSet.addAll(menuService.selectMenuListByRoleId(roleId)));
+        SecurityUtil.getRoleIdList().forEach(roleId -> menuSet.addAll(menuService.selectMenuListByRoleId(roleId)));
         List<Menu> menuList = menuSet.stream().sorted(Comparator.comparingInt(Menu::getSort)).collect(Collectors.toList());
         Map<String, Object> map = new HashMap<>();
         map.put("applications", applications);

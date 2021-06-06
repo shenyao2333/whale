@@ -4,12 +4,11 @@ const scope = 'serve'
 // 登录方法
 export function login(username, password, time, code, realKey) {
   const grant_type = 'password'
-
   return request({
     url: '/whale-oauth2/oauth/token',
     headers: {
       isToken:false,
-      'Authorization': 'Basic d2hhbGU6d2hhbGU==='
+      'Authorization': 'Basic d2hhbGU6d2hhbGU='
     },
     method: 'post',
     params: { username, password, time, grant_type, scope, code, realKey }

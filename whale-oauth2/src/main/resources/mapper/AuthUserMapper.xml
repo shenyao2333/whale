@@ -9,13 +9,17 @@
    <result property="userName" column="user_name"/>
    <result property="nickName" column="nick_name"/>
    <result property="password" column="password"/>
-   <collection property="roleList" ofType="java.lang.String">
+   <collection property="roleIds" ofType="java.lang.Integer">
+    <result column="role_id"/>
+   </collection>
+   <collection property="permsList" ofType="java.lang.String">
      <result column="perms"/>
    </collection>
  </resultMap>
 
  <select id="authUserByUserName" resultMap="LoginResultMap">
-    select u.id user_id, u.user_name , u.nick_name , u.password, u.dept_id,m.perms
+    select u.id user_id, u.user_name , u.nick_name , u.password, u.dept_id,m.perms,
+    ur.role_id
     from sys_user u
     LEFT JOIN sys_user_role ur  on u.id =  ur.user_id
     left join sys_role_menu rm on ur.role_id = ur.role_id

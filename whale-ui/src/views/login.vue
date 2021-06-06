@@ -4,7 +4,7 @@
       <a href="http://www.entfrm.com">进入官网</a>
     </div>
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form">
-      <h3 class="title">entfrm开发平台</h3>
+      <h3 class="title">whale开发平台</h3>
       <el-form-item prop="userName">
         <el-input v-model="loginForm.userName" type="text" auto-complete="off" placeholder="账号" @keyup.enter.native="handleLogin">
           <svg-icon slot="prefix" icon-class="user" class="el-input__icon input-icon" />
@@ -69,10 +69,10 @@ export default {
       codeUrl: require('../assets/images/captcha.jpg'),
       cookiePassword: "",
       loginForm: {
-        userName: "",
-        password: "",
+        userName: "shenyao",
+        password: "123456",
         rememberMe: false,
-        code: "",
+        code: "9990",
         time: "",
         realKey: ""
       },

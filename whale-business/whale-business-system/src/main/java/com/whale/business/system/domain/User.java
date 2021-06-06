@@ -7,6 +7,8 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -110,12 +112,12 @@ public class User extends BaseEntity {
      * 角色集合字符
      */
     @TableField(exist = false)
-    private String[] roleList;
+    private Set<Integer> roleList;
     /**
      * 权限标识集合
      */
     @TableField(exist = false)
-    private String[] permissions;
+    private List<String> permissions;
 
     @TableField(exist = false)
     private String newPassword;

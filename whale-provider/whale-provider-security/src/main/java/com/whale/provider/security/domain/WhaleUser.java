@@ -6,6 +6,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -34,25 +36,30 @@ public class WhaleUser  extends User {
     @Getter
     private Integer deptId;
 
+    @Setter
+    @Getter
+    private Set<Integer> roleIds;
 
 
     public WhaleUser(Integer userId,String realName, String avatar,
-                     String username) {
-        super(username, "" ,  AuthorityUtils.NO_AUTHORITIES);
+                     String username ,Set<Integer> roleIds ,  Collection<? extends GrantedAuthority> authorities) {
+        super(username, "" ,authorities);
         this.userId = userId;
         this.realName = realName;
         this.avatar = avatar;
+        this.roleIds = roleIds;
     }
 
 
     public WhaleUser(Integer userId,String realName, String avatar,
-                     String username, String password,Integer deptId,
-                     Collection<? extends GrantedAuthority> authorities) {
+                     String username, String password,Integer deptId,Set<Integer> roleIds,
+                     Collection<? extends GrantedAuthority> authorities ) {
         super(username, password , authorities);
         this.userId = userId;
         this.realName = realName;
         this.avatar = avatar;
         this.deptId = deptId;
+        this.roleIds = roleIds;
     }
 
 

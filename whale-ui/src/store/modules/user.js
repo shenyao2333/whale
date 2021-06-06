@@ -42,6 +42,7 @@ const user = {
       const time = userInfo.time
       return new Promise((resolve, reject) => {
         login(userName, password, time, code, realKey).then(res => {
+          console.log(res);
           setAccessToken(res.access_token)
           setRefreshToken(res.refresh_token)
           commit('SET_ACCESS_TOKEN', res.access_token)

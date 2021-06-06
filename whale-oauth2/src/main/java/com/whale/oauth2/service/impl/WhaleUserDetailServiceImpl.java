@@ -54,7 +54,8 @@ public class WhaleUserDetailServiceImpl implements WhaleUserDetailService {
         return new WhaleUser(
                 authUserVo.getUserId(), authUserVo.getNickName(),authUserVo.getAvatar(),
                 authUserVo.getUserName(), authUserVo.getPassword(),authUserVo.getDeptId(),
-                this.createAuthorityList(authUserVo.getRoleList()));
+                authUserVo.getRoleIds(),
+                this.createAuthorityList(authUserVo.getPermsList()));
     }
 
 
@@ -85,8 +86,7 @@ public class WhaleUserDetailServiceImpl implements WhaleUserDetailService {
             ArrayList<String> roleList = new ArrayList<>(setList);
             List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>(roleList.size());
             for (int var = 0; var < roleList.size(); var++) {
-                String authority = "ROLE_" + roleList.get(var)  ;
-                grantedAuthorities.add(new SimpleGrantedAuthority(authority));
+                grantedAuthorities.add(new SimpleGrantedAuthority(roleList.get(var)));
             }
             return grantedAuthorities;
         }

@@ -98,20 +98,11 @@ public class UserController {
             return R.fail("获取当前用户信息失败");
         }
 
-        List<String> roles = SecurityUtil.getRoles()
+        List<String> roles = SecurityUtil.getRoleIdList()
                 .stream().map(roleId -> "ROLE_" + roleId).collect(Collectors.toList());
-        Set<String> permissions = new HashSet<>();
-        SecurityUtil.getRoles().forEach(roleId -> {
-            permissions.addAll(jdbcTemplate.query("select m.perms from sys_menu m left join sys_role_menu rm on rm.menu_id = m.id where rm.role_id = ? and m.type = 'F' and m.perms is not null", new Object[]{roleId.toString()}, new RowMapper<String>() {
-                @Override
-                public String mapRow(ResultSet rs, int i)
-                        throws SQLException {
-                    return rs.getString(1);
-                }
-            }));
-        });
-        user.setRoleList(ArrayUtil.toArray(roles, String.class));
-        user.setPermissions(ArrayUtil.toArray(permissions, String.class));
+        WhaleUser whaleUser = SecurityUtil.getUser();
+        user.setRoleList(whaleUser.getRoleIds());
+        user.setPermissions(SecurityUtil.getPermission());
         return R.ok(user);
     }
 
@@ -152,7 +143,7 @@ public class UserController {
         if (whaleUser != null) {
             User user = userService.getById(whaleUser.getUserId() + "");
             if (user != null) {
-                String roleNames = SecurityUtil.getRoles().stream().map(roleId -> roleService.getById(roleId + "").getName())
+                String roleNames = SecurityUtil.getRoleIdList().stream().map(roleId -> roleService.getById(roleId + "").getName())
                         .collect(Collectors.joining(","));
                 user.setRoleNames(roleNames);
                 user.setPassword(null);

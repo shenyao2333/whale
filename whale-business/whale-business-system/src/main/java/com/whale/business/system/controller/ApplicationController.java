@@ -33,7 +33,7 @@ public class ApplicationController {
                 .orderByDesc("create_time");
     }
 
-    @PreAuthorize("@ps.hasPerm('application_view')")
+    //@PreAuthorize("@ps.hasPerm('application_view')")
     @GetMapping("/list")
     public R list(Page page, Application application) {
         IPage<Application> applicationPage = applicationService.page(page, getQueryWrapper(application));

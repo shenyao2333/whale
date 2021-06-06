@@ -28,6 +28,8 @@ public class AuthUserVo  implements Serializable {
 
     private String  password;
 
-    private Set<String>  roleList;
+    private Set<Integer>  roleIds;
+
+    private Set<String>  permsList;
 
 }
