@@ -21,7 +21,5 @@ security:
         - /doc.html
         - /test/**
         - /captcha/**
+        - /auth/**
 
-
-logging:
-  config: classpath:logback-spring.xml

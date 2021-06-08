@@ -52,7 +52,7 @@ public class SecurityUtil {
 	 *
 	 * @return 角色集合
 	 */
-	public Set<Integer> getRoleIdList() {
+	public List<Integer> getRoleIdList() {
 		Authentication authentication = getAuthentication();
 		if (authentication==null){
 			return null;

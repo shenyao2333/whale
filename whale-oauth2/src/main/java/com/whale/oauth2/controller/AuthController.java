@@ -62,7 +62,7 @@ public class AuthController {
     }
 
 
-    @GetMapping("/logout")
+    @DeleteMapping("/logout")
     @ApiOperation(value = "登录退出")
     public R logout(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader){
         if (StrUtil.isBlank(authHeader)) {
@@ -77,7 +77,9 @@ public class AuthController {
         tokenStore.removeAccessToken(accessToken);
         // 清空 refresh token
         OAuth2RefreshToken refreshToken = accessToken.getRefreshToken();
-        tokenStore.removeRefreshToken(refreshToken);
+        if (refreshToken!=null){
+            tokenStore.removeRefreshToken(refreshToken);
+        }
         return R.ok("退出成功！");
     }
 

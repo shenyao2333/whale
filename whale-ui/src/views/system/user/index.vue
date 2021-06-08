@@ -537,6 +537,8 @@ export default {
     resetQuery() {
       this.dateRange = [];
       this.resetForm("queryForm");
+      console.log(this.queryParams.deptId);
+      this.queryParams.deptId = undefined;
       this.handleQuery();
     },
     // 多选框选中数据

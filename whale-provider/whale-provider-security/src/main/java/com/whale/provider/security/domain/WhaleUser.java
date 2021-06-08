@@ -38,11 +38,11 @@ public class WhaleUser  extends User {
 
     @Setter
     @Getter
-    private Set<Integer> roleIds;
+    private List<Integer> roleIds;
 
 
     public WhaleUser(Integer userId,String realName, String avatar,
-                     String username ,Set<Integer> roleIds ,  Collection<? extends GrantedAuthority> authorities) {
+                     String username ,List<Integer> roleIds ,  Collection<? extends GrantedAuthority> authorities) {
         super(username, "" ,authorities);
         this.userId = userId;
         this.realName = realName;
@@ -52,7 +52,7 @@ public class WhaleUser  extends User {
 
 
     public WhaleUser(Integer userId,String realName, String avatar,
-                     String username, String password,Integer deptId,Set<Integer> roleIds,
+                     String username, String password,Integer deptId,List<Integer> roleIds,
                      Collection<? extends GrantedAuthority> authorities ) {
         super(username, password , authorities);
         this.userId = userId;
@@ -61,18 +61,6 @@ public class WhaleUser  extends User {
         this.deptId = deptId;
         this.roleIds = roleIds;
     }
-
-
-    public boolean isAdmin() {
-        return isAdmin(this.userId);
-    }
-
-
-
-    public static boolean isAdmin(Integer id) {
-        return id != null && 1 == id;
-    }
-
 
 }
 

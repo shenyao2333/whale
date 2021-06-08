@@ -15,19 +15,33 @@ import java.util.Date;
 public class BaseMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
-        Object createTime = getFieldValByName("created", metaObject);
+        Object createTime = getFieldValByName("createTime", metaObject);
         if (createTime == null ) {
-            setFieldValByName("created", new Date(), metaObject);
+            setFieldValByName("createTime", new Date(), metaObject);
         }
 
+        Object createBy = getFieldValByName("createBy", metaObject);
+        if (createBy == null) {
+            setFieldValByName("createBy", getUserName(), metaObject);
+        }
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        Object fieldValue = getFieldValByName("created", metaObject);
+        Object fieldValue = getFieldValByName("updateTime", metaObject);
         if (fieldValue == null) {
-            setFieldValByName("created", new Date(), metaObject);
+            setFieldValByName("updateTime", new Date(), metaObject);
         }
-
+        Object updateBy = getFieldValByName("updateBy", metaObject);
+        if (updateBy == null) {
+            setFieldValByName("updateBy", getUserName(), metaObject);
+        }
     }
+
+
+    protected Object getUserName() {
+        return "";
+    }
+
+
 }

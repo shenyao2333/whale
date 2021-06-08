@@ -104,7 +104,8 @@
         <el-row>
           <el-col :span="24" v-if="form.parentId !== 0">
             <el-form-item label="上级机构" prop="parentId">
-              <treeselect v-model="form.parentId" :options="deptOptions" :defaultExpandLevel="2" :normalizer="normalizer" placeholder="选择上级机构" />
+              <treeselect v-model="form.parentId" :options="deptOptions"
+                          :defaultExpandLevel="2" :normalizer="normalizer" placeholder="选择上级机构" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -192,7 +193,7 @@ export default {
       // 表单校验
       rules: {
         parentId: [
-          { required: true, message: "上级机构不能为空", trigger: "blur" }
+          { required: false, message: "上级机构不能为空", trigger: "blur" }
         ],
         name: [
           { required: true, message: "机构名称不能为空", trigger: "blur" }

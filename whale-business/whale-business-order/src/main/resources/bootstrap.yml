@@ -17,14 +17,7 @@ security:
         - /webjars/**
         - /doc.html
         - /test/test
-feign:
-  sentinel:
-    enabled: true
-  client:
-    config:
-      default:
-        connectTimeout: 16000
-        readTimeout: 16000
+
 
 
 #
@@ -43,6 +36,7 @@ dubbo:
     #挂载到 Spring Cloud 注册中心
     address: spring-cloud://localhost
   protocol:
+    # 开启告诉kryo序列化
     serialization: kryo
     name: dubbo
     port: -1
@@ -50,10 +44,4 @@ dubbo:
     #配置订阅服务多个服务用,隔开,不配置默认订阅注册中心所有服务
     subscribed-services: 'whale-business-system'
 
-whale-business-order:
-  ribbon:
-    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
 
-
-logging:
-  config: classpath:logback-spring.xml

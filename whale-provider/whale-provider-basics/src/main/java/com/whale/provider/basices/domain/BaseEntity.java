@@ -1,4 +1,4 @@
-package com.whale.provider.common.domain;
+package com.whale.provider.basices.domain;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;

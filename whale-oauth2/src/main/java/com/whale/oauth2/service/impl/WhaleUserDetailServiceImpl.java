@@ -51,11 +51,12 @@ public class WhaleUserDetailServiceImpl implements WhaleUserDetailService {
         if (authUserVo == null){
             throw  new GrabException("账号或者密码错误！");
         }
+        Set<Integer> roleIds = authUserVo.getRoleIds();
+        ArrayList<Integer> roleList = new ArrayList<>(roleIds);
         return new WhaleUser(
                 authUserVo.getUserId(), authUserVo.getNickName(),authUserVo.getAvatar(),
                 authUserVo.getUserName(), authUserVo.getPassword(),authUserVo.getDeptId(),
-                authUserVo.getRoleIds(),
-                this.createAuthorityList(authUserVo.getPermsList()));
+                roleList,this.createAuthorityList(authUserVo.getPermsList()));
     }
 
 

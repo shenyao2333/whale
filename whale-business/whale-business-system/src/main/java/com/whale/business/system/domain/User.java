@@ -1,7 +1,7 @@
 package com.whale.business.system.domain;
 
 import com.baomidou.mybatisplus.annotation.*;
-import com.whale.provider.common.domain.BaseEntity;
+import com.whale.provider.basices.domain.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -112,7 +112,7 @@ public class User extends BaseEntity {
      * 角色集合字符
      */
     @TableField(exist = false)
-    private Set<Integer> roleList;
+    private List<Integer> roleList;
     /**
      * 权限标识集合
      */

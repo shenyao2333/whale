@@ -65,12 +65,13 @@ public class DeptController {
     @PostMapping("/save")
     public R save(@RequestBody Dept dept) {
         Dept info = null;
-        if (0 != dept.getParentId()) {
+        if (dept.getParentId()!=null && 0 != dept.getParentId()) {
             info = deptService.getById(dept.getParentId());
             dept.setAncestors(info.getAncestors() + "," + dept.getParentId());
         } else {
             dept.setAncestors("0");
         }
+        System.out.println(dept);
         deptService.save(dept);
         return R.ok();
     }

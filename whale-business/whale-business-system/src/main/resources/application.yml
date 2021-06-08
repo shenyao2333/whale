@@ -18,14 +18,6 @@ security:
         - /doc.html
         - /test/**
 
-feign:
-  sentinel:
-    enabled: true
-  client:
-    config:
-      default:
-        connectTimeout: 16000
-        readTimeout: 16000
 dubbo:
   provider:
     filter: -exception

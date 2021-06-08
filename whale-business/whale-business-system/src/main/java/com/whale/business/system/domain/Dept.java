@@ -1,9 +1,10 @@
 package com.whale.business.system.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.whale.provider.common.domain.BaseEntity;
+import com.whale.provider.basices.domain.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -23,7 +24,7 @@ public class Dept extends BaseEntity {
     /**
      * 部门id
      */
-    @TableId(value = "dept_id")
+    @TableId(value = "dept_id",type= IdType.AUTO)
     private Integer deptId;
 
     /**

@@ -1,8 +1,5 @@
 <template>
   <div class="login">
-    <div class="el-login-header">
-      <a href="http://www.entfrm.com">进入官网</a>
-    </div>
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form">
       <h3 class="title">whale开发平台</h3>
       <el-form-item prop="userName">
@@ -52,7 +49,9 @@
     </el-form>
     <!--  底部  -->
     <div class="el-login-footer">
-      <span>Copyright © 2020-2030  entfrm团队 All Rights Reserved. <b>entfrm-ui v2.1</b></span>
+      <span>Copyright © 2020-2030  shenyao All Rights Reserved. <b></b></span>
+      <br>
+
     </div>
   </div>
 </template>

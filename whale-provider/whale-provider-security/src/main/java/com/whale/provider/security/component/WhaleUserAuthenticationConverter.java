@@ -36,7 +36,7 @@ public class WhaleUserAuthenticationConverter extends DefaultUserAuthenticationC
             ArrayList<Integer> roleIds = (ArrayList<Integer>) map.get("roleIds");
             ArrayList<String> authorities = (ArrayList<String>) map.get("authorities");
             List<GrantedAuthority> authorityList = createAuthorityList(authorities);
-            WhaleUser user = new WhaleUser(userId,userName,avatar,userName,new HashSet<>(roleIds),authorityList);
+            WhaleUser user = new WhaleUser(userId,userName,avatar,userName,roleIds,authorityList);
             return new UsernamePasswordAuthenticationToken(user, "N/A", authorityList);
         } else {
             return null;
