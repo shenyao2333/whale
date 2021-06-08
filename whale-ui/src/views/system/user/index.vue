@@ -17,6 +17,7 @@
           <el-tree
             :data="deptOptions"
             :props="defaultProps"
+             node-key="id"
             :expand-on-click-node="false"
             :filter-node-method="filterNode"
             ref="tree"
@@ -537,9 +538,10 @@ export default {
     resetQuery() {
       this.dateRange = [];
       this.resetForm("queryForm");
-      console.log(this.queryParams.deptId);
       this.queryParams.deptId = undefined;
       this.handleQuery();
+      this.$refs.tree.setCheckedKeys([])
+
     },
     // 多选框选中数据
     handleSelectionChange(selection) {
@@ -605,7 +607,7 @@ export default {
           };
           this.form.deptName = getNameById(this.form.deptId, this.deptOptions);
           console.log("this.form", this.form);
-          if (this.form.id != undefined) {
+          if (this.form.id !== undefined) {
             editUser(this.form).then(response => {
               if (response.code === 0) {
                 this.msgSuccess("修改成功");
