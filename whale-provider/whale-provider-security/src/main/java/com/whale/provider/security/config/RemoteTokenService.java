@@ -1,11 +1,14 @@
 package com.whale.provider.security.config;
 
 import cn.hutool.core.codec.Base64;
+import com.whale.provider.basices.web.GrabException;
 import com.whale.provider.security.component.WhaleUserAuthenticationConverter;
 import com.whale.provider.security.domain.WhaleUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -26,7 +29,10 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.boot.autoconfigure.security.oauth2.OAuth2ClientProperties;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * @Author: shenyao
@@ -41,8 +47,9 @@ public class RemoteTokenService extends RemoteTokenServices {
     private AccessTokenConverter tokenConverter = new DefaultAccessTokenConverter();
     private final RestTemplate restTemplate;
     private final OAuth2ClientProperties oAuth2ClientProperties;
-    private final ResourceServerProperties resourceServerProperties;
     private final DefaultAccessTokenConverter defaultAccessTokenConverter;
+    private final DiscoveryClient discoveryClient;
+    private final Random random = new Random();
 
     @Override
     public OAuth2Authentication loadAuthentication(String accessToken) throws  InvalidTokenException {
@@ -51,7 +58,7 @@ public class RemoteTokenService extends RemoteTokenServices {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", this.getAuthorizationHeader(oAuth2ClientProperties.getClientId(), oAuth2ClientProperties.getClientSecret()));
         headers.set("Accept","application/json");
-        Map<String, Object> map = this.postForMap(resourceServerProperties.getTokenInfoUri(), formData, headers);
+        Map<String, Object> map = this.postForMap( formData, headers);
         if (map.containsKey("status")&& !(Boolean)map.get("status")){
             this.logger.debug("check_token returned error: " + map.get("msg"));
             throw new InvalidTokenException(accessToken);
@@ -83,11 +90,30 @@ public class RemoteTokenService extends RemoteTokenServices {
         }
     }
 
-    private Map<String, Object> postForMap(String path, MultiValueMap<String, String> formData, HttpHeaders headers) {
+    private Map<String, Object> postForMap( MultiValueMap<String, String> formData, HttpHeaders headers) {
+
         if (headers.getContentType() == null) {
             headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         }
-        return restTemplate.exchange(path, HttpMethod.POST, new HttpEntity(formData, headers), Map.class, new Object[0]).getBody();
+        String path = this.getPath();
+        System.out.println(path);
+        return restTemplate.exchange(this.getPath(), HttpMethod.POST, new HttpEntity(formData, headers), Map.class, new Object[0]).getBody();
+    }
+
+
+    /**
+     *
+     * @return http://127.0.0.1:8000/whale-oauth2/oauth/check_token
+     */
+    private String getPath(){
+        List<ServiceInstance> instances = discoveryClient.getInstances("whale-gateway");
+        if (instances==null||instances.size()<1){
+            throw new GrabException("认证服务异常");
+        }
+        int nextInt = random.nextInt(instances.size());
+        ServiceInstance serve = instances.get(nextInt);
+        return "http://"+ serve.getHost()+":"+serve.getPort() + "/whale-oauth2/oauth/check_token";
+
     }
 
 

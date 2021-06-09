@@ -2,12 +2,10 @@ security:
   oauth2:
     resourceId: 2
     resource:
-      token-info-uri: http://127.0.0.1:8000/whale-oauth2/oauth/check_token
+      token-info-uri: hulue
     client:
       client-id: whale
       client-secret: whale
-      access-token-uri: http://127.0.0.1:8000/whale-oauth2/oauth/token
-      user-authorization-uri: http://127.0.0.1:8000/whale-oauth2/oauth/authorize
       ignore-urls:
         - /v2/api-docs
         - /swagger-resources/**
