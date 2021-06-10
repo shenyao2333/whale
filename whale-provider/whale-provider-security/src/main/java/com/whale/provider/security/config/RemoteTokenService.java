@@ -44,7 +44,6 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class RemoteTokenService extends RemoteTokenServices {
 
-    private AccessTokenConverter tokenConverter = new DefaultAccessTokenConverter();
     private final RestTemplate restTemplate;
     private final OAuth2ClientProperties oAuth2ClientProperties;
     private final DefaultAccessTokenConverter defaultAccessTokenConverter;
@@ -95,8 +94,6 @@ public class RemoteTokenService extends RemoteTokenServices {
         if (headers.getContentType() == null) {
             headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         }
-        String path = this.getPath();
-        System.out.println(path);
         return restTemplate.exchange(this.getPath(), HttpMethod.POST, new HttpEntity(formData, headers), Map.class, new Object[0]).getBody();
     }
 

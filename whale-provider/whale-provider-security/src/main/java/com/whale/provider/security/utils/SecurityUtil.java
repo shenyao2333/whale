@@ -25,7 +25,6 @@ import java.util.Set;
 public class SecurityUtil {
 
 
-
 	/**
 	 * 获取Authentication
 	 */
@@ -37,13 +36,15 @@ public class SecurityUtil {
 	 * 获取用户
 	 */
 	public WhaleUser getUser() {
-
 		Authentication authentication = getAuthentication();
 		if (authentication==null){
 			return null;
 		}
-
-		return (WhaleUser)authentication.getPrincipal();
+		Object principal = authentication.getPrincipal();
+		if (principal instanceof WhaleUser){
+			return (WhaleUser)principal;
+		}
+		return null;
 	}
 
 

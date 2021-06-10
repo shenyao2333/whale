@@ -1,45 +1,5 @@
-security:
-  oauth2:
-    resourceId: 2
-    resource:
-      token-info-uri: hulue
-    client:
-      client-id: whale
-      client-secret: whale
-      ignore-urls:
-        - /v2/api-docs
-        - /swagger-resources/**
-        - /configuration/ui
-        - /configuration/security
-        - /swagger-ui.html
-        - /webjars/**
-        - /doc.html
-        - /test/**
-
 dubbo:
-  provider:
-    filter: -exception
-  consumer:
-    check: false
-  scan:
-    # com.whale.api.dubbo 服务扫描基准包
-    base-packages: com.whale.business
-  application:
-    name: ${spring.application.name}
-    id: ${spring.application.name}
-  registry:
-    #挂载到 Spring Cloud 注册中心
-    address: spring-cloud://localhost
-  protocol:
-    name: dubbo
-    port: -1
-    serialization: kryo
-
   cloud:
     #配置订阅服务多个服务用,隔开,不配置默认订阅注册中心所有服务
     subscribed-services: 'whale-business-order'
 
-logging:
-  config: classpath:logback-spring.xml
-  level:
-    com.whale: debug

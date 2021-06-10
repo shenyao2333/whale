@@ -22,6 +22,9 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -38,26 +41,20 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 
     @Resource
     private PermitProps permitProps;
-
     @Resource
     private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
-
-    @Value("${security.oauth2.resourceId}")
+    @Value("${security.custom.resourceId}")
     private String resourceId;
-
     @Resource
     private RestTemplate restTemplate;
-
     @Resource
     private RemoteTokenService remoteTokenService;
-
     @Resource
     private DefaultAccessTokenConverter defaultAccessTokenConverter;
 
     /**
      * 配置校验token方式
-     * @param
-     * @throws Exception
+     *
      */
    @Override
    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
@@ -80,7 +77,17 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
      */
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        String[] urls = Convert.toStrArray(permitProps.getIgnoreUrls());
+        List<String> ignoreUrls = permitProps.getIgnoreUrls();
+        ArrayList<String> urlList = new ArrayList<>(10);
+        ignoreUrls.forEach( item ->{
+            if (item.contains(",")){
+                String[] split = item.split(",");
+                urlList.addAll(Arrays.asList(split));
+            }else {
+                urlList.add(item);
+            }
+        });
+        String[] urls = Convert.toStrArray(urlList);
         http.headers().frameOptions().disable();
         http.authorizeRequests().antMatchers(urls).permitAll();
         http.authorizeRequests().requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll();
