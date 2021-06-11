@@ -12,7 +12,7 @@ export function listMenu(query) {
 // 查询菜单详细
 export function getMenu(menuId) {
   return request({
-    url: '/whale-system/system/menu' + menuId,
+    url: '/whale-system/system/menu/' + menuId,
     method: 'get'
   })
 }

@@ -27,6 +27,13 @@ spring:
             - Path=/whale-order/**
           filters:
             - StripPrefix=1
+        - id: whale-business-workflow
+          uri: lb://whale-business-workflow
+          order: 10
+          predicates:
+            - Path=/whale-workflow/**
+          filters:
+            - StripPrefix=1
 logging:
   level:
     org.springframework.cloud.gateway: debug

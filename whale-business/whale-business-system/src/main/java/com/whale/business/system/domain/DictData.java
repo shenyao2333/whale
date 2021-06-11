@@ -1,5 +1,6 @@
 package com.whale.business.system.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.whale.provider.basices.domain.BaseEntity;
@@ -24,7 +25,7 @@ public class DictData extends BaseEntity {
     /**
      * 数据编号
      */
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     /**

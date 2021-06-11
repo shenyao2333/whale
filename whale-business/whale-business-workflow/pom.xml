@@ -2,9 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
-
     <modelVersion>4.0.0</modelVersion>
+
+
     <parent>
         <groupId>com.whale.ms</groupId>
         <artifactId>whale-business</artifactId>
@@ -12,11 +12,17 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
+    <artifactId>whale-business-workflow</artifactId>
 
 
-    <artifactId>whale-business-system</artifactId>
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
 
     <dependencies>
+
+
         <dependency>
             <groupId>com.whale.ms</groupId>
             <artifactId>whale-provider-common</artifactId>
@@ -33,13 +39,18 @@
             <groupId>com.whale.ms</groupId>
             <artifactId>whale-provider-security</artifactId>
             <version>${version}</version>
+
         </dependency>
+
 
         <dependency>
             <groupId>com.whale.ms</groupId>
-            <artifactId>whale-api-order</artifactId>
+            <artifactId>whale-provider-camunda</artifactId>
             <version>${version}</version>
         </dependency>
+
+
+
     </dependencies>
 
     <build>
@@ -47,13 +58,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -76,5 +80,8 @@
             </plugin>
         </plugins>
     </build>
+
+
+
 
 </project>

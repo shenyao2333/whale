@@ -37,7 +37,6 @@
                     <groupId>org.apache.dubbo</groupId>
                     <artifactId>dubbo-serialization-kryo</artifactId>
                 </exclusion>
-
             </exclusions>
         </dependency>
 
@@ -49,9 +48,10 @@
         </dependency>
 
         <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
+            <groupId>org.camunda.bpm.springboot</groupId>
+            <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
         </dependency>
+
         <!--工作流 结束-->
 
     </dependencies>

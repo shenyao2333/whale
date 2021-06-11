@@ -1,0 +1,30 @@
+camunda:
+  bpm:
+    admin-user:
+      id: sy
+      password: sy91aa
+      firstName: Demo
+    filter:
+      create: All tasks
+    database:
+      type: mysql
+
+security:
+  oauth2:
+    resource:
+      # 忽略此配置
+      token-info-uri: http://127.0.0.1:8000/whale-oauth2/oauth/check_token
+    client:
+      client-id: whale
+      client-secret: whale
+  custom:
+    resourceId: 3
+    ignore-urls:
+      - /v2/api-docs,/swagger-resources/**,/configuration/ui,/configuration/security
+      - /swagger-ui.html,/webjars/**,/doc.html
+
+dubbo:
+  cloud:
+    #配置订阅服务多个服务用,隔开,不配置默认订阅注册中心所有服务
+    subscribed-services: 'whale-business-system'
+

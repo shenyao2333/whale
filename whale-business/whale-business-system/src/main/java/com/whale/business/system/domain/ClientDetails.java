@@ -21,7 +21,7 @@ public class ClientDetails implements Serializable {
     /**
      * 编号
      */
-    @TableId(type= IdType.INPUT)
+    @TableId(type= IdType.AUTO)
     private String clientId;
 
     /**

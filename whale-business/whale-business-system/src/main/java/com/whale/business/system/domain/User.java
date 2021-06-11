@@ -29,7 +29,7 @@ public class User extends BaseEntity {
     /**
      * 用户ID
      */
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     /**

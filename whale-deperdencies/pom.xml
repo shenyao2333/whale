@@ -41,6 +41,8 @@
         <jaxb-impl.version>2.2.3</jaxb-impl.version>
         <camunda.spring-boot.version>7.15.0</camunda.spring-boot.version>
         <easyexcel.version>2.2.6</easyexcel.version>
+        <camunda.jackson.version>1.10.0</camunda.jackson.version>
+
     </properties>
 
 
@@ -219,6 +221,24 @@
                 <groupId>org.camunda.bpm.springboot</groupId>
                 <artifactId>camunda-bpm-spring-boot-starter-webapp</artifactId>
                 <version>${camunda.spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.camunda.bpm.springboot</groupId>
+                <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
+                <version>${camunda.spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.camunda.bpm</groupId>
+                <artifactId>camunda-engine-plugin-spin</artifactId>
+                <version>${camunda.spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.camunda.spin</groupId>
+                <artifactId>camunda-spin-dataformat-json-jackson</artifactId>
+                <version>${camunda.jackson.version}</version>
             </dependency>
 
             <dependency>

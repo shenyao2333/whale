@@ -20,7 +20,7 @@ public class Role extends BaseEntity {
     /**
      * 角色ID
      */
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     /**

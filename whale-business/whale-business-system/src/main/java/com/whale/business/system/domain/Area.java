@@ -19,7 +19,7 @@ public class Area extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /** 编号 */
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     /** 父区域编号 */
