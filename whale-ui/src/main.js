@@ -36,6 +36,12 @@ import RightToolbar from "@/components/RightToolbar"
 import Avue from '@smallwei/avue'
 import '@smallwei/avue/lib/index.css'
 import AvueFormDesign from '@sscfaith/avue-form-design'
+// bpmn 流程图
+/*
+import 'bpmn-js/dist/assets/diagram-js.css';
+import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
+*/
+
 
 // 全局方法挂载
 Vue.prototype.getDicts = getDicts

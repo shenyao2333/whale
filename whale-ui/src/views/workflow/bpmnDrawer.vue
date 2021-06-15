@@ -2,7 +2,11 @@
   <div ref="content" class="containers">
     <div ref="canvas" class="canvas"/>
     <div :class="{hide:!pannelShow}" class="panel" >
-      <div class="panelBtn" @click="hoverPanel"><div style="margin-top: 9px">{{ pannelShow?'隐藏面板':'显示面板' }}</div></div>
+      <div class="panelBtn" @click="hoverPanel">
+        <div style="margin-top: 9px">
+        {{ pannelShow?'隐藏面板':'显示面板' }}
+        </div>
+      </div>
       <div id="js-properties-panel" ref="jsPropertiesPanel" class="panel"/>
     </div>
 
@@ -17,11 +21,11 @@
 // 引入相关的依赖
 /* import BpmnViewer from 'bpmn-js'*/``
 import BpmnModeler from 'bpmn-js/lib/Modeler'
-import propertiesPanelModule from '../lib'
-/*
-import propertiesProviderModule from 'bpmn-js-properties-panel/lib/provider/camunda'
-*/
-import propertiesProviderModule from '../lib/provider/camunda'
+import propertiesPanelModule from './lib'
+
+//import propertiesProviderModule from 'bpmn-js-properties-panel/lib/provider/camunda'
+
+import propertiesProviderModule from './lib/provider/camunda'
 import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda'
 /* 左边工具栏以及编辑节点的样式*/
 import 'bpmn-js/dist/assets/diagram-js.css'
@@ -30,7 +34,7 @@ import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css'
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css'
 /* 右边工具栏样式*/
 import 'bpmn-js-properties-panel/dist/assets/bpmn-js-properties-panel.css'
-import customTranslate from '../customTranslate'
+import customTranslate from './customTranslate'
 
 export default {
   name: 'BpmnDrawer',
