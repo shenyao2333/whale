@@ -1,199 +1,296 @@
 <template>
   <div class="app-container">
-    <BpmnDrawer v-if="showDraw" ref="bpmndrawer" @close="showDraw=false" @exportXML="exportXML"/>
-    <div v-else>
-      <div class="filter-container">
-        <el-input v-model="listQuery.name" :placeholder="$t('flowModel.name')" style="width: 120px;" class="filter-item" @keyup.enter.native="handleFilter" />
-        <el-button type="primary" icon="el-icon-search" class="filter-item" @click="handleFilter">查 询</el-button>
-        <el-button type="primary" icon="el-icon-edit" class="filter-item" @click="handleAddOrEdit()">新  增</el-button>
-        <el-button type="primary" class="filter-item" icon="el-icon-refresh" @click="resetForm">重 置</el-button>
+    <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="82px">
+      <el-form-item label="部署ID" prop="name">
+        <el-input
+          v-model="queryParams.name"
+          placeholder="请输入数据库名称"
+          clearable
+          size="small"
+          style="width: 240px"
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="数据库类型" prop="driverClassName">
+        <el-select v-model="queryParams.driverClassName" placeholder="数据库类型" clearable size="small">
+          <el-option
+            v-for="dict in typeOptions"
+            :key="dict.value"
+            :label="dict.label"
+            :value="dict.value"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="创建时间">
+        <el-date-picker
+          v-model="dateRange"
+          size="small"
+          style="width: 240px"
+          value-format="yyyy-MM-dd"
+          type="daterange"
+          range-separator="-"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
+        ></el-date-picker>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
+        <el-button icon="el-icon-refresh-right" size="mini" @click="resetQuery">重置</el-button>
+      </el-form-item>
+    </el-form>
+
+    <el-row :gutter="10" class="mb8">
+      <el-col :span="1.5">
+        <el-button
+          type="primary"
+          icon="el-icon-plus"
+          size="mini"
+          @click="handleAdd"
+          v-hasPerm="['datasource_add']"
+        >新增</el-button>
+      </el-col>
+      <el-col :span="1.5">
+        <el-button
+          type="success"
+          icon="el-icon-edit"
+          size="mini"
+          :disabled="single"
+          @click="handleEdit"
+          v-hasPerm="['datasource_edit']"
+        >修改</el-button>
+      </el-col>
+      <el-col :span="1.5">
+        <el-button
+          type="danger"
+          icon="el-icon-delete"
+          size="mini"
+          :disabled="multiple"
+          @click="handleDel"
+          v-hasPerm="['datasource_del']"
+        >删除</el-button>
+      </el-col>
+      <div class="top-right-btn">
+        <el-tooltip class="item" effect="dark" content="刷新" placement="top">
+          <el-button size="mini" circle icon="el-icon-refresh" @click="handleQuery" />
+        </el-tooltip>
+        <el-tooltip class="item" effect="dark" :content="showSearch ? '隐藏搜索' : '显示搜索'" placement="top">
+          <el-button size="mini" circle icon="el-icon-search" @click="showSearch=!showSearch" />
+        </el-tooltip>
       </div>
-      <el-table
-        v-loading="listLoading"
-        :data="objList"
-        border
-        style="width: 100%;">
-        <el-table-column label="id" prop="id" align="center" >
-          <template slot-scope="scope">
-            <span>{{ scope.row.id }}</span>
-          </template>
-        </el-table-column>
+    </el-row>
 
-        <el-table-column :label="$t('flowModel.name')" prop="name" align="center" >
-          <template slot-scope="scope">
-            <span>{{ scope.row.name }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('flowModel.tenantId')" prop="tenantId" align="center" >
-          <template slot-scope="scope">
-            <span>{{ scope.row.tenantId }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('flowModel.source')" prop="source" align="center" >
-          <template slot-scope="scope">
-            <span>{{ scope.row.source }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('flowModel.deploymentId')" prop="deploymentId" align="center" >
-          <template slot-scope="scope">
-            <span>{{ scope.row.id |deployedFilter }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('flowModel.deploymentTime')" prop="deploymentTime" align="center" >
-          <template slot-scope="scope">
-            <span>{{ scope.row.deploymentTime }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column width="250" fixed="right" label="操作">
-          <template slot-scope="scope">
-            <el-button size="mini" type="success" icon="el-icon-picture-outline" circle title="绘图" @click="drawBpmn(scope.row)"/>
-            <el-button v-if="scope.row.deploymentId==null&&scope.row.sourceUrl!=null" size="mini" type="primary" icon="el-icon-upload" circle title="部署" @click="deployModel(scope.row)"/>
-            <el-button size="mini" type="danger" icon="el-icon-delete" circle title="删除" @click="deleteModel(scope.row)"/>
+    <el-table v-loading="loading" :data="datasourceList"
+              border @selection-change="handleSelectionChange">
+      <el-table-column label="部署ID" align="center" prop="id" />
+      <el-table-column label="流程名称" align="center" prop="name" :show-overflow-tooltip="true" />
+      <el-table-column label="来源" align="center" prop="source" :formatter="typeFormat" />
+      <el-table-column label="创建时间" align="center" prop="deploymentTime" width="180">
+        <template slot-scope="scope">
+          <span>{{ parseTime(scope.row.createTime) }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+        <template slot-scope="scope">
+          <el-button
+            size="mini"
+            type="text"
+            icon="el-icon-edit"
+            @click="handleEdit(scope.row)"
+            v-hasPerm="['datasource_edit']"
+          >修改</el-button>
+          <el-button
+            size="mini"
+            type="text"
+            icon="el-icon-delete"
+            @click="handleDel(scope.row)"
+            v-hasPerm="['datasource_del']"
+          >删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
 
-          </template>
-        </el-table-column>
-      </el-table>
+    <pagination
+      v-show="total>0"
+      :total="total"
+      :page.sync="queryParams.current"
+      :limit.sync="queryParams.size"
+      @pagination="getList"
+    />
 
-      <pagination
-        v-show="total>0"
-        :total="total"
-        :page.sync="listQuery.pageNo"
-        :limit.sync="listQuery.pageSize"
-        @pagination="getList"/>
-    </div>
+    <!-- 添加或修改数据库配置对话框 -->
+    <el-dialog :title="title" :visible.sync="open" width="70%" >
+      <div slot="title" class="dialog-pane">
+        <el-button type="primary" @click="submitForm">确 定</el-button>
+        <el-button @click="cancel">取 消</el-button>
+      </div>
+      <el-form ref="form" :model="form" :rules="rules" >
+        <bpmn />
+      </el-form>
+
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import blankbpmn from '../blankbpmn'
-import ModelCreateUpdate from './create_update'
-import BpmnDrawer from '@/views/workflow/bpmnDrawer.vue'
+import { listForm } from "@/api/workflow/deploy";
+import bpmn from "../index";
+
 
 export default {
-  name: 'Model',
-  components: {
-    Pagination,
-    BpmnDrawer,
-    ModelCreateUpdate
-  },
-  filters: {
-    deployedFilter(id) {
-      if (id) {
-        return id
-      }
-      return '未部署'
-    }
-  },
-  data: function() {
+  components: { bpmn },
+  name: "Datasource",
+  data() {
     return {
-      showCheckBox: true,
-      editable: false,
-      defaultChecked: { checkedpermissions: [], checkedrouters: [] },
-      objList: [],
-      dialogFormVisible: false,
-      listLoading: true,
+      // 遮罩层
+      loading: true,
+      // 总条数
       total: 0,
-      showDraw: false,
-      xmlmodel: undefined,
-      listQuery: {
-        pageNo: 1,
-        pageSize: 10,
-        createDate: undefined,
-        latest: true
+      // 数据库表格数据
+      deployList: [],
+      // 弹出层标题
+      title: "",
+      // 是否显示弹出层
+      open: false,
+      // 类型数据字典
+      // 查询数据库
+      queryParams: {
+        firstResult: 1,
+        maxResults: 10,
+        id: undefined,
+        nameLike: undefined,
+        sortBy: 'deploymentTime',
+        sortOrder: 'desc'
+      },
+      // 显示搜索条件
+      showSearch: true,
+      // 表单数据库
+      form: {},
+      // 表单校验
+      rules: {
+        name: [
+          { required: true, message: "数据库名不能为空", trigger: "blur" }
+        ],
+        url: [
+          { required: true, message: "jdbcurl不能为空", trigger: "blur" }
+        ],
+        username: [
+          { required: true, message: "用户名不能为空", trigger: "blur" }
+        ],
+        password: [
+          { required: true, message: "密码不能为空", trigger: "blur" }
+        ]
       }
-    }
+    };
   },
   created() {
     this.getList()
   },
   methods: {
+    /** 查询数据库列表 */
     getList() {
-      this.listLoading = true
-      var _this = this
-      deploymentService.count(this.listQuery).then(function(cres) {
-        _this.listQuery.firstResult = (_this.listQuery.pageNo - 1) * _this.listQuery.pageSize
-        _this.listQuery.maxResults = _this.listQuery.pageNo * _this.listQuery.pageSize
-        deploymentService.list(_this.listQuery).then(res => {
-          _this.total = cres.count
-          _this.objList = res
-          _this.listLoading = false
-        }, err => {
-          console.log(err)
-          _this.listLoading = false
-        })
-      })
+      this.loading = true;
+      listForm(this.queryParams).then(response => {
+          this.deployList = response.data;
+          this.loading = false;
+        }
+      );
     },
-    handleFilter() {
-      this.listQuery.pageNo = 1
-      this.getList()
+    // 数据库数据类型字典翻译
+    typeFormat(row, column) {
+      return this.selectDictLabel(this.typeOptions, row.driverClassName);
     },
-    startFlow: function() {},
-    resetForm() {
-      this.listQuery = {}
+    // 取消按钮
+    cancel() {
+      this.open = false;
+      this.reset();
     },
-    dateRangeChange(data) {
-      if (data) {
-        this.listQuery.start_time = data[0]
-        this.listQuery.end_time = data[1]
-      }
+    // 表单重置
+    reset() {
+      this.form = {
+        id: undefined,
+        name: undefined,
+        driverClassName: "0",
+        url: undefined,
+        username: undefined,
+        password: undefined,
+        remarks: undefined
+      };
+      this.resetForm("form");
     },
-    deployModel: function(item) {
-      var _this = this
-      modelService.getEditorSrc(item.id).then(function(xml) {
-        deploymentService.deployment(xml, item.name + '.bpmn20.xml', _this.$store.getters.name).then(function(res) {
-          /* 获取流程部署id*/
-          /* 版本加1*/
-          var params = Object.assign({}, item)
-          params.deploymentId = res.id
-          params.version = params.version + 1
-          modelService.save(params)
-          _this.getList()
-        })
-      })
+    /** 搜索按钮操作 */
+    handleQuery() {
+      this.queryParams.current = 1;
+      this.getList();
     },
-    drawBpmn(item) {
-      var _this = this
-      this.showDraw = true
-      /* 如果有部署id说明部署过*/
-
-      deploymentService.resources(item.id).then(function(res) {
-        request({ url: '/flow/rest/deployment/' + item.id + '/resources/' + res[0].id + '/data', method: 'get' }).then(function(xml) {
-          _this.$nextTick(() => {
-            _this.$refs.bpmndrawer.initCanvas(xml, item.id, item.name)
-          })
-        })
-      })
+    /** 重置按钮操作 */
+    resetQuery() {
+      this.dateRange = [];
+      this.resetForm("queryForm");
     },
-    handleAddOrEdit() {
-      this.showDraw = true
-      this.$nextTick(() => {
-        this.$refs.bpmndrawer.initCanvas(blankbpmn)
-      })
+    /** 新增按钮操作 */
+    handleAdd() {
+      this.reset();
+      this.open = true;
+      this.title = "添加数据库";
     },
-    exportXML: function(xml, filename, id) {
-      var _this = this
-      deploymentService.deployment(xml, filename, _this.$store.getters.name).then(function(res) {
-        _this.showDraw = false
-        _this.getList()
-      })
+    // 多选框选中数据
+    handleSelectionChange(selection) {
+      this.ids = selection.map(item => item.id)
+      this.single = selection.length!=1
+      this.multiple = !selection.length
     },
-    deleteModel: function(item) {
-      var _this = this
-      deploymentService.delete(item.id).then(function() {
-        _this.getList()
-      })
+    /** 修改按钮操作 */
+    handleEdit(row) {
+      this.reset();
+      const id = row.id || this.ids
+      getDatasource(id).then(response => {
+        this.form = response.data;
+        this.open = true;
+        this.title = "修改数据库";
+      });
+    },
+    /** 提交按钮 */
+    submitForm: function() {
+      this.$refs["form"].validate(valid => {
+        if (valid) {
+          if (this.form.id != undefined) {
+            editDatasource(this.form).then(response => {
+              if (response.code === 0) {
+                this.msgSuccess("修改成功");
+                this.open = false;
+                this.getList();
+              } else {
+                this.msgError(response.msg);
+              }
+            });
+          } else {
+            addDatasource(this.form).then(response => {
+              if (response.code === 0) {
+                this.msgSuccess("新增成功");
+                this.open = false;
+                this.getList();
+              } else {
+                this.msgError(response.msg);
+              }
+            });
+          }
+        }
+      });
+    },
+    /** 删除按钮操作 */
+    handleDel(row) {
+      const ids = row.id || this.ids;
+      this.$confirm('是否确认删除数据库编号为"' + ids + '"的数据项?', "警告", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(function() {
+        return delDatasource(ids);
+      }).then(() => {
+        this.getList();
+        this.msgSuccess("删除成功");
+      }).catch(function() {});
     }
   }
-}
+};
 </script>
-<style>
-  .filter-container {
-    padding-bottom: 10px;
-  }
-  .filter-item {
-    display: inline-block;
-    vertical-align: middle;
-    margin-bottom: 10px;
-  }
-</style>

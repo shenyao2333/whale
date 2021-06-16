@@ -35,7 +35,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint,
 	@SneakyThrows
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 						 AuthenticationException authException) {
-		log.error("{},匿名用户访问无权限:{}",request.getRequestURI(), authException.getMessage());
+		log.error("{},匿名用户访问无权限:{} , -> {} ",request.getRequestURI(), authException.getMessage(),authException.getLocalizedMessage());
 		response.setCharacterEncoding(CharsetUtil.UTF_8);
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 		response.setStatus(HttpStatus.HTTP_OK);
