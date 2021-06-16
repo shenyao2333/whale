@@ -27,6 +27,12 @@
             <groupId>com.whale.ms</groupId>
             <artifactId>whale-provider-common</artifactId>
             <version>${version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.ws.rs</groupId>
+                    <artifactId>jsr311-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
