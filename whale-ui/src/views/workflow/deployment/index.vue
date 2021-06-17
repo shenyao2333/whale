@@ -4,39 +4,31 @@
       <el-form-item label="部署ID" prop="name">
         <el-input
           v-model="queryParams.name"
-          placeholder="请输入数据库名称"
+          placeholder="请输入部署ID"
           clearable
           size="small"
           style="width: 240px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="数据库类型" prop="driverClassName">
-        <el-select v-model="queryParams.driverClassName" placeholder="数据库类型" clearable size="small">
-          <el-option
-            v-for="dict in typeOptions"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
+      <el-form-item label="部署名称" prop="nameLike">
+          <el-input
+            v-model="queryParams.nameLike"
+            placeholder="请输入部署名称"
+            clearable
+            size="small"
+            style="width: 240px"
+            @keyup.enter.native="handleQuery"
           />
-        </el-select>
       </el-form-item>
-      <el-form-item label="创建时间">
-        <el-date-picker
-          v-model="dateRange"
-          size="small"
-          style="width: 240px"
-          value-format="yyyy-MM-dd"
-          type="daterange"
-          range-separator="-"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
-        ></el-date-picker>
-      </el-form-item>
+
+
+
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh-right" size="mini" @click="resetQuery">重置</el-button>
       </el-form-item>
+
     </el-form>
 
     <el-row :gutter="10" class="mb8">
@@ -79,15 +71,12 @@
       </div>
     </el-row>
 
-    <el-table v-loading="loading" :data="datasourceList"
+    <el-table v-loading="loading" :data="deployList"
               border @selection-change="handleSelectionChange">
       <el-table-column label="部署ID" align="center" prop="id" />
       <el-table-column label="流程名称" align="center" prop="name" :show-overflow-tooltip="true" />
-      <el-table-column label="来源" align="center" prop="source" :formatter="typeFormat" />
+      <el-table-column label="来源" align="center" prop="source" />
       <el-table-column label="创建时间" align="center" prop="deploymentTime" width="180">
-        <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.createTime) }}</span>
-        </template>
       </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
@@ -112,8 +101,8 @@
     <pagination
       v-show="total>0"
       :total="total"
-      :page.sync="queryParams.current"
-      :limit.sync="queryParams.size"
+      :page.sync="queryParams.firstResult"
+      :limit.sync="queryParams.maxResults"
       @pagination="getList"
     />
 
@@ -132,7 +121,7 @@
 </template>
 
 <script>
-import { listForm } from "@/api/workflow/deploy";
+import { listForm ,count } from "@/api/workflow/deploy";
 import bpmn from "../index";
 
 
@@ -141,20 +130,24 @@ export default {
   name: "Datasource",
   data() {
     return {
+      ids:'',
+      multiple:'',
+      single:undefined,
       // 遮罩层
       loading: true,
+      dateRange:'',
       // 总条数
       total: 0,
-      // 数据库表格数据
+      // 数据库表格数据multiple
       deployList: [],
       // 弹出层标题
-      title: "",
+      title: "流程图",
       // 是否显示弹出层
       open: false,
       // 类型数据字典
       // 查询数据库
       queryParams: {
-        firstResult: 1,
+        firstResult: 0,
         maxResults: 10,
         id: undefined,
         nameLike: undefined,
@@ -167,37 +160,28 @@ export default {
       form: {},
       // 表单校验
       rules: {
-        name: [
-          { required: true, message: "数据库名不能为空", trigger: "blur" }
-        ],
-        url: [
-          { required: true, message: "jdbcurl不能为空", trigger: "blur" }
-        ],
-        username: [
-          { required: true, message: "用户名不能为空", trigger: "blur" }
-        ],
-        password: [
-          { required: true, message: "密码不能为空", trigger: "blur" }
-        ]
+
       }
     };
   },
   created() {
     this.getList()
+    this.count();
   },
   methods: {
     /** 查询数据库列表 */
     getList() {
       this.loading = true;
       listForm(this.queryParams).then(response => {
-          this.deployList = response.data;
+          this.deployList = response;
           this.loading = false;
         }
       );
     },
-    // 数据库数据类型字典翻译
-    typeFormat(row, column) {
-      return this.selectDictLabel(this.typeOptions, row.driverClassName);
+    count(){
+      count(this.queryParams).then(re =>{
+        this.total=re.count;
+      })
     },
     // 取消按钮
     cancel() {
@@ -207,20 +191,15 @@ export default {
     // 表单重置
     reset() {
       this.form = {
-        id: undefined,
-        name: undefined,
-        driverClassName: "0",
-        url: undefined,
-        username: undefined,
-        password: undefined,
-        remarks: undefined
+
       };
       this.resetForm("form");
     },
     /** 搜索按钮操作 */
     handleQuery() {
-      this.queryParams.current = 1;
+      this.queryParams.current = 0;
       this.getList();
+      this.count();
     },
     /** 重置按钮操作 */
     resetQuery() {
