@@ -1,4 +1,4 @@
-package com.whale.provider.kafka.domain;
+package com.whale.provider.kafka.constant;
 
 import lombok.Data;
 

@@ -1,13 +1,15 @@
-package com.whale.provider.common.compose;
+package com.whale.provider.log.aspect;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.whale.provider.common.aop.LogRecord;
+import com.whale.provider.log.annotation.LogRecord;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -22,7 +24,10 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 @Aspect
 @Component
+@RequiredArgsConstructor
 public class LogAspect {
+
+    private final KafkaTemplate<String, Object> kafkaTemplate;
 
 
     /**
@@ -36,8 +41,9 @@ public class LogAspect {
 
 
     @Around("@annotation(slog)")
-    public Object doAround(ProceedingJoinPoint proceedingJoinPoint ,LogRecord slog) throws Throwable {
-        log.info("msg: {}", slog.msg());
+    public Object doAround(ProceedingJoinPoint proceedingJoinPoint , LogRecord slog) throws Throwable {
+
+        log.info("msg: {}", slog.value());
         log.info("url: {}", this.getUrl());
         String  keyValueStr =  getParamKeyValue(proceedingJoinPoint);
         log.info("参数  : {}", keyValueStr);
@@ -76,7 +82,11 @@ public class LogAspect {
             return null;
         }
         HttpServletRequest request = attributes.getRequest();
-        return request.getRequestURL().toString();
+        StringBuffer requestUrl = request.getRequestURL();
+        if (requestUrl!=null){
+            return requestUrl.toString();
+        }
+        return null;
     }
 
 
