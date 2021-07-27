@@ -25,6 +25,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
      * @param parentId 传入的父节点ID
      * @return String
      */
+    @Override
     public List<Dept> buildTree(List<Dept> list, int parentId){
         List<Dept> deptList = new ArrayList<Dept>();
         for (Iterator<Dept> iterator = list.iterator(); iterator.hasNext(); ) {

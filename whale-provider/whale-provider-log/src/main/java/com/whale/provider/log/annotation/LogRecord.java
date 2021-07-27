@@ -1,4 +1,4 @@
-package com.whale.provider.common.aop;
+package com.whale.provider.log.annotation;
 
 import java.lang.annotation.*;
 
@@ -17,7 +17,7 @@ public @interface LogRecord {
      * 日志描述
      *
      */
-    String msg() default "";
+    String value() default "";
 
 
 

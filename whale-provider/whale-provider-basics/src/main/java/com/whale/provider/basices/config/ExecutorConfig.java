@@ -24,16 +24,13 @@ public class ExecutorConfig {
     public static ExecutorService threadPool() {
         int max = Runtime.getRuntime().availableProcessors();
         log.info("初始化线程数："+max);
-        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(max / 2 + 1, max,
-                60, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
-        return threadPoolExecutor;
+        return new ThreadPoolExecutor(max / 2 + 1, max,
+                60, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(),  new ThreadPoolExecutor.AbortPolicy());
     }
 
 
+
     public static void main(String[] args) {
-
-
-
 
     }
 

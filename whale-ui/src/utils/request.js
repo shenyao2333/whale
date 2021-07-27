@@ -6,9 +6,11 @@ import errorCode from '@/utils/errorCode'
 import {getAccessToken} from '@/utils/auth'
 
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
+
 axios.defaults.validateStatus = function (status) {
   return status >= 200 && status <= 500 // 默认的
 }
+
 // 创建axios实例
 const service = axios.create({
   // axios中请求配置有baseURL选项，表示请求URL公共部分
@@ -43,11 +45,12 @@ service.interceptors.request.use(
 
 // 响应拦截器
 service.interceptors.response.use(res => {
+    console.log("进来")
     NProgress.done()
-    //console.log(JSON.stringify(res))
     const status = Number(res.status) || 200
+    console.log(status)
     const message = errorCode[status] || res.data.msg || errorCode['default']
-    if (status === 401) {
+    if (status === 200 &&  res.data.code === 401) {
       MessageBox.confirm(
         message,
         '系统提示',
@@ -67,7 +70,19 @@ service.interceptors.response.use(res => {
         type: 'error'
       })
       return Promise.reject(new Error(message))
-    } else if (status !== 200 ||  ( res.data.code &&  res.data.code !== 0) ) {
+    } else if ( status === 428 ) {
+      Message({
+        message: message,
+        type: 'error'
+      })
+      return Promise.reject(new Error(message))
+    } else if (status !== 200) {
+      Message({
+        message: message,
+        type: 'error'
+      })
+      return Promise.reject(new Error(message))
+    } else if (status !== 200 ||  ( res.data.code && res.data.code !==0) ) {
       Message({
         message: message,
         type: 'error'

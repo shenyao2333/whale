@@ -28,7 +28,7 @@ public class LogAspect {
     /**
      * 以自定义 @PrintlnLog 注解作为切面入口
      */
-    @Pointcut("@annotation(com.whale.provider.common.aop.LogRecord)")
+    @Pointcut("@annotation(com.whale.provider.log.annotation.LogRecord)")
     public void printlnLog() {
 
     }

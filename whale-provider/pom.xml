@@ -20,6 +20,9 @@
         <module>whale-provider-swagger</module>
         <module>whale-provider-job</module>
         <module>whale-provider-camunda</module>
+        <module>whale-provider-kafka</module>
+        <module>whale-provider-es</module>
+        <module>whale-provider-log</module>
     </modules>
 
     <dependencies>
