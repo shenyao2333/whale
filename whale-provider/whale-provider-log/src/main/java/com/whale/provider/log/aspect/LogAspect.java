@@ -2,6 +2,8 @@ package com.whale.provider.log.aspect;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.whale.provider.es.constant.LogInfoEs;
+import com.whale.provider.kafka.constant.KafkaTopicConstant;
 import com.whale.provider.log.annotation.LogRecord;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,11 +11,15 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.concurrent.ThreadPoolExecutor;
 
 
 /**
@@ -24,10 +30,16 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 @Aspect
 @Component
-@RequiredArgsConstructor
 public class LogAspect {
 
-    private final KafkaTemplate<String, Object> kafkaTemplate;
+    @Resource
+    private KafkaTemplate<String, Object> kafkaTemplate;
+
+
+    @Resource
+    @Qualifier(value = "threadPool")
+    private ThreadPoolExecutor threadPoolExecutor;
+
 
 
     /**
@@ -42,25 +54,35 @@ public class LogAspect {
 
     @Around("@annotation(slog)")
     public Object doAround(ProceedingJoinPoint proceedingJoinPoint , LogRecord slog) throws Throwable {
-
-        log.info("msg: {}", slog.value());
-        log.info("url: {}", this.getUrl());
+        LogInfoEs logInfo = new LogInfoEs();
+        logInfo.setValue(slog.value());
+        logInfo.setUrl(this.getUrl());
         String  keyValueStr =  getParamKeyValue(proceedingJoinPoint);
-        log.info("参数  : {}", keyValueStr);
-        log.info("Request Class and Method: {}.{}", proceedingJoinPoint.getSignature().getDeclaringTypeName(), proceedingJoinPoint.getSignature().getName());
+        logInfo.setParam(keyValueStr);
+        logInfo.setClassName(proceedingJoinPoint.getSignature().getDeclaringTypeName());
+        logInfo.setMethodName(proceedingJoinPoint.getSignature().getName());
         long startTime = System.currentTimeMillis();
         Object result = null;
         try {
             result = proceedingJoinPoint.proceed();
         }catch (Exception e){
-            log.error("报错信息："+e.getMessage());
+            logInfo.setErrorMsg(e.getMessage());
             throw e;
         }finally {
-            log.info("输出结果  : {}", JSON.toJSONString(result));
-            log.info("方法执行耗时: {} ms", System.currentTimeMillis() - startTime);
+            logInfo.setReturnResult(JSON.toJSONString(result));
+            logInfo.setElapsedTime(System.currentTimeMillis() - startTime);
+            this.sendKafka(logInfo);
         }
         return result;
     }
+
+
+    private void sendKafka(LogInfoEs logInfo){
+        threadPoolExecutor.execute(()->
+                kafkaTemplate.send(KafkaTopicConstant.LOG,logInfo) );
+    }
+
+
 
     private String getParamKeyValue(JoinPoint proceedingJoinPoint ) {
         MethodSignature signature = (MethodSignature) proceedingJoinPoint.getSignature();

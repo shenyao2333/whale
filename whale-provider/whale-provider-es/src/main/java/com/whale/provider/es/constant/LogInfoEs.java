@@ -1,14 +1,19 @@
 package com.whale.provider.es.constant;
 
+import lombok.Data;
+import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
+
+import java.util.Date;
 
 /**
  * @Author: sy
  * @Date: Created by 2021/7/27 0027-22:00
  * @description:
  */
-
+@Data
+@Document(indexName = "Log_info", shards = 1,replicas = 0)
 public class LogInfoEs {
 
     /**
@@ -17,7 +22,9 @@ public class LogInfoEs {
     @Field(type = FieldType.Long)
     private Long id;
 
-
+    /**
+     * 传入的值
+     */
     @Field(analyzer = "ik_max_word",type = FieldType.Text,store = true,searchAnalyzer = "ik_max_word")
     private String value;
 
@@ -68,6 +75,13 @@ public class LogInfoEs {
      */
     @Field(type = FieldType.Long,index = false)
     private Long elapsedTime;
+
+
+    /**
+     * 创建时间
+     */
+    @Field(index = false,type = FieldType.Date)
+    private Date createTime = new Date();
 
 
 }
