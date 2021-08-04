@@ -12,6 +12,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -41,6 +42,9 @@ public class LogAspect {
     private ThreadPoolExecutor threadPoolExecutor;
 
 
+    @Value("${spring.application.name}")
+    private String moduleName;
+
 
     /**
      * 以自定义 @PrintlnLog 注解作为切面入口
@@ -61,6 +65,7 @@ public class LogAspect {
         logInfo.setParam(keyValueStr);
         logInfo.setClassName(proceedingJoinPoint.getSignature().getDeclaringTypeName());
         logInfo.setMethodName(proceedingJoinPoint.getSignature().getName());
+        logInfo.setModuleName(moduleName);
         long startTime = System.currentTimeMillis();
         Object result = null;
         try {

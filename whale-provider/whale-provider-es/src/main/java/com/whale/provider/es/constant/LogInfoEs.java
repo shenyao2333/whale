@@ -22,6 +22,13 @@ public class LogInfoEs {
     @Field(type = FieldType.Long)
     private Long id;
 
+
+    /**
+     * 模块名
+     */
+    @Field(type = FieldType.Text,store = true)
+    private String moduleName;
+
     /**
      * 传入的值
      */
