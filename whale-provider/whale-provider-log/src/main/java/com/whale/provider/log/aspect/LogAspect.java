@@ -20,6 +20,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
 
 
@@ -39,7 +40,7 @@ public class LogAspect {
 
     @Resource
     @Qualifier(value = "threadPool")
-    private ThreadPoolExecutor threadPoolExecutor;
+    private ExecutorService threadPoolExecutor;
 
 
     @Value("${spring.application.name}")
@@ -83,8 +84,10 @@ public class LogAspect {
 
 
     private void sendKafka(LogInfoEs logInfo){
+        String json = JSONObject.toJSONString(logInfo);
+        log.info("进入kafka-->"+json);
         threadPoolExecutor.execute(()->
-                kafkaTemplate.send(KafkaTopicConstant.LOG,logInfo) );
+                kafkaTemplate.send(KafkaTopicConstant.LOG,json) );
     }
 
 

@@ -260,12 +260,18 @@
                 <artifactId>whale-provider-es</artifactId>
                 <version>${version}</version>
             </dependency>
+
+
             <dependency>
                 <groupId>com.whale.ms</groupId>
                 <artifactId>whale-provider-kafka</artifactId>
                 <version>${version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.whale.ms</groupId>
+                <artifactId>whale-provider-common</artifactId>
+                <version>${version}</version>
+            </dependency>
 
         </dependencies>
 
