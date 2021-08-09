@@ -59,35 +59,33 @@ public class LogAspect {
 
     @Around("@annotation(slog)")
     public Object doAround(ProceedingJoinPoint proceedingJoinPoint , LogRecord slog) throws Throwable {
-        LogInfoEs logInfo = new LogInfoEs();
-        logInfo.setValue(slog.value());
-        logInfo.setUrl(this.getUrl());
-        String  keyValueStr =  getParamKeyValue(proceedingJoinPoint);
-        logInfo.setParam(keyValueStr);
-        logInfo.setClassName(proceedingJoinPoint.getSignature().getDeclaringTypeName());
-        logInfo.setMethodName(proceedingJoinPoint.getSignature().getName());
-        logInfo.setModuleName(moduleName);
+        StringBuffer strBuff = new StringBuffer(moduleName);
+        strBuff.append("|").append(slog.value()).append("|").append(this.getUrl()).append("|")
+                .append(this.getParamKeyValue(proceedingJoinPoint)).append("|")
+                .append(proceedingJoinPoint.getSignature().getDeclaringTypeName()).append("|")
+                .append(proceedingJoinPoint.getSignature().getName()).append("|");
+
         long startTime = System.currentTimeMillis();
         Object result = null;
+        String errMsg="";
         try {
             result = proceedingJoinPoint.proceed();
         }catch (Exception e){
-            logInfo.setErrorMsg(e.getMessage());
+            errMsg = e.getMessage();
             throw e;
         }finally {
-            logInfo.setReturnResult(JSON.toJSONString(result));
-            logInfo.setElapsedTime(System.currentTimeMillis() - startTime);
-            this.sendKafka(logInfo);
+            strBuff.append(JSON.toJSONString(result)).append("|")
+                    .append(System.currentTimeMillis() - startTime).append("|").append(errMsg);
+            this.sendKafka(strBuff.toString());
         }
         return result;
     }
 
 
-    private void sendKafka(LogInfoEs logInfo){
-        String json = JSONObject.toJSONString(logInfo);
-        log.info("进入kafka-->"+json);
+    private void sendKafka(String logString){
+        log.info("进入kafka-->"+logString);
         threadPoolExecutor.execute(()->
-                kafkaTemplate.send(KafkaTopicConstant.LOG,json) );
+                kafkaTemplate.send(KafkaTopicConstant.LOG,logString) );
     }
 
 
