@@ -18,7 +18,11 @@
         <dependency>
             <groupId>com.whale.ms</groupId>
             <artifactId>whale-provider-basics</artifactId>
-            <version>${version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.whale.ms</groupId>
+            <artifactId>whale-provider-invoke</artifactId>
         </dependency>
 
         <dependency>

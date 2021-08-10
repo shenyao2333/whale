@@ -13,8 +13,8 @@ import java.util.Date;
  * @description:
  */
 @Data
-@Document(indexName = "Log_info", shards = 1,replicas = 0)
-public class LogInfoEs {
+@Document(indexName = "log_info", shards = 1,replicas = 0)
+public class LogRecordInfo {
 
     /**
      * index 是否创建索引，默认创建

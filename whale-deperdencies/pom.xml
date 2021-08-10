@@ -13,6 +13,7 @@
     <version>0.0.1</version>
 
     <properties>
+        <project-verison>0.0.1</project-verison>
         <spring-cloud.version>Hoxton.SR6</spring-cloud.version>
         <spring-cloud-alibaba.version>2.2.1.RELEASE</spring-cloud-alibaba.version>
 
@@ -258,19 +259,50 @@
             <dependency>
                 <groupId>com.whale.ms</groupId>
                 <artifactId>whale-provider-es</artifactId>
-                <version>${version}</version>
+                <version>${project-verison}</version>
             </dependency>
 
 
             <dependency>
                 <groupId>com.whale.ms</groupId>
                 <artifactId>whale-provider-kafka</artifactId>
-                <version>${version}</version>
+                <version>${project-verison}</version>
             </dependency>
+
             <dependency>
                 <groupId>com.whale.ms</groupId>
                 <artifactId>whale-provider-common</artifactId>
-                <version>${version}</version>
+                <version>${project-verison}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.whale.ms</groupId>
+                <artifactId>whale-provider-basics</artifactId>
+                <version>${project-verison}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.whale.ms</groupId>
+                <artifactId>whale-provider-invoke</artifactId>
+                <version>${project-verison}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.whale.ms</groupId>
+                <artifactId>whale-provider-log</artifactId>
+                <version>${project-verison}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.whale.ms</groupId>
+                <artifactId>whale-provider-swagger</artifactId>
+                <version>${project-verison}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.whale.ms</groupId>
+                <artifactId>whale-provider-security</artifactId>
+                <version>${project-verison}</version>
             </dependency>
 
         </dependencies>
@@ -287,8 +319,8 @@
 
     <developers>
         <developer>
-            <id>liwemin</id>
-            <name>Lusifer Lee</name>
+            <id>shenyao</id>
+            <name>shenyao yao</name>
             <email>sy91aa@163.com</email>
         </developer>
     </developers>

@@ -1,0 +1,16 @@
+security:
+  oauth2:
+    resource:
+      token-info-uri: http://127.0.0.1:8000/whale-oauth2/oauth/check_token
+    client:
+      client-id: whale
+      client-secret: whale
+  custom:
+    resourceId: 3
+    ignoreUrls:
+      - /v2/api-docs,/swagger-resources/**,/configuration/ui,/webjars/**
+      - /configuration/security,/swagger-ui.html,/doc.html,/test/test
+
+
+
+

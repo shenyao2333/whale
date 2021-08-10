@@ -1,4 +1,4 @@
-package com.whale.provider.es.cofnig;
+package com.whale.provider.es.config;
 
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
@@ -16,11 +16,9 @@ public class ElasticsearchConfig {
 
     @Bean
     public RestHighLevelClient restHighLevelClient(){
-        RestHighLevelClient client = new RestHighLevelClient(
+        return new RestHighLevelClient(
                 RestClient.builder(
                         //new HttpHost("localhost", 9200, "http"),
-                        new HttpHost("101.200.155.94", 9200, "http")));
-
-        return client;
+                        new HttpHost("123.56.97.130", 9200, "http")));
     }
 }

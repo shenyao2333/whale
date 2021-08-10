@@ -2,10 +2,8 @@ package com.whale.provider.log.aspect;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.whale.provider.es.constant.LogInfoEs;
 import com.whale.provider.kafka.constant.KafkaTopicConstant;
 import com.whale.provider.log.annotation.LogRecord;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -21,7 +19,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.ThreadPoolExecutor;
 
 
 /**
@@ -67,7 +64,7 @@ public class LogAspect {
 
         long startTime = System.currentTimeMillis();
         Object result = null;
-        String errMsg="";
+        String errMsg=" ";
         try {
             result = proceedingJoinPoint.proceed();
         }catch (Exception e){
@@ -75,7 +72,7 @@ public class LogAspect {
             throw e;
         }finally {
             strBuff.append(JSON.toJSONString(result)).append("|")
-                    .append(System.currentTimeMillis() - startTime).append("|").append(errMsg);
+                    .append(System.currentTimeMillis() - startTime).append("|").append(errMsg).append("|");
             this.sendKafka(strBuff.toString());
         }
         return result;

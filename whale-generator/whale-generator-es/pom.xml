@@ -4,18 +4,25 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+
     <parent>
         <groupId>com.whale.ms</groupId>
-        <artifactId>whale-api</artifactId>
+        <artifactId>whale-generator</artifactId>
         <version>0.0.1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>whale-api-order</artifactId>
+
+    <artifactId>whale-generator-es</artifactId>
 
 
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
 
     <dependencies>
+
         <dependency>
             <groupId>com.whale.ms</groupId>
             <artifactId>whale-provider-basics</artifactId>
@@ -23,8 +30,10 @@
 
         <dependency>
             <groupId>com.whale.ms</groupId>
-            <artifactId>whale-provider-invoke</artifactId>
+            <artifactId>whale-provider-es</artifactId>
         </dependency>
+
     </dependencies>
+
 
 </project>

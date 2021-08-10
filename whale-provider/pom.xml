@@ -23,6 +23,7 @@
         <module>whale-provider-kafka</module>
         <module>whale-provider-es</module>
         <module>whale-provider-log</module>
+        <module>whale-provider-invoke</module>
     </modules>
 
     <dependencies>
