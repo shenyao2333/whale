@@ -29,12 +29,12 @@ import java.util.concurrent.TimeUnit;
  * @Date: Created by 2021/8/10 14:39
  * @description:
  */
-@Service
-@AllArgsConstructor
+//@Service
+//@AllArgsConstructor
 public class SearchRequestServiceImpl implements SearchRequestService {
 
-    private final RestHighLevelClient client;
-    private final ElasticsearchTemplate elasticsearchTemplate;
+    private  RestHighLevelClient client;
+    private  ElasticsearchTemplate elasticsearchTemplate;
 
 
     @SneakyThrows
@@ -75,17 +75,12 @@ public class SearchRequestServiceImpl implements SearchRequestService {
 
      //   QueryBuilders.boolQuery().
       //  searchQuery.withQuery(multiMatchQueryBuilder).
-
         //设置响应超时时间
         sourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS));
 
         sourceBuilder.query(multiMatchQueryBuilder);
         searchRequest.source(sourceBuilder);
-
-
         SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
-
-
         ArrayList<Map<String, Object>> maps = new ArrayList<>();
         for (SearchHit hit: searchResponse.getHits().getHits()){
             Map<String, HighlightField> highlightFields = hit.getHighlightFields();
