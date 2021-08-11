@@ -29,7 +29,6 @@ public class TestController {
     @GetMapping("/test")
     @LogRecord(value = "测试日志")
     public R test1(String name){
-        Integer.parseInt(name);
         return R.ok("订单服务！");
     }
 
