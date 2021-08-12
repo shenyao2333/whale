@@ -1,4 +1,4 @@
-package com.whale.provider.common.constant;
+package com.whale.provider.redis.constant;
 
 /**
  * @Author: sy

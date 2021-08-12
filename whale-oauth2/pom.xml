@@ -46,16 +46,16 @@
         </dependency>
 
 
-      <!--  <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-oauth2</artifactId>
-        </dependency>-->
-
 
         <dependency>
             <groupId>com.whale.ms</groupId>
             <artifactId>whale-provider-security</artifactId>
-            <version>${version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.whale.ms</groupId>
+            <artifactId>whale-provider-redis</artifactId>
         </dependency>
 
 

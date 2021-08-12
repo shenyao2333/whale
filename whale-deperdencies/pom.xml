@@ -17,7 +17,7 @@
         <spring-cloud.version>Hoxton.SR6</spring-cloud.version>
         <spring-cloud-alibaba.version>2.2.1.RELEASE</spring-cloud-alibaba.version>
 
-
+        <validator.version>6.1.7.Final</validator.version>
         <fastjson.version>1.2.68</fastjson.version>
         <mybatis-plus.version>3.3.1</mybatis-plus.version>
         <dubbo-kryo.version>2.7.2</dubbo-kryo.version>
@@ -101,6 +101,14 @@
                 <version>${swagger-bootstrap-ui}</version>
             </dependency>
             <!--前端api展示 结束-->
+
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${validator.version}</version>
+            </dependency>
+
 
             <dependency>
                 <groupId>com.alibaba</groupId>

@@ -1,8 +1,9 @@
-package com.whale.provider.common.compose;
+package com.whale.provider.redis.aspect;
 
 import com.google.common.collect.ImmutableList;
-import com.whale.provider.common.aop.Limit;
-import com.whale.provider.common.constant.LimitType;
+
+import com.whale.provider.redis.annotation.Limit;
+import com.whale.provider.redis.constant.LimitType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -18,6 +19,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
+
+import static com.whale.provider.redis.constant.LimitType.*;
 
 /**
  * @Author: sy

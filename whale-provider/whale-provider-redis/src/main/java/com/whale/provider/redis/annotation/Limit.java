@@ -1,8 +1,10 @@
-package com.whale.provider.common.aop;
+package com.whale.provider.redis.annotation;
 
 
 
-import com.whale.provider.common.constant.LimitType;
+
+
+import com.whale.provider.redis.constant.LimitType;
 
 import java.lang.annotation.*;
 

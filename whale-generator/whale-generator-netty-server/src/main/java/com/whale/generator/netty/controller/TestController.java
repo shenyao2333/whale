@@ -3,7 +3,7 @@ package com.whale.generator.netty.controller;
 import com.whale.generator.netty.common.domain.MessageInfo;
 import com.whale.generator.netty.common.service.FriendService;
 import com.whale.generator.netty.common.service.MessageInfoService;
-import com.whale.provider.basices.redis.RedisUtil;
+import com.whale.provider.redis.utils.RedisUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
 
-    private final  RedisUtil redisUtil;
+    private final RedisUtil redisUtil;
     private final MessageInfoService messageInfoService;
     private final FriendService friendService;
 

@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.whale.business.system.domain.DictData;
 import com.whale.business.system.mapper.DictDataMapper;
 import com.whale.business.system.service.DictDataService;
-import com.whale.provider.basices.redis.RedisUtil;
+import  com.whale.provider.redis.utils.RedisUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;

@@ -6,7 +6,7 @@ import com.whale.oauth2.domain.vo.AuthUserVo;
 import com.whale.oauth2.mapper.AuthUserMapper;
 import com.whale.oauth2.service.SysUserService;
 import com.whale.oauth2.service.WhaleUserDetailService;
-import com.whale.provider.basices.redis.RedisUtil;
+import com.whale.provider.redis.utils.RedisUtil;
 import com.whale.provider.basices.web.GrabException;
 import com.whale.provider.common.constant.SysConstant;
 import com.whale.provider.security.domain.WhaleUser;

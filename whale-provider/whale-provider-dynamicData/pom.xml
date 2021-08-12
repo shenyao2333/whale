@@ -13,18 +13,19 @@
 
     <artifactId>whale-provider-dynamicData</artifactId>
 
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
     <dependencies>
-        
+
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
+            <groupId>com.whale.ms</groupId>
+            <artifactId>whale-provider-basics</artifactId>
         </dependency>
+
 
 
         <dependency>

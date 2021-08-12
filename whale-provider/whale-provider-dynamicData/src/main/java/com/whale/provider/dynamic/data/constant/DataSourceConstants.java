@@ -1,7 +1,7 @@
-package com.whale.provider.common.constant;
+package com.whale.provider.dynamic.data.constant;
 
 /**
- * @author yong
+ * @author sy
  * @date 2020/2/1
  *
  * 数据源相关常量

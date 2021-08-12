@@ -11,6 +11,7 @@ import com.whale.business.system.service.RoleDeptService;
 import com.whale.business.system.service.UserService;
 import com.whale.business.system.vo.ResultVo;
 import com.whale.provider.basices.web.R;
+import com.whale.provider.redis.utils.RedisUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -30,10 +31,11 @@ import java.util.stream.Collectors;
 @RequestMapping("/system/dept")
 public class DeptController {
 
+    private final RedisUtil redisUtil;
     private final DeptService deptService;
     private final UserService userService;
     private final RoleDeptService roleDeptService;
-    private final RedisTemplate redisTemplate;
+
 
     private QueryWrapper<Dept> getQueryWrapper(Dept dept) {
         return new QueryWrapper<Dept>().like(StrUtil.isNotBlank(dept.getName()), "name", dept.getName()).eq(StrUtil.isNotBlank(dept.getCode()), "code", dept.getCode())
@@ -112,8 +114,8 @@ public class DeptController {
             return R.fail("机构存在用户,不允许删除");
         }
         deptService.removeById(id);
-        redisTemplate.delete("deptList");
-        redisTemplate.delete("regionList");
+        redisUtil.del("deptList");
+        redisUtil.del("regionList");
         return R.ok();
     }
 

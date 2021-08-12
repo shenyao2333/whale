@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.whale.business.system.domain.Datasource;
 import com.whale.business.system.service.DatasourceService;
 import com.whale.provider.basices.web.R;
-import com.whale.provider.common.config.DynamicDataSourceConfig;
+import com.whale.provider.dynamic.data.config.DynamicDataSourceConfig;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

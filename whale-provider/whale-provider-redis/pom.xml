@@ -31,6 +31,12 @@
             <artifactId>redisson</artifactId>
         </dependency>
 
+
+        <dependency>
+            <groupId>com.whale.ms</groupId>
+            <artifactId>whale-provider-basics</artifactId>
+        </dependency>
+
     </dependencies>
 
 

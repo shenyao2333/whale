@@ -20,19 +20,16 @@
         <dependency>
             <groupId>com.whale.ms</groupId>
             <artifactId>whale-provider-common</artifactId>
-            <version>${version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.whale.ms</groupId>
             <artifactId>whale-provider-swagger</artifactId>
-            <version>${version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.whale.ms</groupId>
             <artifactId>whale-provider-security</artifactId>
-            <version>${version}</version>
         </dependency>
 
         <dependency>
@@ -40,6 +37,17 @@
             <artifactId>whale-api-order</artifactId>
             <version>${version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.whale.ms</groupId>
+            <artifactId>whale-provider-dynamicData</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.whale.ms</groupId>
+            <artifactId>whale-provider-redis</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

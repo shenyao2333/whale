@@ -16,10 +16,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @description:
  */
 @EnableDiscoveryClient
-@EnableCaching
 @SpringBootApplication(scanBasePackages = "com.whale")
 @MapperScan(basePackages = {"com.whale.**.mapper"})
-@EnableFeignClients("com.whale")
 public class WhaleBusinessSystemApplication {
 
     public static void main(String[] args) {

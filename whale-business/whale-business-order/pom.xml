@@ -24,19 +24,16 @@
         <dependency>
             <groupId>com.whale.ms</groupId>
             <artifactId>whale-provider-common</artifactId>
-            <version>${version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.whale.ms</groupId>
             <artifactId>whale-provider-swagger</artifactId>
-            <version>${version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.whale.ms</groupId>
             <artifactId>whale-provider-security</artifactId>
-            <version>${version}</version>
         </dependency>
 
 
@@ -55,7 +52,6 @@
         <dependency>
             <groupId>com.whale.ms</groupId>
             <artifactId>whale-provider-log</artifactId>
-            <version>${version}</version>
         </dependency>
 
     </dependencies>
@@ -73,21 +69,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <skipTests>true</skipTests>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
