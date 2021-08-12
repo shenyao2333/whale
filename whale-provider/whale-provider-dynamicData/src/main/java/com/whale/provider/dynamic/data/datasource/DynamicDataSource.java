@@ -1,4 +1,4 @@
-package com.whale.provider.common.datasource;
+package com.whale.provider.dynamic.data.datasource;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;

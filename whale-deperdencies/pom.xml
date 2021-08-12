@@ -43,6 +43,7 @@
         <camunda.spring-boot.version>7.15.0</camunda.spring-boot.version>
         <easyexcel.version>2.2.6</easyexcel.version>
         <camunda.jackson.version>1.10.0</camunda.jackson.version>
+        <elasticsearch>7.10.1</elasticsearch>
 
     </properties>
 
@@ -302,6 +303,18 @@
             <dependency>
                 <groupId>com.whale.ms</groupId>
                 <artifactId>whale-provider-security</artifactId>
+                <version>${project-verison}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.whale.ms</groupId>
+                <artifactId>whale-provider-redis</artifactId>
+                <version>${project-verison}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.whale.ms</groupId>
+                <artifactId>whale-provider-dynamicData</artifactId>
                 <version>${project-verison}</version>
             </dependency>
 

@@ -1,4 +1,4 @@
-package com.whale.provider.basices.redis;
+package com.whale.provider.redis.config;
 
 import org.springframework.data.redis.cache.*;
 import org.springframework.util.StringUtils;

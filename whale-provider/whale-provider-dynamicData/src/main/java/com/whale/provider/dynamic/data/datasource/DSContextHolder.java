@@ -1,4 +1,4 @@
-package com.whale.provider.common.datasource;
+package com.whale.provider.dynamic.data.datasource;
 
 import lombok.experimental.UtilityClass;
 

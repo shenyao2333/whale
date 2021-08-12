@@ -18,6 +18,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.ExecutorService;
 
 
@@ -33,16 +35,13 @@ public class LogAspect {
 
     @Resource
     private KafkaTemplate<String, Object> kafkaTemplate;
-
-
     @Resource
     @Qualifier(value = "threadPool")
     private ExecutorService threadPoolExecutor;
-
-
     @Value("${spring.application.name}")
     private String moduleName;
 
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
 
     /**
      * 以自定义 @PrintlnLog 注解作为切面入口
@@ -56,26 +55,24 @@ public class LogAspect {
 
     @Around("@annotation(slog)")
     public Object doAround(ProceedingJoinPoint proceedingJoinPoint , LogRecord slog) throws Throwable {
-        StringBuffer strBuff = new StringBuffer(moduleName);
-        strBuff.append("|").append(slog.value()).append("|").append(this.getUrl()).append("|")
-                .append(this.getParamKeyValue(proceedingJoinPoint)).append("|")
-                .append(proceedingJoinPoint.getSignature().getDeclaringTypeName()).append("|")
-                .append(proceedingJoinPoint.getSignature().getName()).append("|");
-
         long startTime = System.currentTimeMillis();
         Object result = null;
         String errMsg=" ";
         try {
-            result = proceedingJoinPoint.proceed();
+            return  result = proceedingJoinPoint.proceed();
         }catch (Exception e){
             errMsg = e.getMessage();
             throw e;
         }finally {
-            strBuff.append(JSON.toJSONString(result)).append("|")
-                    .append(System.currentTimeMillis() - startTime).append("|").append(errMsg).append("|");
-            this.sendKafka(strBuff.toString());
+            String strBuff = moduleName + "|" + slog.value() + "|" + this.getUrl() + "|" +
+                    this.getParamKeyValue(proceedingJoinPoint) + "|" +
+                    proceedingJoinPoint.getSignature().getDeclaringTypeName() + "|" +
+                    proceedingJoinPoint.getSignature().getName() + "|" +
+                    JSON.toJSONString(result) + "|" +
+                    (System.currentTimeMillis() - startTime) + "|" +
+                    errMsg + "|" +dateFormat.format(new Date());
+            this.sendKafka(strBuff);
         }
-        return result;
     }
 
 

@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.whale.business.system.domain.Role;
 import com.whale.business.system.service.RoleService;
 import com.whale.provider.basices.web.R;
-import com.whale.provider.common.utils.PinyinUtil;
+import com.whale.provider.basices.utils.PinyinUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

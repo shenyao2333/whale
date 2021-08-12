@@ -11,7 +11,7 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
  * @Date: Created by 2021/8/10 9:42
  * @description:
  */
-@EnableElasticsearchRepositories(basePackages = "com.whale")
+
 @EnableDiscoveryClient
 @SpringBootApplication(scanBasePackages = "com.whale",exclude = DataSourceAutoConfiguration.class)
 public class WhaleGeneratorRsApplication {

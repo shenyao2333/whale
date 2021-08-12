@@ -1,4 +1,4 @@
-package com.whale.provider.basices.redis;
+package com.whale.provider.redis.utils;
 
 import org.springframework.data.redis.connection.DataType;
 import org.springframework.data.redis.core.*;

@@ -1,4 +1,4 @@
-package com.whale.provider.basices.redis;
+package com.whale.provider.redis.config;
 
 import org.redisson.Redisson;
 import org.redisson.api.RLock;
@@ -34,12 +34,6 @@ public class RedissonConfig {
     }
 
 
-    private   RedissonClient redissonClient;
-
-    public void sd(){
-        RLock s = redissonClient.getLock("s");
-
-    }
 
 
 }

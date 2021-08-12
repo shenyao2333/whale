@@ -7,6 +7,6 @@ package com.whale.provider.es.service;
  */
 public interface SearchRequestService {
 
-    Object search(Integer pageNum,Integer pageSize,String keyword);
+    Object search(Integer pageNum,Integer pageSize,String keyword,String moduleName);
 
 }

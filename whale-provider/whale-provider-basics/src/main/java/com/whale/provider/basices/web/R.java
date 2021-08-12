@@ -1,9 +1,6 @@
 package com.whale.provider.basices.web;
 
-
-
 import lombok.Data;
-
 import java.io.Serializable;
 
 /**
@@ -28,10 +25,9 @@ public class R<T> implements Serializable {
     private String msg;
 
 
-    private boolean status;
 
 
-    private Long total;
+    private Long total = 0L;
 
     /**
      * 返回对象
@@ -79,7 +75,6 @@ public class R<T> implements Serializable {
         this.code = code;
         this.msg = msg;
         this.data = data;
-        this.status=status;
     }
 
 
@@ -89,7 +84,6 @@ public class R<T> implements Serializable {
         this.code = code;
         this.msg = msg;
         this.data = data;
-        this.status=status;
     }
 
 

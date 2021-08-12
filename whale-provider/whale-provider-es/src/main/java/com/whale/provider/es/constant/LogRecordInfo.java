@@ -1,6 +1,8 @@
 package com.whale.provider.es.constant;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
@@ -13,14 +15,14 @@ import java.util.Date;
  * @description:
  */
 @Data
-@Document(indexName = "log_info", shards = 1,replicas = 0)
+@Document(indexName = "log_record-2021-08", shards = 1,replicas = 0)
 public class LogRecordInfo {
 
     /**
      * index 是否创建索引，默认创建
      */
-    @Field(type = FieldType.Long)
-    private Long id;
+    @Field(type = FieldType.Text)
+    private String id;
 
 
     /**
@@ -84,10 +86,11 @@ public class LogRecordInfo {
     private Long elapsedTime;
 
 
+
     /**
-     * 创建时间
+     * 创建时间DateFormat
      */
-    @Field(index = false,type = FieldType.Date)
+    @Field(type = FieldType.Date,format = DateFormat.custom , pattern = "uuuu-MM-dd'T'HH:mm:ss.SSSX" )
     private Date createTime = new Date();
 
 

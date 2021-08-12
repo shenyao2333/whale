@@ -16,9 +16,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2RefreshToken;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+
 import java.util.Base64;
 import java.util.HashMap;
 
@@ -40,7 +41,7 @@ public class AuthController {
 
     @PostMapping("/login")
     @ApiOperation(value = "用户登录")
-    public R login(@RequestBody @Valid LoginDto loginDto){
+    public R login(@RequestBody @Validated LoginDto loginDto){
         HashMap<String, String> headMap = new HashMap<String, String>(1){
             {
                 put("Authorization","Basic d2hhbGU6d2hhbGU=");

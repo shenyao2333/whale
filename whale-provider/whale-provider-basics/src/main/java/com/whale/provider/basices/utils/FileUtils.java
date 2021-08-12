@@ -1,4 +1,4 @@
-package com.whale.provider.common.utils;
+package com.whale.provider.basices.utils;
 
 import org.springframework.web.multipart.MultipartFile;
 

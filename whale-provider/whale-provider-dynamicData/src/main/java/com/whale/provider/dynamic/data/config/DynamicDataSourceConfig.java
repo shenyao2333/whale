@@ -1,8 +1,8 @@
-package com.whale.provider.common.config;
+package com.whale.provider.dynamic.data.config;
 
-import com.whale.provider.common.constant.DataSourceConstants;
-import com.whale.provider.common.datasource.DruidDataSourceProperties;
-import com.whale.provider.common.datasource.DynamicDataSource;
+
+import com.whale.provider.dynamic.data.datasource.DataSourceProperties;
+import com.whale.provider.dynamic.data.datasource.DynamicDataSource;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +28,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class DynamicDataSourceConfig {
 	private final Map<Object, Object> dataSourceMap = new HashMap<>(8);
-	private final DruidDataSourceProperties dataSourceProperties;
+	private final DataSourceProperties dataSourceProperties;
 
 	@Bean("dynamicDataSource")
 	public DynamicDataSource dataSource() {
@@ -67,7 +67,6 @@ public class DynamicDataSourceConfig {
 			ds.setPassword(decPwd);
 			dataSourceMap.put(db.get(DataSourceConstants.DS_ALIAS), ds);
 		}));
-
 		log.info("完毕 -> 初始化动态数据源,共计 {} 条", dataSourceMap.size());
 	}
 

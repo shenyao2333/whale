@@ -3,6 +3,7 @@ package com.whale.privider.invoke.config;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -17,6 +18,7 @@ import java.util.Enumeration;
  */
 @Slf4j
 @Component
+@EnableFeignClients("com.whale")
 public class FeignInterceptor implements RequestInterceptor {
 
 

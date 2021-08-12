@@ -1,4 +1,4 @@
-package com.whale.provider.common.utils;
+package com.whale.provider.basices.utils;
 
 import cn.hutool.core.exceptions.UtilException;
 import cn.hutool.core.text.StrBuilder;
