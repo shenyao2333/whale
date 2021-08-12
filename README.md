@@ -8,11 +8,12 @@ SpringCloudAlibaba的脚手架，想法是快速搭建一套完整可用的微�
 |     模块 |    说明  |   端口号   |
 | ---- | ---- | ---- |
 |   whale-gateway   | 网关     |  8000   |
-|   whale-oauth2   | 登录     |     |
-|   whale-business-system   | 业务模块-系统     |      |
-| whale-business-order | 业务模块-订单 |  |
-|   whale-generator-netty-server   |    netty服务端  |        |
-|      |      |      |
+|   whale-oauth2   | 登录     | 8100 |
+|   whale-business-system   | 业务模块-系统     | 9100 |
+| whale-business-order | 业务模块-订单 | 9000 |
+|   whale-generator-netty-server   |  netty服务端（暂时不用）  |        |
+| whale-generator-es | 搜索系统 | 10060 |
+| whale-business-workflow | 工作流 | 9030 |
 
 
 
@@ -54,7 +55,7 @@ SpringCloudAlibaba的脚手架，想法是快速搭建一套完整可用的微�
 
 - [x] Netty聊天
 
-- [ ] es做搜索引擎
+- [x] es做搜索引擎
 
 - [x] Redis缓存
 
@@ -64,11 +65,11 @@ SpringCloudAlibaba的脚手架，想法是快速搭建一套完整可用的微�
 
 - [ ] 分布式事务Seata
 
-- [ ] 注解记录日志集成ELK
+- [x] 注解记录日志集成ELK
 
     注解记录日志，推送到Kafka，Logstash 存储到es里
 
-- [ ] 集成docker部署
+- [x] 集成docker部署
 
 - [ ] 设计模式
 
