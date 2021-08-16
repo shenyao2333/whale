@@ -52,4 +52,10 @@ public class LogRecordController {
     }
 
 
+    @GetMapping("/list3")
+    public R list3(String keyword,String moduleName){
+        Object search = searchRequestService.search2(0, 10, keyword, moduleName);
+        return R.ok(search);
+    }
+
 }

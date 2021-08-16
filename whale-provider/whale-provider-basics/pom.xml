@@ -49,11 +49,6 @@
         </dependency>
 
 
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-        </dependency>
-
 
         <!-- 配置和注册中心-->
         <dependency>
