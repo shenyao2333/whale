@@ -24,10 +24,6 @@
             <artifactId>whale-provider-basics</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.whale.ms</groupId>
-            <artifactId>whale-provider-invoke</artifactId>
-        </dependency>
 
     </dependencies>
 

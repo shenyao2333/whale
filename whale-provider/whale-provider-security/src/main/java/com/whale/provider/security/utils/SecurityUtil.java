@@ -1,19 +1,14 @@
 package com.whale.provider.security.utils;
 
 
-
-import cn.hutool.core.util.StrUtil;
 import com.whale.provider.security.domain.WhaleUser;
 import lombok.experimental.UtilityClass;
-import org.apache.dubbo.common.constants.CommonConstants;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 
 /**

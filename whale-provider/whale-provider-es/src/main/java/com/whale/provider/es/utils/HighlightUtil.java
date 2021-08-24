@@ -1,10 +1,8 @@
 package com.whale.provider.es.utils;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.whale.provider.es.constant.LogRecordInfo;
 import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.SearchHits;
-import sun.reflect.misc.ReflectUtil;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

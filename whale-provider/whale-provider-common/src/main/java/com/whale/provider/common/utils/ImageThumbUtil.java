@@ -12,7 +12,7 @@ import java.io.InputStream;
 /**
  * @author sy
  * @date Created in 2020.7.13 20:57
- * @description 主要是用于将pdf转为图片
+ * @description 图片工具类
  */
 public class ImageThumbUtil {
 
@@ -57,7 +57,10 @@ public class ImageThumbUtil {
      * @param targetImgPath 目标路径
      */
     public static void thumbImage(byte[] originalImgData, double compressQalitiy, String targetImgPath) throws Exception {
-        Thumbnails.of(new ByteArrayInputStream(originalImgData)).scale(1f).outputQuality(compressQalitiy).toFile(targetImgPath);
+        Thumbnails.of(new ByteArrayInputStream(originalImgData))
+                .scale(1f)
+                .outputQuality(compressQalitiy)
+                .toFile(targetImgPath);
     }
 
     /**

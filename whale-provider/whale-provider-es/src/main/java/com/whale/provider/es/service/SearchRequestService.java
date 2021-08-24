@@ -9,4 +9,7 @@ public interface SearchRequestService {
 
     Object search(Integer pageNum,Integer pageSize,String keyword,String moduleName);
 
+
+    Object search2(int i, int i1, String keyword, String moduleName);
+
 }

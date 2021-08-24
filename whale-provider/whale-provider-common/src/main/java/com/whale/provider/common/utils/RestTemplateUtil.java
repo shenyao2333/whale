@@ -2,6 +2,7 @@ package com.whale.provider.common.utils;
 
 import com.alibaba.fastjson.JSONObject;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.*;
@@ -170,6 +171,22 @@ public class RestTemplateUtil {
         HttpEntity<LinkedMultiValueMap<String, Object>> requestEntity = new HttpEntity<>(map, headers);
         ResponseEntity<JSONObject> exchange = restTemplate.exchange(url , HttpMethod.POST, requestEntity, JSONObject.class);
         JSONObject body = exchange.getBody();
+    }
+
+
+    /**
+     * 带有文件
+     * @param url 路径
+     * @param map map文件的示例：ByteArrayResource is = new ByteArrayResource(file.getBytes())
+     *
+     */
+    @SneakyThrows
+    public JSONObject uploadByResource(String url, LinkedMultiValueMap<String, Object> map) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+        HttpEntity<LinkedMultiValueMap<String, Object>> requestEntity = new HttpEntity<>(map, headers);
+        ResponseEntity<JSONObject> exchange = restTemplate.exchange(url , HttpMethod.POST, requestEntity, JSONObject.class);
+        return exchange.getBody();
     }
 
 
