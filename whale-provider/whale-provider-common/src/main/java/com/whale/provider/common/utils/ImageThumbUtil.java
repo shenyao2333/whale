@@ -32,6 +32,8 @@ public class ImageThumbUtil {
         thumbImage(new FileInputStream(originalImgPath), w, h, targetImgPath, 0.8);
     }
 
+
+
     /**
      * 缩略图片，图片质量为源图的80%
      *
