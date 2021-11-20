@@ -14,11 +14,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
  * @description: 工作流启动类
  */
 @EnableDiscoveryClient
-@EnableAsync
-@EnableCaching
 @SpringBootApplication(scanBasePackages = "com.whale")
 @MapperScan(basePackages = {"com.whale.**.mapper"})
-@EnableFeignClients("com.whale")
 public class WhaleBusinessWorkflowApplication {
 
     public static void main(String[] args) {

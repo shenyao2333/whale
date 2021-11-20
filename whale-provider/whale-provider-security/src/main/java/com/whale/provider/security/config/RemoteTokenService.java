@@ -109,7 +109,7 @@ public class RemoteTokenService extends RemoteTokenServices {
         }
         int nextInt = random.nextInt(instances.size());
         ServiceInstance serve = instances.get(nextInt);
-        return "http://"+ serve.getHost()+":"+serve.getPort() + "/whale-oauth2/oauth/check_token";
+        return "http://127.0.0.1:"+serve.getPort() + "/whale-oauth2/oauth/check_token";
 
     }
 

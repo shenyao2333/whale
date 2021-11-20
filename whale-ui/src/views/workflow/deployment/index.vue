@@ -106,7 +106,6 @@
       @pagination="getList"
     />
 
-    <!-- 添加或修改数据库配置对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="70%" >
       <div slot="title" class="dialog-pane">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -232,27 +231,7 @@ export default {
     submitForm: function() {
       this.$refs["form"].validate(valid => {
         if (valid) {
-          if (this.form.id != undefined) {
-            editDatasource(this.form).then(response => {
-              if (response.code === 0) {
-                this.msgSuccess("修改成功");
-                this.open = false;
-                this.getList();
-              } else {
-                this.msgError(response.msg);
-              }
-            });
-          } else {
-            addDatasource(this.form).then(response => {
-              if (response.code === 0) {
-                this.msgSuccess("新增成功");
-                this.open = false;
-                this.getList();
-              } else {
-                this.msgError(response.msg);
-              }
-            });
-          }
+          console.log("jlai ")
         }
       });
     },

@@ -1,5 +1,6 @@
 package com.whale.business.system.controller;
 
+import com.whale.api.order.domain.TestOrderInfo;
 import com.whale.api.order.feign.TestOrderFeign;
 import com.whale.provider.basices.web.R;
 import com.whale.api.order.domain.vo.OrderInfoVo;
@@ -35,7 +36,7 @@ public class TestDubboController {
 
     @GetMapping("/getOrderInfo2")
     public R getOrderInfo2(Integer orderId){
-        R<Object> test = testOrderFeign.test();
+        R<TestOrderInfo> test = testOrderFeign.test();
         return R.ok(test);
     }
 

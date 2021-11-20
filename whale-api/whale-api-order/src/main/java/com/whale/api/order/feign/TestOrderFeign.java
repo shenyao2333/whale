@@ -1,5 +1,6 @@
 package com.whale.api.order.feign;
 
+import com.whale.api.order.domain.TestOrderInfo;
 import com.whale.api.order.feign.fallback.TestOrderFeignFallback;
 import com.whale.provider.basices.web.R;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -17,5 +18,5 @@ public interface TestOrderFeign {
 
 
     @GetMapping(value = "/test/testDubbo" )
-    R<Object> test();
+    R<TestOrderInfo> test();
 }

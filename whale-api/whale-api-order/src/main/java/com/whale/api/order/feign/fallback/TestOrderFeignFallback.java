@@ -1,5 +1,6 @@
 package com.whale.api.order.feign.fallback;
 
+import com.whale.api.order.domain.TestOrderInfo;
 import com.whale.api.order.feign.TestOrderFeign;
 
 import com.whale.provider.basices.web.R;
@@ -17,7 +18,7 @@ public class TestOrderFeignFallback implements TestOrderFeign {
 
 
     @Override
-    public R<Object> test() {
+    public R<TestOrderInfo> test() {
         log.error("调用feign失败----");
         return null;
     }

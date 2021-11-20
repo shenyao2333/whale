@@ -19,7 +19,7 @@ import { scrollTo } from '@/utils/scroll-to'
 
 export default {
   name: 'Pagination',
-  props: {
+  watch: {
     total: {
       required: true,
       type: Number

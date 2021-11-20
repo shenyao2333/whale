@@ -27,10 +27,6 @@ public class TestDubboServiceImpl implements TestDubboService {
         orderInfoVo.setOrderId(orderId);
         orderInfoVo.setOrderSn(UUID.randomUUID().toString());
         orderInfoVo.setStatus(0);
-        if (orderInfoVo!=null){
-            throw new GrabException("假装错误！");
-        }
-
         return orderInfoVo;
     }
 }
