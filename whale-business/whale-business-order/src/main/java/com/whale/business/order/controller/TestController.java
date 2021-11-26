@@ -6,8 +6,9 @@ import com.whale.business.order.service.impl.Test2Feign;
 import com.whale.provider.basices.web.R;
 import com.whale.api.order.domain.vo.OrderInfoVo;
 import com.whale.api.order.dubbo.service.TestDubboService;
-import com.whale.provider.log.annotation.LogRecord;
+//import com.whale.provider.log.annotation.LogRecord;
 import lombok.RequiredArgsConstructor;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,12 +23,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class TestController {
 
-    private final TestDubboService testDubboService;
+    @Reference
+    private  TestDubboService testDubboService;
+
     private final TestSystemFeign systemFeign;
     private final Test2Feign test2Feign;
 
     @GetMapping("/test")
-    @LogRecord(value = "测试日志")
+    //@LogRecord(value = "测试日志")
     public R test1(String name){
         return R.ok("订单服务！");
     }

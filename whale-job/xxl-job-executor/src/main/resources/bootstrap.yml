@@ -1,0 +1,53 @@
+spring:
+  jackson:
+    # 设置json时为空不显示
+    default-property-inclusion: non_null
+    # 设置json的时候给时区+8个小时
+    time-zone: GMT+8
+    # 设置时间转化格式
+    date-format: yyyy-MM-dd HH:mm:ss
+  application:
+    name: xxl-job-executor
+  cloud:
+    nacos:
+      config:
+        file-extension: yml
+        server-addr: 123.56.97.130:8848
+        username: nacos
+        password: 123123
+        shared-configs:
+          - mysql.yml
+          - redis.yml
+      discovery:
+        server-addr: 123.56.97.130:8848
+        username: nacos
+        password: 123123
+
+
+dubbo:
+  cloud:
+    subscribed-services: whale-business-order,whale-business-system
+  provider:
+    filter: -exception
+  consumer:
+    check: false
+  scan:
+    # com.whale.api.dubbo 服务扫描基准包
+    base-packages: com.whale.business,com.xxl.job
+  application:
+    name: ${spring.application.name}
+    id: ${spring.application.name}
+  registry:
+    #挂载到 Spring Cloud 注册中心
+    address: spring-cloud://localhost
+  protocol:
+    name: dubbo
+    port: -1
+    serialization: kryo
+
+logging:
+  config: classpath:logback.xml
+
+
+
+

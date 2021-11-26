@@ -45,6 +45,7 @@
         <camunda.jackson.version>1.10.0</camunda.jackson.version>
         <elasticsearch>7.10.1</elasticsearch>
 
+        <mybatis-spring-boot-starter.version>2.1.4</mybatis-spring-boot-starter.version>
     </properties>
 
 

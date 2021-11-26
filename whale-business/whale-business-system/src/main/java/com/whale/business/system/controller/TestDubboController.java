@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @description
  */
 @RestController
-@RequestMapping("/dubbo")
+@RequestMapping("/test/dubbo")
 @RequiredArgsConstructor
 @Api(tags = "测试-RPC调用测试")
 public class TestDubboController {
@@ -36,6 +36,8 @@ public class TestDubboController {
 
     @GetMapping("/getOrderInfo2")
     public R getOrderInfo2(Integer orderId){
+        System.out.println(orderId);
+
         R<TestOrderInfo> test = testOrderFeign.test();
         return R.ok(test);
     }
