@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: whale-gateway
+  cloud:
+    nacos:
+      config:
+        file-extension: yml
+        password: 123123
+        server-addr: 123.56.97.130:8848
+        username: nacos
+      discovery:
+        server-addr: 123.56.97.130:8848
+        username: nacos
+        password: 123123
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+      routes:
+        - id: whale-oauth2
+          uri: lb://whale-oauth2
+          order: 20
+          predicates:
+            - Path=/whale-oauth2/**
+          filters:
+            - StripPrefix=1
+        - id: whale-business-system
+          uri: lb://whale-business-system
+          order: 1
+          predicates:
+            - Path=/whale-system/**
+          filters:
+            - StripPrefix=1
+        - id: whale-business-order
+          uri: lb://whale-business-order
+          order: 10
+          predicates:
+            - Path=/whale-order/**
+          filters:
+            - StripPrefix=1
+        - id: whale-business-workflow
+          uri: lb://whale-business-workflow
+          order: 10
+          predicates:
+            - Path=/whale-workflow/**
+          filters:
+            - StripPrefix=1
+logging:
+  level:
+    org.springframework.cloud.gateway: debug
+
+

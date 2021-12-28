@@ -1,0 +1,21 @@
+spring:
+  application:
+
+    name: whale-business-system
+  cloud:
+    nacos:
+      config:
+        file-extension: yml
+        group: DEFAULT_GROUP
+        server-addr: 123.56.97.130:8848
+        shared-configs:
+          - mysql.yml
+          - redis.yml
+          - general.yml
+          - dubbo-general.yml
+        username: nacos
+        password: 123123
+      discovery:
+        server-addr: 123.56.97.130:8848
+        username: nacos
+        password: 123123
