@@ -26,6 +26,7 @@
         <module>whale-provider-invoke</module>
         <module>whale-provider-redis</module>
         <module>whale-provider-dynamicData</module>
+        <module>whale-provider-clickHouse</module>
     </modules>
 
     <dependencies>

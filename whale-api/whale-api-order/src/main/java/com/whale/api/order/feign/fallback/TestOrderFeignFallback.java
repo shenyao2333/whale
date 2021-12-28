@@ -20,6 +20,6 @@ public class TestOrderFeignFallback implements TestOrderFeign {
     @Override
     public R<TestOrderInfo> test() {
         log.error("调用feign失败----");
-        return null;
+        return R.timeout();
     }
 }

@@ -13,4 +13,7 @@ public class DataSourceProperties {
 	private String password;
 	private String url;
 	private String type;
+	private int minimumIdle;
+	private int maximumPoolSize;
+	private String poolName;
 }

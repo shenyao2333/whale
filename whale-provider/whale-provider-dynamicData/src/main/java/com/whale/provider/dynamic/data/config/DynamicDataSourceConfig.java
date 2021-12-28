@@ -39,6 +39,9 @@ public class DynamicDataSourceConfig {
 		dds.setDriverClassName(dataSourceProperties.getType());
 		dds.setUsername(dataSourceProperties.getUsername());
 		dds.setPassword(dataSourceProperties.getPassword());
+		dds.setMinimumIdle(dataSourceProperties.getMinimumIdle());
+		dds.setMaximumPoolSize(dataSourceProperties.getMaximumPoolSize());
+		dds.setPoolName(dataSourceProperties.getPoolName());
 		ds.setDefaultTargetDataSource(dds);
 		dataSourceMap.put(0, dds);
 		ds.setTargetDataSources(dataSourceMap);

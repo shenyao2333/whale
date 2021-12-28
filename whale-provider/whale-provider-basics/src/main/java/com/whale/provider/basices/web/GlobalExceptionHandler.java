@@ -35,7 +35,7 @@ public class GlobalExceptionHandler {
             errorMessage.append(fieldError.getDefaultMessage()).append(";") ;
         }
         errorMessage.substring(errorMessage.length()-1);
-        return new R<T>(R.CodeStatus.REQUEST_PARAM,false,errorMessage.toString(),null);
+        return new R<T>(R.CodeStatus.REQUEST_PARAM,errorMessage.toString(),null);
     }
 
     @ExceptionHandler(value = {MissingServletRequestParameterException.class})

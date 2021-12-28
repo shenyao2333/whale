@@ -70,21 +70,7 @@ public class R<T> implements Serializable {
         this.data = data;
     }
 
-    public R(Integer code, String msg, T data, boolean status) {
-        super();
-        this.code = code;
-        this.msg = msg;
-        this.data = data;
-    }
 
-
-
-    public R(Integer code, boolean status, String msg, T data) {
-        super();
-        this.code = code;
-        this.msg = msg;
-        this.data = data;
-    }
 
 
     public T getData() {
@@ -97,65 +83,28 @@ public class R<T> implements Serializable {
 
 
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        R<?> other = (R<?>) obj;
-        if (data == null) {
-            if (other.data != null) {
-                return false;
-            }
-        } else if (!data.equals(other.data)) {
-            return false;
-        }
-        if (msg == null) {
-            if (other.msg != null) {
-                return false;
-            }
-        } else if (!msg.equals(other.msg)) {
-            return false;
-        }
-        if (code == null) {
-            if (other.code != null) {
-                return false;
-            }
-        } else if (!code.equals(other.code)) {
-            return false;
-        }
-        return true;
-    }
-
-
-    public  static <T> R fail(Integer code, String msg){
-        return new R<T>(code,false,msg ,null);
+    public  static <T> R<T> fail(Integer code, String msg){
+        return new R<T>(code,msg ,null);
     }
 
 
 
-    public  static <T> R fail(){
-        return new R<T>(CodeStatus.SYS,false,"处理错误",null);
+    public  static <T> R <T> fail(){
+        return new R<T>(CodeStatus.SYS,"处理错误",null);
     }
 
 
-    public static <T> R<T> fail(String msg){
-        return new R<T>(CodeStatus.SYS,false,msg,null);
+    public static <T> R <T> fail(String msg){
+        return new R<T>(CodeStatus.SYS,msg,null);
     }
 
 
-    public static  R ok(){
-        return new R(CodeStatus.OK,true,"处理成功",null);
+    public static <T> R <T> ok(){
+        return new R<T>(CodeStatus.OK,"处理成功",null);
     }
 
     public static <T> R<T> ok(String msg){
-        return new R<T>(CodeStatus.OK,true,msg,null);
+        return new R<T>(CodeStatus.OK,msg,null);
     }
 
 
@@ -175,7 +124,11 @@ public class R<T> implements Serializable {
 
 
     public static <T> R<T> ok(T data){
-        return new R<T>(CodeStatus.OK,true,"处理成功",data);
+        return new R<T>(CodeStatus.OK,"处理成功",data);
+    }
+
+    public static <T> R <T> timeout() {
+        return fail(-2, "请求超时，请稍候再试");
     }
 
 
@@ -186,7 +139,7 @@ public class R<T> implements Serializable {
      * Description:
      * </p>
      *
-     * @author Lusifer
+     * @author shenyao
      * @version v1.0.0
      * @date 2019-07-30 05:02:49
      */
